@@ -1,0 +1,191 @@
+[debug] [2022-04-17T16:20:24.917Z] ----------------------------------------------------------------------
+[debug] [2022-04-17T16:20:24.918Z] Command:       /Users/oli/node_modules/node/bin/node /usr/local/bin/firebase emulators:start --import=./emulated_data --export-on-exit
+[debug] [2022-04-17T16:20:24.919Z] CLI Version:   10.6.0
+[debug] [2022-04-17T16:20:24.919Z] Platform:      darwin
+[debug] [2022-04-17T16:20:24.919Z] Node Version:  v17.7.2
+[debug] [2022-04-17T16:20:24.920Z] Time:          Sun Apr 17 2022 12:20:24 GMT-0400 (Eastern Daylight Time)
+[debug] [2022-04-17T16:20:24.921Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-04-17T16:20:25.008Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-04-17T16:20:25.010Z] > authorizing via signed-in user (olivier@orphic.ca)
+[debug] [2022-04-17T16:20:25.063Z] java version "18" 2022-03-22
+Java(TM) SE Runtime Environment (build 18+36-2087)
+
+[debug] [2022-04-17T16:20:25.067Z] Java HotSpot(TM) 64-Bit Server VM (build 18+36-2087, mixed mode, sharing)
+
+[debug] [2022-04-17T16:20:25.068Z] Parsed Java major version: 18
+[info] i  emulators: Starting emulators: functions, firestore, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, firestore, hosting"}}
+[debug] [2022-04-17T16:20:25.087Z] [hub] writing locator at /var/folders/5f/rf2p2gg954ddwhrybfm_t6m40000gn/T/hub-orphic-boardgame-tracker.json
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, database, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, database, pubsub, storage\u001b[22m"}}
+[warn] ⚠  Your requested "node" version "16" doesn't match your global version "17". Using node@17 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"16\" doesn't match your global version \"17\". Using node@17 from host."}}
+[debug] [2022-04-17T16:20:25.117Z] defaultcredentials: writing to file /Users/oli/.config/firebase/olivier_orphic_ca_application_default_credentials.json
+[debug] [2022-04-17T16:20:25.120Z] Setting GAC to /Users/oli/.config/firebase/olivier_orphic_ca_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/oli/.config/firebase/olivier_orphic_ca_application_default_credentials.json"}}
+[debug] [2022-04-17T16:20:25.123Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/adminSdkConfig [none]
+[debug] [2022-04-17T16:20:25.672Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/adminSdkConfig 200
+[debug] [2022-04-17T16:20:25.674Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/adminSdkConfig {"projectId":"orphic-boardgame-tracker","storageBucket":"orphic-boardgame-tracker.appspot.com","locationId":"us-central"}
+[info] i  firestore: Importing data from /Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/emulated_data/firestore_export/firestore_export.overall_export_metadata {"metadata":{"emulator":{"name":"firestore"},"message":"Importing data from /Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/emulated_data/firestore_export/firestore_export.overall_export_metadata"}}
+[debug] [2022-04-17T16:20:25.709Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-04-17T16:20:25.710Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-04-17T16:20:25.710Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","/Users/oli/.cache/firebase/emulators/cloud-firestore-emulator-v1.14.1.jar","--host","127.0.0.1","--port",8080,"--seed_from_export","/Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/emulated_data/firestore_export/firestore_export.overall_export_metadata","--rules","/Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/firestore.rules","--functions_emulator","localhost:5001"],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"/Users/oli/.cache/firebase/emulators/cloud-firestore-emulator-v1.14.1.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--seed_from_export\",\"/Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/emulated_data/firestore_export/firestore_export.overall_export_metadata\",\"--rules\",\"/Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/firestore.rules\",\"--functions_emulator\",\"localhost:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"functions_emulator\",\"seed_from_export\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2022-04-17T16:20:26.169Z] Apr. 17, 2022 12:20:26 P.M. com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://127.0.0.1:56638
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr. 17, 2022 12:20:26 P.M. com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\nINFO: Started WebSocket server on ws://127.0.0.1:56638\n"}}
+[debug] [2022-04-17T16:20:26.179Z] API endpoint: http://127.0.0.1:8080 {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://127.0.0.1:8080"}}
+[debug] [2022-04-17T16:20:26.180Z] 
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080
+
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\n\n   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080\n\nDev App Server is now running.\n\n"}}
+[debug] [2022-04-17T16:20:26.238Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/sites 
+[debug] [2022-04-17T16:20:27.092Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/sites 200
+[debug] [2022-04-17T16:20:27.093Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/sites {"sites":[{"name":"projects/201093113057/sites/orphic-boardgame-tracker","defaultUrl":"https://orphic-boardgame-tracker.web.app","appId":"1:201093113057:web:dc67116fe89b73878fc3a0","type":"DEFAULT_SITE"}]}
+[debug] [2022-04-17T16:20:27.093Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/webApps/1:201093113057:web:dc67116fe89b73878fc3a0/config [none]
+[debug] [2022-04-17T16:20:27.514Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/webApps/1:201093113057:web:dc67116fe89b73878fc3a0/config 200
+[debug] [2022-04-17T16:20:27.514Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/orphic-boardgame-tracker/webApps/1:201093113057:web:dc67116fe89b73878fc3a0/config {"projectId":"orphic-boardgame-tracker","appId":"1:201093113057:web:dc67116fe89b73878fc3a0","storageBucket":"orphic-boardgame-tracker.appspot.com","locationId":"us-central","apiKey":"AIzaSyB-Xg-lFqPTq4kVtx-SYiOZ_-sZT2_iD_0","authDomain":"orphic-boardgame-tracker.firebaseapp.com","messagingSenderId":"201093113057"}
+[info] i  hosting: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] ✔  hosting: Local server: http://localhost:9000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:9000\u001b[22m\u001b[24m"}}
+[debug] [2022-04-17T16:20:27.563Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-04-17T16:20:27.564Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-04-17T16:20:27.564Z] Starting Emulator UI with command {"binary":"node","args":["/Users/oli/.cache/firebase/emulators/ui-v1.6.5/server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/oli/.cache/firebase/emulators/ui-v1.6.5/server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-04-17T16:20:27.676Z] Web / API server started at localhost:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at localhost:4000\n"}}
+[info] i  functions: Watching "/Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions\" for Cloud Functions..."}}
+[debug] [2022-04-17T16:20:27.843Z] Validating nodejs source
+[debug] [2022-04-17T16:20:29.294Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "eslint --fix --ext ts,tsx . && tsc -w",
+    "serve": "npm run build | firebase emulators:start --import=./emulated_data --export-on-exit",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-04-17T16:20:29.294Z] Building nodejs source
+[debug] [2022-04-17T16:20:29.294Z] Analyzing nodejs backend spec
+[info] ✔  functions[us-central1-helloWorld]: http function initialized (http://localhost:5001/orphic-boardgame-tracker/us-central1/helloWorld). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/orphic-boardgame-tracker/us-central1/helloWorld)."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4000                │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ localhost:5001 │ http://localhost:4000/functions │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Firestore │ 127.0.0.1:8080 │ http://localhost:4000/firestore │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Hosting   │ localhost:9000 │ n/a                             │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2022-04-17T16:20:38.361Z] File /Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/lib/index.js.map changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/lib/index.js.map changed, reloading triggers"}}
+[debug] [2022-04-17T16:20:38.362Z] File /Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/lib/index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/lib/index.js changed, reloading triggers"}}
+[debug] [2022-04-17T16:20:39.364Z] Validating nodejs source
+[debug] [2022-04-17T16:20:40.900Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "eslint --fix --ext ts,tsx . && tsc -w",
+    "serve": "npm run build | firebase emulators:start --import=./emulated_data --export-on-exit",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-04-17T16:20:40.900Z] Building nodejs source
+[debug] [2022-04-17T16:20:40.900Z] Analyzing nodejs backend spec
+[debug] [2022-04-17T16:20:40.910Z] Apr. 17, 2022 12:20:39 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr. 17, 2022 12:20:39 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\nApr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\nApr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\nApr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\nApr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected HTTP/2 connection.\n"}}
+[debug] [2022-04-17T16:20:40.929Z] Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-04-17T16:20:40.957Z] Apr. 17, 2022 12:20:40 P.M. com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr. 17, 2022 12:20:40 P.M. com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\nINFO: Connected to new websocket client\n"}}
+[debug] [2022-04-17T16:20:40.962Z] Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-04-17T16:20:40.973Z] Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr. 17, 2022 12:20:40 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-04-17T16:20:41.041Z] Apr. 17, 2022 12:20:41 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr. 17, 2022 12:20:41 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-04-17T16:20:41.056Z] Apr. 17, 2022 12:20:41 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr. 17, 2022 12:20:41 P.M. io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-04-17T16:20:47.735Z] File /Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/package.json changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /Users/oli/Documents/dev/JustForFun/orphic-boardgame-tracker/functions/package.json changed, reloading triggers"}}
+[debug] [2022-04-17T16:20:48.751Z] Validating nodejs source
+[debug] [2022-04-17T16:20:50.167Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "eslint --fix --ext ts,tsx . && tsc -w",
+    "serve": "npm run build | firebase emulators:start --import=./emulated_data --export-on-exit",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-04-17T16:20:50.167Z] Building nodejs source
+[debug] [2022-04-17T16:20:50.167Z] Analyzing nodejs backend spec

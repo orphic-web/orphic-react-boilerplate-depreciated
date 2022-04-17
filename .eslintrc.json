@@ -26,6 +26,17 @@
         "typescript": {}
         }
     },
+    "ignorePatterns": [
+        "node_modules",
+        "public",
+        "build",
+        ".vscode",
+        ".firebase",
+        "src/reportWebVitals.ts",
+        "src/service-worker.ts",
+        "src/serviceWorkerRegistration.ts",
+        "src/setupTests.ts"
+    ],
     "rules": {
         "@typescript-eslint/no-use-before-define": ["error"],
         "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ],
