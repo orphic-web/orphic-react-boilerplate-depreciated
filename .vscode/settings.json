@@ -1,0 +1,15 @@
+{
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+    "editor.formatOnSave": true,
+    "eslint.alwaysShowStatus": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.bracketPairColorization.enabled": true,
+}
