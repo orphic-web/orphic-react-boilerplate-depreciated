@@ -40,7 +40,6 @@
     "rules": {
         "@typescript-eslint/no-use-before-define": ["error"],
         "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ],
-        "@typescript-eslint/explicit-function-return-type": ["error",{"allowExpressions": true}],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",
@@ -89,6 +88,9 @@
                 ]
             }
         ],
+        "@typescript-eslint/explicit-function-return-type": ["off",{
+            "allowExpressions": true
+        }],
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "import/extensions": [
             "error",

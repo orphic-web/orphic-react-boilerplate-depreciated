@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../assets/fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: bold;
+  src: url("../assets/fonts/Poppins-Bold.ttf");
+}
+
+/* :root[mode="ios"],
+:root[mode="md"] {
+  --ion-font-family: "Houschka Rounded" !important;
+  font-family: "Houschka Rounded" !important;
+  color: var(--ion-text-color);
+} */
