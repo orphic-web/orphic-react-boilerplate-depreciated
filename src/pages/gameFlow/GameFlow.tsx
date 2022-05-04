@@ -4,12 +4,14 @@ import {
 import { ellipse } from 'ionicons/icons';
 
 import { Route, RouteComponentProps } from 'react-router';
+import NotFound from '../NotFound';
 import StartGame from './StartGame';
 
 const AppCore: React.FC<RouteComponentProps> = ({ history }) => (
   <IonTabs>
     <IonRouterOutlet>
       <Route exact path={'/game'} render={(props) => <StartGame {...props} />} />
+      <Route component={NotFound} />
     </IonRouterOutlet>
     <IonTabBar slot="bottom">
       <IonTabButton tab="home" href="/game">
