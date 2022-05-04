@@ -4,9 +4,18 @@ import {
 } from '@ionic/react';
 import './Dashboard.css';
 import { RouteComponentProps } from 'react-router';
+import gameSessionService from '../../services/GameSessionService';
 
 const Dashboard: React.FC<RouteComponentProps> = ({ history }) => {
-  console.log('asdas');
+  const startGameSession = async () => {
+    try {
+      await gameSessionService.startGameSession();
+      history.replace('/game/session-information');
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -21,8 +30,7 @@ const Dashboard: React.FC<RouteComponentProps> = ({ history }) => {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <p>asdlkjalskdj</p>
-          <IonButton href='/game'>Start a game</IonButton>
+          <IonButton onClick={() => startGameSession()}>Start a game</IonButton>
         </IonContent>
       </IonContent>
     </IonPage>
