@@ -1,3 +1,8 @@
 node_modules
 .env
 *.log
+functions/firebase-debug.log
+functions/firestore-debug.log
+functions/emulated_data/firestore_export/firestore_export.overall_export_metadata
+functions/emulated_data/firestore_export/all_namespaces/all_kinds/all_namespaces_all_kinds.export_metadata
+functions/emulated_data/firestore_export/all_namespaces/all_kinds/output-0

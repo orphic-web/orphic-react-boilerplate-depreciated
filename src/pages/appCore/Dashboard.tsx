@@ -4,9 +4,16 @@ import {
 } from '@ionic/react';
 import './Dashboard.css';
 import { RouteComponentProps } from 'react-router';
+import { useEffect, useState } from 'react';
 import gameSessionService from '../../services/GameSessionService';
 
 const Dashboard: React.FC<RouteComponentProps> = ({ history }) => {
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    console.log('here');
+  }, []);
+
   const startGameSession = async () => {
     try {
       await gameSessionService.startGameSession();

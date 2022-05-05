@@ -1,0 +1,23 @@
+.spinner__container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  margin-left: -350px;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+}
+
+.spinner__container .css-z0wqqa {
+  background-color: #f46b3f;
+}
+
+.spinner__container .css-hhm1rf {
+  background-color: #45debf;
+}
+
+.spinner__container.offset-450 {
+  margin-left: -450px;
+}
