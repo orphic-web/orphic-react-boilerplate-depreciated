@@ -1,7 +1,15 @@
-import { newspaper } from 'ionicons/icons';
-import { db } from '../FirebaseConfig';
+import { auth, db } from '../FirebaseConfig';
 
 class UserService {
+  login = async (email: string, password: string) => {
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (e: any) {
+      console.log(e);
+      throw e.message;
+    }
+  };
+
   getAdmin = async () => {
     try {
       let admin = {};

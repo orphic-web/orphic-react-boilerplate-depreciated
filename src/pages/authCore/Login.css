@@ -1,0 +1,62 @@
+.login__item {
+  margin-bottom: 40px;
+}
+
+.login__item ion-item.good {
+  --border-color: var(--ion-color-light) !important;
+  --highlight-color-invalid: var(--ion-color-primary);
+}
+
+.login__item ion-item.error {
+  --border-color: var(--ion-color-danger) !important;
+}
+
+.login__card {
+  width: 100%;
+  max-width: 800px;
+  --background: var(--ion-color-dark);
+  padding: 40px;
+}
+
+.login__wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
+  gap: 30px;
+}
+
+.login__title {
+  text-align: center;
+}
+
+.login__logo {
+  max-width: 400px;
+}
+
+.login__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.label-floating {
+  margin-bottom: 10px !important;
+}
+
+@media screen and (max-width: 405px) {
+  .login__buttons {
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .login__card {
+    padding: 10px;
+  }
+}

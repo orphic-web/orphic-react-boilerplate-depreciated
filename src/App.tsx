@@ -3,7 +3,7 @@ import {
   IonApp,
   setupIonicReact,
 } from '@ionic/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReactPWAInstallProvider from 'react-pwa-install';
 
 /* Core CSS required for Ionic components to work properly */
@@ -24,25 +24,17 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import NotFound from './pages/NotFound';
 import MainRouter from './router/MainRouter';
 
 setupIonicReact();
 
-const App: React.FC = () => {
-  useEffect(() => {
-    const platforms = getPlatforms();
-    console.log(platforms);
-  }, []);
+const App: React.FC = () => (
+  <ReactPWAInstallProvider enableLogging>
+    <IonApp>
+      <MainRouter />
+    </IonApp>
+  </ReactPWAInstallProvider>
 
-  return (
-    <ReactPWAInstallProvider enableLogging>
-      <IonApp>
-        <MainRouter />
-      </IonApp>
-    </ReactPWAInstallProvider>
-
-  );
-};
+);
 
 export default App;

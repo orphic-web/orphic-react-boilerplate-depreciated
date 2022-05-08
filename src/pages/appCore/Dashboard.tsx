@@ -6,7 +6,7 @@ import './Dashboard.css';
 import { RouteComponentProps } from 'react-router';
 import { useEffect, useState } from 'react';
 import gameSessionService from '../../services/GameSessionService';
-import { updateShow } from '../../store/slices/LoaderSlicer';
+import { toggleSpinnerState } from '../../store/slices/SpinnerSlice';
 import { useAppDispatch } from '../../store/Hooks';
 
 const Dashboard: React.FC<RouteComponentProps> = ({ history }) => {
@@ -19,13 +19,13 @@ const Dashboard: React.FC<RouteComponentProps> = ({ history }) => {
   // eslint-disable-next-line consistent-return
   const startGameSession = async () => {
     try {
-      dispatch(updateShow(true));
+      dispatch(toggleSpinnerState(true));
       await gameSessionService.startGameSession();
       history.replace('/game/session-information');
     } catch (e: any) {
       console.log(e);
       const timer = setTimeout(() => {
-        dispatch(updateShow(false));
+        dispatch(toggleSpinnerState(false));
       }, 2000);
       return () => clearTimeout(timer);
     }

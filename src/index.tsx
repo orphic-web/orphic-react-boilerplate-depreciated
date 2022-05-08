@@ -4,6 +4,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import store from './store/Store';
+import './theme/global.css';
 
 ReactDOM.render(
   <Provider store={store}>
