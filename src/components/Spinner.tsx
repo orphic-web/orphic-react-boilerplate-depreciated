@@ -5,7 +5,6 @@ import { css } from '@emotion/react';
 
 interface ContainerProps {
   show: boolean,
-  customClass?: string
 }
 
 const override = css`
@@ -14,25 +13,39 @@ const override = css`
 `;
 
 const Spinner: React.FC<ContainerProps> = ({
-  show, customClass,
+  show,
 }) => {
   const [showSpinner, setShowSpinner] = useState(false);
+  const [activeClass, setActiveClass] = useState('');
 
   useEffect(() => {
     try {
-      if (show) setShowSpinner(true);
-      else setShowSpinner(false);
+      if (show) {
+        // Prevent the spinner from stuttering if load time is not enough
+        const fadeInTimer = setTimeout(() => {
+          setShowSpinner(true);
+          setActiveClass('active');
+        }, 600);
+        return () => clearTimeout(fadeInTimer);
+      }
+
+      setActiveClass('');
+      const fadeOutTimer = setTimeout(() => {
+        setShowSpinner(false);
+      }, 600);
+      return () => clearTimeout(fadeOutTimer);
     } catch (e: any) {
+      setShowSpinner(false);
+      setActiveClass('');
       console.error(e);
+      return e;
     }
   }, [show]);
 
   return (
-    showSpinner
-      ? <div className={`spinner__container ${customClass}`}>
-        <DotLoader css={override} loading={showSpinner} size={150}/>
-      </div>
-      : <></>
+    <div className={`spinner__container ${activeClass}`}>
+      <DotLoader css={override} loading={showSpinner} size={150}/>
+    </div>
   );
 };
 

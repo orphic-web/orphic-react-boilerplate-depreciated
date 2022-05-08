@@ -18,7 +18,7 @@ const SessionInformation: React.FC<RouteComponentProps> = () => (
       </IonToolbar>
     </IonHeader>
     <IonContent >
-
+      <p>asdlkjaslkdjalskdjalskjdlakjsdl</p>
     </IonContent>
   </IonPage>
 );

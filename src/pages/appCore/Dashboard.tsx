@@ -6,20 +6,28 @@ import './Dashboard.css';
 import { RouteComponentProps } from 'react-router';
 import { useEffect, useState } from 'react';
 import gameSessionService from '../../services/GameSessionService';
+import { updateShow } from '../../store/slices/LoaderSlicer';
+import { useAppDispatch } from '../../store/Hooks';
 
 const Dashboard: React.FC<RouteComponentProps> = ({ history }) => {
-  const [busy, setBusy] = useState(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log('here');
+    console.log('dashboard');
   }, []);
 
+  // eslint-disable-next-line consistent-return
   const startGameSession = async () => {
     try {
+      dispatch(updateShow(true));
       await gameSessionService.startGameSession();
       history.replace('/game/session-information');
     } catch (e: any) {
       console.log(e);
+      const timer = setTimeout(() => {
+        dispatch(updateShow(false));
+      }, 2000);
+      return () => clearTimeout(timer);
     }
   };
 
