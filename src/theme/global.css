@@ -2,14 +2,32 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: normal;
-  src: url("../assets/fonts/Poppins-Regular.ttf");
+  src: url("./fonts/Poppins-Regular.ttf");
 }
 
 @font-face {
   font-family: "Poppins";
   font-style: normal;
   font-weight: bold;
-  src: url("../assets/fonts/Poppins-Bold.ttf");
+  src: url("./fonts/Poppins-Bold.ttf");
+}
+
+.firebase-emulator-warning {
+  display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", "Roboto", "default";
+}
+
+p,
+a {
+  font-family: "Poppins", "Roboto", "default";
 }
 
 /* :root[mode="ios"],
