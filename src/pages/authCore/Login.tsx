@@ -1,33 +1,39 @@
 import {
   IonButton, IonContent, IonPage, IonInput, IonText,
   IonItem, IonLabel, IonCard, IonCardContent,
-  IonCardHeader, IonImg, IonButtons,
+  IonCardHeader, IonImg,
 } from '@ionic/react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 
 import './Login.css';
 import { useState } from 'react';
 import * as Yup from 'yup';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { useAppDispatch } from '../../store/Hooks';
 import { toggleSpinnerState } from '../../store/slices/SpinnerSlice';
 import logo from '../../theme/assets/logo.png';
 import userService from '../../services/UserService';
 
-const Login: React.FC<RouteComponentProps> = () => {
+const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [globalMsg, setGlobalMsg] = useState('');
   const dispatch = useAppDispatch();
 
+  console.log('asd');
   const login = async (values: any) => {
     try {
       dispatch(toggleSpinnerState(true));
       await userService.login(values?.email, values?.password);
       setGlobalMsg('');
       dispatch(toggleSpinnerState(false));
+      history.push('/home/dashboard');
     } catch (e: any) {
       setGlobalMsg('We could not find a user with those credentials.');
       dispatch(toggleSpinnerState(false));
     }
+  };
+
+  const test = () => {
+    history.push('/home/dashboard');
   };
 
   return (
@@ -47,6 +53,7 @@ const Login: React.FC<RouteComponentProps> = () => {
         })
       }
       onSubmit={(values, { setSubmitting }) => {
+        console.log('asdasd');
         setSubmitting(false);
         login(values);
         setSubmitting(true);
@@ -55,6 +62,8 @@ const Login: React.FC<RouteComponentProps> = () => {
       {(formikProps) => (
         <IonPage>
           <IonContent >
+            <IonButton color='danger' fill='outline' onClick={() => test()}>Logout</IonButton>
+
             <div className='login__wrapper'>
               <div className='login__logo'>
                 <IonImg src={logo} />
@@ -64,7 +73,7 @@ const Login: React.FC<RouteComponentProps> = () => {
                   <h1 className='login__title'>Login</h1>
                 </IonCardHeader>
                 <IonCardContent>
-                  <Form>
+                  <form onSubmit={formikProps.handleSubmit}>
                     <div className='login__item'>
                       <IonItem
                         className={formikProps.errors.email && formikProps.touched.email
@@ -78,9 +87,9 @@ const Login: React.FC<RouteComponentProps> = () => {
                         <IonInput
                           name="email"
                           autofocus={true}
+                          autocomplete='on'
                           color={formikProps.errors.email && formikProps.touched.email
                             ? 'danger' : 'light'}
-                          autocomplete='on'
                           required={true}
                           value={formikProps.values.email}
                           onIonChange={formikProps.handleChange}
@@ -108,7 +117,6 @@ const Login: React.FC<RouteComponentProps> = () => {
                           color={formikProps.errors.password && formikProps.touched.password
                             ? 'danger' : 'light'}
                           required={true}
-                          autocomplete='current-password'
                           value={formikProps.values.password}
                           onIonChange={formikProps.handleChange}
                           onIonBlur={formikProps.handleBlur}
@@ -127,7 +135,8 @@ const Login: React.FC<RouteComponentProps> = () => {
                       </a>
                       <IonButton type='submit' fill="solid" color='primary'>Login</IonButton>
                     </div>
-                  </Form>
+                    <button className="hack__submit-btn" type="submit"></button>
+                  </form>
                 </IonCardContent>
               </IonCard>
             </div>

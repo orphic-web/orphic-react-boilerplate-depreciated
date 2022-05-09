@@ -1,10 +1,8 @@
 import {
-  getPlatforms,
   IonApp,
   setupIonicReact,
 } from '@ionic/react';
-import { useEffect, useState } from 'react';
-import ReactPWAInstallProvider from 'react-pwa-install';
+import React from 'react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -29,12 +27,9 @@ import MainRouter from './router/MainRouter';
 setupIonicReact();
 
 const App: React.FC = () => (
-  <ReactPWAInstallProvider enableLogging>
-    <IonApp>
-      <MainRouter />
-    </IonApp>
-  </ReactPWAInstallProvider>
-
+  <IonApp>
+    <MainRouter />
+  </IonApp>
 );
 
 export default App;

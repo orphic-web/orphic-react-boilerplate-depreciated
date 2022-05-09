@@ -30,6 +30,12 @@ a {
   font-family: "Poppins", "Roboto", "default";
 }
 
+.hack__submit-btn {
+  visibility: hidden;
+  position: absolute;
+  position: -999px;
+}
+
 /* :root[mode="ios"],
 :root[mode="md"] {
   --ion-font-family: "Houschka Rounded" !important;

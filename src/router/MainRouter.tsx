@@ -5,7 +5,7 @@ import {
 
 import { IonReactRouter } from '@ionic/react-router';
 import { useEffect, useState } from 'react';
-import { Redirect, Route } from 'react-router';
+import { Redirect, Route, RouteComponentProps } from 'react-router';
 import Spinner from '../components/Spinner';
 import { auth, db } from '../FirebaseConfig';
 import AppCore from '../pages/appCore/AppCore';
@@ -59,11 +59,12 @@ const MainRouter: React.FC = () => {
     <IonReactRouter>
       <Spinner show={show}></Spinner>
       <IonRouterOutlet>
+        <Route exact path={'/'} render={() => <Redirect to="/home" />} />
         <Route path="/auth" render={(props) => <AuthCore {...props} />} />
         <Route path="/home" render={(props) => <AppCore {...props} />} />
         <Route path='/game/session-information' render={(props) => <SessionInformation {...props} />} />
-        <Route exact path={'/'} render={() => <Redirect to="/home" />} />
-        <Route component={NotFound} />
+        <Route path="/404" render={() => <NotFound/>} />
+        <Route render={() => <Redirect to={'/404'} />} />
       </IonRouterOutlet>
     </IonReactRouter>
   );
