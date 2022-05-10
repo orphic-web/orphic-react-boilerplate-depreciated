@@ -7,3 +7,10 @@ typings/
 
 # Node.js dependency directory
 node_modules/
+emulated_data
+
+# Logs
+logs
+*.log
+firebase-debug.log*
+firebase-debug.*.log*

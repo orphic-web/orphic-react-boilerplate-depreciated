@@ -1,4 +1,4 @@
-import { auth, db } from '../FirebaseConfig';
+import { auth, db, functions } from '../FirebaseConfig';
 import { logout } from '../store/slices/UserSlice';
 
 class UserService {
@@ -11,13 +11,21 @@ class UserService {
     }
   };
 
-  register = async (dispatch: any, name: string, email: string, password: string, passwordConfirmation: string) => {
+  createFirebaseUser = async (email: string, name: string, password: string, passwordConfirmation: string) => {
     try {
       const firebaseUser = await auth.createUserWithEmailAndPassword(email, password);
-      // const createUserAccount = functions.httpsCallable('user-createUserAccount');
-      // await createUserAccount({ user: newUser });
+      return firebaseUser;
+    } catch (e: any) {
+      console.log(e.message);
+      throw e.message;
+    }
+  };
 
-      console.log(firebaseUser);
+  createFirestoreUser = async (id:string, email: string, name: string) => {
+    try {
+      const createUser = functions.httpsCallable('user-createUser');
+      const createUserResponse = await createUser({ id, email, name });
+      return createUserResponse;
     } catch (e: any) {
       console.log(e.message);
       throw e.message;

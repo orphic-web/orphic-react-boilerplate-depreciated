@@ -1,12 +1,11 @@
 import {
   IonButton, IonContent, IonPage, IonInput, IonText,
   IonItem, IonLabel, IonCard, IonCardContent,
-  IonCardHeader, IonImg,
+  IonCardHeader, IonImg, useIonRouter,
 } from '@ionic/react';
-import { RouteComponentProps } from 'react-router';
 
 import './Register.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { useAppDispatch } from '../../store/Hooks';
@@ -14,35 +13,29 @@ import { toggleSpinnerState } from '../../store/slices/SpinnerSlice';
 import logo from '../../theme/assets/logo.png';
 import userService from '../../services/UserService';
 
-const Register: React.FC<RouteComponentProps> = ({ history }) => {
+const Register: React.FC = () => {
   const [globalMsg, setGlobalMsg] = useState('');
   const dispatch = useAppDispatch();
+  const router = useIonRouter();
 
   const createAccount = async (values: any) => {
     try {
       dispatch(toggleSpinnerState(true));
-      await userService.register(dispatch, values.name, values?.email, values?.password, values.passwordConfirmation);
+      const firebaseUser: any = await userService.createFirebaseUser(values.email, values.name, values.password, values.passwordConfirmation);
+      await userService.createFirestoreUser(firebaseUser.user.uid, values.email, values.name);
       setGlobalMsg('');
       dispatch(toggleSpinnerState(false));
-      history.push('/home/dashboard');
+      router.push('/home/dashboard');
     } catch (e: any) {
-      setGlobalMsg('We could not find a user with those credentials.');
+      // TODO Should delete Firebase user if fails
+      if (e) {
+        setGlobalMsg(e);
+      } else {
+        setGlobalMsg('We could not create your account at the moment, try again later.');
+      }
       dispatch(toggleSpinnerState(false));
     }
   };
-
-  useEffect(() => {
-    const listener = (event: any) => {
-      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        console.log('Enter key was pressed. Run your function.');
-        // callMyFunction();
-      }
-    };
-    document.addEventListener('keydown', listener);
-    return () => {
-      document.removeEventListener('keydown', listener);
-    };
-  }, []);
 
   return (
     <Formik
@@ -60,7 +53,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
             .email('Wrong email format')
             .required('The email field is required'),
           password: Yup.string()
-            .required('The password field is required'),
+            .required('The password field is required').min(6, 'Your password need at leaste 6 characters.'),
           passwordConfirmation: Yup.string()
             .required('Requis')
             .oneOf([Yup.ref('password'), null], 'Passwords must match'),
@@ -85,6 +78,31 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                 </IonCardHeader>
                 <IonCardContent>
                   <Form onSubmit={formikProps.handleSubmit}>
+                    <div className='register__item'>
+
+                      <IonItem
+                        className={formikProps.errors.name && formikProps.touched.name
+                          ? 'ion-color-danger' : 'ion-color-light'}
+                      >
+                        <IonLabel color={formikProps.errors.name && formikProps.touched.name
+                          ? 'danger' : ''}
+                        position="floating">
+                          Name
+                        </IonLabel>
+                        <IonInput
+                          name="name"
+                          autofocus={true}
+                          color={formikProps.errors.name && formikProps.touched.name
+                            ? 'danger' : 'light'}
+                          autocomplete='on'
+                          required={true}
+                          value={formikProps.values.name}
+                          onIonChange={formikProps.handleChange}
+                          onIonBlur={formikProps.handleBlur}
+                        >
+                        </IonInput>
+                      </IonItem>
+                    </div>
                     <div className='register__item'>
                       <IonItem
                         className={formikProps.errors.email && formikProps.touched.email
@@ -138,14 +156,39 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                       {formikProps.errors.password && formikProps.touched.password && (
                         <IonText color='danger'>{formikProps.errors.password}</IonText>
                       )}
-
+                    </div>
+                    <div className='register__item'>
+                      <IonItem className={formikProps.errors.passwordConfirmation && formikProps.touched.passwordConfirmation
+                        ? 'ion-color-danger' : 'ion-color-light'}>
+                        <IonLabel color={formikProps.errors.passwordConfirmation && formikProps.touched.passwordConfirmation
+                          ? 'danger' : ''}
+                        position="floating">
+                          Confirmation password
+                        </IonLabel>
+                        <IonInput
+                          name="passwordConfirmation"
+                          type='password'
+                          color={formikProps.errors.passwordConfirmation && formikProps.touched.passwordConfirmation
+                            ? 'danger' : 'light'}
+                          required={true}
+                          autocomplete='current-password'
+                          value={formikProps.values.passwordConfirmation}
+                          onIonChange={formikProps.handleChange}
+                          onIonBlur={formikProps.handleBlur}
+                        >
+                        </IonInput>
+                      </IonItem>
+                      {formikProps.errors.passwordConfirmation && formikProps.touched.passwordConfirmation && (
+                        <IonText color='danger'>{formikProps.errors.passwordConfirmation}</IonText>
+                      )}
                     </div>
                     <IonText color='danger' className="mtp-form-msg">{globalMsg}</IonText>
                     <div className="register__buttons">
-                      <a href='/auth/register'>
-                        I don't have an account
+                      <a href='/auth/login'>
+                        I already have an account
                       </a>
                       <IonButton type='submit' fill="solid" color='primary'>register</IonButton>
+                      <button className="hack__submit-btn" type="submit"></button>
                     </div>
                   </Form>
                 </IonCardContent>

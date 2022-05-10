@@ -1,6 +1,6 @@
-import * as functions from 'firebase-functions';
+const admin = require('firebase-admin');
 
-export const helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info('Hello logs!', { structuredData: true });
-  response.send('Hello from Firebase!');
-});
+admin.initializeApp();
+
+exports.user = require('./api/user.api');
+exports.userTriggers = require('./triggers/user.trigger');

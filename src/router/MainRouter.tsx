@@ -4,8 +4,8 @@ import {
 } from '@ionic/react';
 
 import { IonReactRouter } from '@ionic/react-router';
-import { useEffect, useState } from 'react';
-import { Redirect, Route, RouteComponentProps } from 'react-router';
+import { useEffect } from 'react';
+import { Redirect, Route } from 'react-router';
 import Spinner from '../components/Spinner';
 import { auth, db } from '../FirebaseConfig';
 import AppCore from '../pages/appCore/AppCore';
@@ -18,7 +18,6 @@ import { updateFirebaseUser, updatePlatform, updateUser } from '../store/slices/
 
 const MainRouter: React.FC = () => {
   const show = useAppSelector((state) => state.loader.state) as any;
-  const platform = useAppSelector((state) => state.user.platform) as any;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -60,11 +59,10 @@ const MainRouter: React.FC = () => {
       <Spinner show={show}></Spinner>
       <IonRouterOutlet>
         <Route exact path={'/'} render={() => <Redirect to="/home" />} />
-        <Route path="/auth" render={(props) => <AuthCore {...props} />} />
+        <Route path="/auth" render={() => <AuthCore />} />
         <Route path="/home" render={(props) => <AppCore {...props} />} />
         <Route path='/game/session-information' render={(props) => <SessionInformation {...props} />} />
         <Route path="/404" render={() => <NotFound/>} />
-        <Route render={() => <Redirect to={'/404'} />} />
       </IonRouterOutlet>
     </IonReactRouter>
   );

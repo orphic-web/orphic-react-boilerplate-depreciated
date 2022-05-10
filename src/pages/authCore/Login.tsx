@@ -1,39 +1,37 @@
 import {
   IonButton, IonContent, IonPage, IonInput, IonText,
   IonItem, IonLabel, IonCard, IonCardContent,
-  IonCardHeader, IonImg,
+  IonCardHeader, IonImg, useIonRouter,
 } from '@ionic/react';
-import { RouteComponentProps, useHistory } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 import './Login.css';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { useAppDispatch } from '../../store/Hooks';
+import { useAppDispatch, useAppSelector } from '../../store/Hooks';
 import { toggleSpinnerState } from '../../store/slices/SpinnerSlice';
 import logo from '../../theme/assets/logo.png';
 import userService from '../../services/UserService';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [globalMsg, setGlobalMsg] = useState('');
-  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.user) as any;
 
-  console.log('asd');
+  const dispatch = useAppDispatch();
+  const router = useIonRouter();
+
   const login = async (values: any) => {
     try {
       dispatch(toggleSpinnerState(true));
       await userService.login(values?.email, values?.password);
       setGlobalMsg('');
       dispatch(toggleSpinnerState(false));
-      history.push('/home/dashboard');
+      router.push('/home/dashboard');
     } catch (e: any) {
       setGlobalMsg('We could not find a user with those credentials.');
       dispatch(toggleSpinnerState(false));
     }
-  };
-
-  const test = () => {
-    history.push('/home/dashboard');
   };
 
   return (
@@ -62,8 +60,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
       {(formikProps) => (
         <IonPage>
           <IonContent >
-            <IonButton color='danger' fill='outline' onClick={() => test()}>Logout</IonButton>
-
             <div className='login__wrapper'>
               <div className='login__logo'>
                 <IonImg src={logo} />

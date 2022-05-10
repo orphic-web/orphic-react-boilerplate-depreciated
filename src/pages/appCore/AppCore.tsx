@@ -16,6 +16,7 @@ const AppCore: React.FC<RouteComponentProps> = ({ history }) => (
         <Route exact path={'/home'} render={() => <Redirect to="/home/dashboard" />} />
         <Route exact path={'/home/history'} render={(props) => <History {...props} />} />
         <Route exact path={'/home/dashboard'} render={(props) => <Dashboard {...props} />} />
+        <Route component={NotFound} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         <IonTabButton tab="home" href="/home/dashboard">
