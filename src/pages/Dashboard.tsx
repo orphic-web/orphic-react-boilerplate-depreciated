@@ -1,31 +1,32 @@
 import {
   IonButton,
-  IonContent, IonHeader, IonPage, IonTitle, IonToolbar,
+  IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonRouter,
 } from '@ionic/react';
 import './Dashboard.css';
 import { RouteComponentProps } from 'react-router';
 import { useEffect, useState } from 'react';
-import gameSessionService from '../../services/GameSessionService';
-import { toggleSpinnerState } from '../../store/slices/SpinnerSlice';
-import { useAppDispatch, useAppSelector } from '../../store/Hooks';
-import userService from '../../services/UserService';
+import gameSessionService from '../services/GameSessionService';
+import { toggleSpinnerState } from '../store/slices/SpinnerSlice';
+import { useAppDispatch, useAppSelector } from '../store/Hooks';
+import userService from '../services/UserService';
 
 const Dashboard: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useAppDispatch();
   const [globalMsg, setGlobalMsg] = useState('');
+  const router = useIonRouter();
   const user = useAppSelector((state) => state.user.user) as any;
 
   useEffect(() => {
     console.log('dashboard');
-  }, []);
+  }, [user]);
 
   const logout = async () => {
     try {
       dispatch(toggleSpinnerState(true));
       await userService.logout(dispatch);
+      router.push('/login');
       dispatch(toggleSpinnerState(false));
       setGlobalMsg('');
-      history.replace('/auth/login');
     } catch (e: any) {
       setGlobalMsg('We could logout, try again later.');
       dispatch(toggleSpinnerState(false));

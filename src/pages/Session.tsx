@@ -5,16 +5,16 @@ import {
   IonContent, IonHeader, IonPage, IonTitle, IonToolbar,
 } from '@ionic/react';
 import { RouteComponentProps } from 'react-router';
-import './SessionInformation.css';
+import './Session.css';
 
-const SessionInformation: React.FC<RouteComponentProps> = () => (
+const Session: React.FC<RouteComponentProps> = () => (
   <IonPage>
     <IonHeader>
       <IonToolbar>
         <IonButtons slot="start">
-          <IonBackButton defaultHref="/home" />
+          <IonBackButton defaultHref="/" />
         </IonButtons>
-        <IonTitle>Session Info</IonTitle>
+        <IonTitle>Session page</IonTitle>
       </IonToolbar>
     </IonHeader>
     <IonContent >
@@ -23,4 +23,4 @@ const SessionInformation: React.FC<RouteComponentProps> = () => (
   </IonPage>
 );
 
-export default SessionInformation;
+export default Session;

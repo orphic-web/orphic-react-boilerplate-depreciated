@@ -4,28 +4,33 @@ import {
   IonCardHeader, IonImg, useIonRouter,
 } from '@ionic/react';
 
-import './Register.css';
-import { useState } from 'react';
+import './Signup.css';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
-import { useAppDispatch } from '../../store/Hooks';
-import { toggleSpinnerState } from '../../store/slices/SpinnerSlice';
-import logo from '../../theme/assets/logo.png';
-import userService from '../../services/UserService';
+import { useAppDispatch, useAppSelector } from '../store/Hooks';
+import { toggleSpinnerState } from '../store/slices/SpinnerSlice';
+import logo from '../theme/assets/logo.png';
+import userService from '../services/UserService';
 
-const Register: React.FC = () => {
+const Signup: React.FC = () => {
   const [globalMsg, setGlobalMsg] = useState('');
   const dispatch = useAppDispatch();
   const router = useIonRouter();
+  const user = useAppSelector((state) => state.user.user) as any;
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user]);
 
   const createAccount = async (values: any) => {
     try {
-      dispatch(toggleSpinnerState(true));
       const firebaseUser: any = await userService.createFirebaseUser(values.email, values.name, values.password, values.passwordConfirmation);
       await userService.createFirestoreUser(firebaseUser.user.uid, values.email, values.name);
       setGlobalMsg('');
-      dispatch(toggleSpinnerState(false));
-      router.push('/home/dashboard');
+      router.push('/');
     } catch (e: any) {
       // TODO Should delete Firebase user if fails
       if (e) {
@@ -33,7 +38,6 @@ const Register: React.FC = () => {
       } else {
         setGlobalMsg('We could not create your account at the moment, try again later.');
       }
-      dispatch(toggleSpinnerState(false));
     }
   };
 
@@ -202,4 +206,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Signup;

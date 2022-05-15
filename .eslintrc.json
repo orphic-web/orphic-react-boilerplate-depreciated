@@ -74,6 +74,7 @@
         "no-multi-spaces": [
             "error"
         ],
+        "consistent-return": "warn",
         "no-shadow": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-shadow": [

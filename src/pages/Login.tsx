@@ -6,13 +6,13 @@ import {
 import { RouteComponentProps } from 'react-router';
 
 import './Login.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { useAppDispatch, useAppSelector } from '../../store/Hooks';
-import { toggleSpinnerState } from '../../store/slices/SpinnerSlice';
-import logo from '../../theme/assets/logo.png';
-import userService from '../../services/UserService';
+import { useAppDispatch, useAppSelector } from '../store/Hooks';
+import { toggleSpinnerState } from '../store/slices/SpinnerSlice';
+import logo from '../theme/assets/logo.png';
+import userService from '../services/UserService';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [globalMsg, setGlobalMsg] = useState('');
@@ -21,16 +21,19 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useAppDispatch();
   const router = useIonRouter();
 
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user]);
+
   const login = async (values: any) => {
     try {
-      dispatch(toggleSpinnerState(true));
       await userService.login(values?.email, values?.password);
+      router.push('/');
       setGlobalMsg('');
-      dispatch(toggleSpinnerState(false));
-      router.push('/home/dashboard');
     } catch (e: any) {
       setGlobalMsg('We could not find a user with those credentials.');
-      dispatch(toggleSpinnerState(false));
     }
   };
 
