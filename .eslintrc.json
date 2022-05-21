@@ -1,0 +1,98 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "airbnb-base",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/typescript"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "ignorePatterns": [
+        "node_modules",
+        "public",
+        "build",
+        ".vscode",
+        ".firebase",
+        "src/reportWebVitals.ts",
+        "src/service-worker.ts",
+        "src/serviceWorkerRegistration.ts",
+        "src/setupTests.ts"
+    ],
+    "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "class-methods-use-this": ["off", { "enforceForClassFields": true  }],
+        "linebreak-style": 0,
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-console": "off",
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "max-len": [
+            2,
+            {
+              "code": 180,
+              "ignoreComments": true
+            }
+        ],
+        "indent": [
+            "error",
+            2,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "no-multi-spaces": [
+            "error"
+        ],
+        "no-shadow": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-shadow": [
+            "error"
+        ],
+        "@typescript-eslint/naming-convention": [
+            "warn",
+            {
+                "selector": "enumMember",
+                "format": [
+                    "UPPER_CASE"
+                ]
+            }
+        ],
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ]
+    },
+
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    }
+}

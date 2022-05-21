@@ -1,22 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import logo from './theme/assets/logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+      <header className="App__header">
+        <img src={logo} className="App__logo" alt="logo" />
+        <h1>
+         React boilerplate
+        </h1>
         <a
-          className="App-link"
-          href="https://reactjs.org"
+          className="App__link"
+          href="https://github.com/orphic-web"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          More open souce projects
         </a>
       </header>
     </div>
