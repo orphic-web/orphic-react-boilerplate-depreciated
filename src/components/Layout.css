@@ -1,0 +1,16 @@
+nav {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
+}
+
+nav a button {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+nav a {
+  text-decoration: none;
+}
