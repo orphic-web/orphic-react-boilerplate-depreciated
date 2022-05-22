@@ -8,7 +8,7 @@ const Signup: React.FC = () => {
     <div className="login">
       <header className="login__header">
         <h1>Signup</h1>
-        <Button onClick={() => navigate('/login')} variant="contained">Login</Button>
+        <Button color='secondary' onClick={() => navigate('/login')} variant="contained">Login</Button>
       </header>
     </div>
   );

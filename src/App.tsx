@@ -1,9 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ScopedCssBaseline from '@mui/material/ScopedCssBaseline';
 
 import './App.css';
 import createTheme from '@mui/material/styles/createTheme';
-import { ThemeProvider } from '@emotion/react';
+import { ThemeProvider, CssBaseline } from '@mui/material';
 import Layout from './components/Layout';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/Dashboard';
@@ -17,21 +16,20 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <ScopedCssBaseline>
-        <div className="app">
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />} >
-                <Route index element={<Dashboard />}/>
-                <Route path='login' element={<Login />}/>
-                <Route path='signup' element={<Signup />}/>
-                <Route path='forgot-password' element={<ForgotPassword />}/>
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </div>
-      </ScopedCssBaseline>
+      <CssBaseline/>
+      <div className="app">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />} >
+              <Route index element={<Dashboard />}/>
+              <Route path='login' element={<Login />}/>
+              <Route path='signup' element={<Signup />}/>
+              <Route path='forgot-password' element={<ForgotPassword />}/>
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
     </ThemeProvider>
 
   );
