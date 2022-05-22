@@ -4,6 +4,7 @@ import createTheme from '@mui/material/styles/createTheme';
 // eslint-disable-next-line import/no-mutable-exports
 let themeConfig = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
       light: '#ff8a50',
       main: '#ff5722',
@@ -26,20 +27,6 @@ let themeConfig = createTheme({
       primary: '#fff',
       secondary: 'rgba(255, 255, 255, 0.7)',
       disabled: 'rgba(255, 255, 255, 0.5)',
-    },
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiOutlinedInput-root': { // - The Input-root, inside the TextField-root
-            '& fieldset': { // - The <fieldset> inside the Input-root
-              borderColor: 'rgba(255,255,255,0.71)', // - Set the Input border
-            },
-          },
-
-        },
-      },
     },
   },
   shape: {
@@ -86,12 +73,5 @@ declare module '@mui/material/Button' {
     light: true;
   }
 }
-
-// // Update the Button's color prop options
-// declare module '@mui/material/TextField' {
-//   interface TextFieldPropsColorOverrides {
-//     light: true;
-//   }
-// }
 
 export default themeConfig;
