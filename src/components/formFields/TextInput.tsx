@@ -21,7 +21,6 @@ const TextInput: React.FC<FieldHookConfig<string> & ContainerProps> = ({
   label,
   color,
   margin,
-  children,
   variant,
   minRows,
   maxRows,

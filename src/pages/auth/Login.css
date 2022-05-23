@@ -2,3 +2,8 @@
   background-color: var(--secondary);
   padding: 40px;
 }
+
+.login__form-container {
+  max-width: 500px;
+  width: 100%;
+}
