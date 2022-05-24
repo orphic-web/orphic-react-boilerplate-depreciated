@@ -10,39 +10,33 @@ import * as yup from 'yup';
 
 import './Login.css';
 import {
-  Box, IconButton, InputAdornment, MenuItem,
+  Box, IconButton, InputAdornment,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/formFields/TextInput';
-import SelectInput from '../../components/formFields/SelectInput';
+import Checkbox from '../../components/formFields/Checkbox';
+import UserService from '../../services/UserService';
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [globalMsg, setGlobalMsg] = useState('');
-
-  const currencies = [
-    {
-      value: 'USD',
-      label: '$',
-    },
-    {
-      value: 'EUR',
-      label: '€',
-    },
-    {
-      value: 'BTC',
-      label: '฿',
-    },
-    {
-      value: 'JPY',
-      label: '¥',
-    },
-  ];
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const login = async (values: any) => {
+    try {
+      await UserService.login(values.email, values.password, values.stayConnected);
+      navigate('/');
+    } catch (e: any) {
+      console.log(e);
+      setGlobalMsg('We could not authentificate you at the moment, try again later.');
+    }
   };
 
   return (
@@ -50,7 +44,7 @@ const Login: React.FC = () => {
       initialValues={{
         email: '',
         password: '',
-        currency: [],
+        stayConnected: true,
       }}
       validateOnBlur={false}
       validationSchema={yup.object({
@@ -58,15 +52,14 @@ const Login: React.FC = () => {
           .email('Email is invalid')
           .required('Required'),
         password: yup.string().required('Required'),
-        currency: yup.array().required('Required'),
+        stayConnected: yup.boolean(),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          setSubmitting(false);
-          setGlobalMsg('');
-          alert(JSON.stringify(values, null, 2));
-        }, 500);
+        login(values);
+        console.log(values);
+        setSubmitting(false);
       }}
+
     >
       {(formikProps) => (
         <Container maxWidth='md'>
@@ -94,19 +87,6 @@ const Login: React.FC = () => {
                 type="email"
                 required
               />
-              <SelectInput
-                name='currency'
-                label='Currency'
-                required
-                multiple
-              >
-                {currencies.map((option) => (
-                  option.value
-                  && <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </SelectInput>
               <TextInput
                 name='password'
                 label="Password"
@@ -127,6 +107,13 @@ const Login: React.FC = () => {
 
                   ),
                 }}
+              />
+              <Checkbox
+                name='stayConnected'
+                label='Remember me'
+                color='primary'
+                fullWidth={false}
+                checked={formikProps.values.stayConnected}
               />
               <Typography color='error' component="p" variant="body1">
                 {globalMsg}

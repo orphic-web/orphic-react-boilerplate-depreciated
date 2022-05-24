@@ -1,11 +1,11 @@
 // Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
-import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
-import { getStorage, connectStorageEmulator } from "firebase/storage";
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -25,7 +25,7 @@ export const storage = getStorage();
 
 if (process.env.REACT_APP_LOCALHOST_STATE) {
   connectFunctionsEmulator(functions, 'localhost', 5001);
-  connectFirestoreEmulator(db,'localhost', 8080);
+  connectFirestoreEmulator(db, 'localhost', 8080);
   connectAuthEmulator(auth, 'http://localhost:9099');
-  connectStorageEmulator(storage, "localhost", 9199);
+  connectStorageEmulator(storage, 'localhost', 9199);
 }

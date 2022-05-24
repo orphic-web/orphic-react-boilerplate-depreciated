@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useId } from 'react';
-import './SelectInput.css';
+import React, { useEffect, useState } from 'react';
+import './Checkbox.css';
 import { FieldHookConfig, useField } from 'formik';
 import {
-  FormControl, FormHelperText, InputLabel, Select,
+  FormControl, FormControlLabel, FormHelperText, Checkbox,
 } from '@mui/material';
 
 interface ContainerProps {
@@ -15,9 +15,11 @@ interface ContainerProps {
   readOnly?: boolean,
   sx?: any,
   margin?: 'none' | 'dense' | 'normal' | undefined,
+  checked?: boolean
+  defaultChecked?: boolean
 }
 
-const SelectInput: React.FC<FieldHookConfig<string> & ContainerProps> = ({
+const CheckboxInput: React.FC<FieldHookConfig<string> & ContainerProps> = ({
   fullWidth,
   label,
   color,
@@ -27,12 +29,12 @@ const SelectInput: React.FC<FieldHookConfig<string> & ContainerProps> = ({
   readOnly,
   sx,
   margin,
-  children,
+  checked,
+  defaultChecked,
   ...props
 }) => {
   const [field, meta] = useField(props);
   const [state, setState] = useState(false);
-  const labelId = useId();
 
   useEffect(() => {
     if (meta.error && meta.touched) setState(true);
@@ -49,24 +51,18 @@ const SelectInput: React.FC<FieldHookConfig<string> & ContainerProps> = ({
       error={state}
       sx={sx}
     >
-      <InputLabel color={color} id={`${labelId}-${label}-label`}>{label}</InputLabel>
-      <Select
-        id={props.id}
+      <FormControlLabel
+        control={
+          <Checkbox
+            defaultChecked={defaultChecked}
+            checked={checked}
+            size={size}
+            color={color}
+            {...field}
+          />
+        }
         label={label}
-        labelId={`${labelId}-${label}`}
-        multiple
-        type={props.type}
-        autoFocus={props.autoFocus}
-        autoComplete={props.autoComplete}
-        size={size}
-        color={color}
-        inputProps={{ readOnly }}
-        renderValue={(value) => `⚠️  - ${value}`}
-        autoWidth={false}
-        {...field}
-      >
-        {children}
-      </Select>
+      />
       <FormHelperText>
         {meta.error && state ? meta.error : ''}
       </FormHelperText>
@@ -75,7 +71,7 @@ const SelectInput: React.FC<FieldHookConfig<string> & ContainerProps> = ({
   );
 };
 
-SelectInput.defaultProps = {
+CheckboxInput.defaultProps = {
   color: 'light',
   variant: 'outlined',
   fullWidth: true,
@@ -84,4 +80,4 @@ SelectInput.defaultProps = {
   sx: { minWidth: 80 },
 };
 
-export default SelectInput;
+export default CheckboxInput;
