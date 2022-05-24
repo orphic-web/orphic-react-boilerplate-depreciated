@@ -56,7 +56,6 @@ const Login: React.FC = () => {
       })}
       onSubmit={(values, { setSubmitting }) => {
         login(values);
-        console.log(values);
         setSubmitting(false);
       }}
 

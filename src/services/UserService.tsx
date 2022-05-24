@@ -1,5 +1,5 @@
 import {
-  setPersistence, signInWithEmailAndPassword, browserSessionPersistence, browserLocalPersistence,
+  setPersistence, signInWithEmailAndPassword, signOut, browserSessionPersistence, browserLocalPersistence, createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
 
@@ -23,10 +23,23 @@ class UserService {
     }
   };
 
-  logout = async (dispatch: any) => {
+  static createAccount = async (email: string, password: string, language: string) => {
     try {
-      const resp = await auth.signOut();
-      console.log(resp);
+      const firebaseUser = await createUserWithEmailAndPassword(auth, email, password);
+      // const createUserAccount = functions.httpsCallable('user-createUserAccount');
+      // await createUserAccount({
+      //   userId: firebaseUser.user?.uid, email, name, birthDate: birthDate.toDateString(), language,
+      // });
+      return firebaseUser;
+    } catch (e: any) {
+      console.log(e.message);
+      throw e.message;
+    }
+  };
+
+  static logout = async () => {
+    try {
+      await signOut(auth);
     } catch (e: any) {
       console.log(e);
       throw e.message;
