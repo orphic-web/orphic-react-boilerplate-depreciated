@@ -6,9 +6,9 @@ import './Layout.css';
 const Layout: React.FC = () => {
   const navigate = useNavigate();
 
-  const logout = () => {
+  const logout = async () => {
     try {
-      UserService.logout();
+      await UserService.logout();
       navigate('/login');
     } catch (e: any) {
       console.log(e);
