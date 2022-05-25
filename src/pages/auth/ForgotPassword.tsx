@@ -13,15 +13,27 @@ import {
   Box,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/formFields/TextInput';
 import EmailService from '../../services/EmailService';
 import CustomAlert from '../../components/alert/CustomAlert';
+import { useAppSelector } from '../../store/Hooks';
 
 const ForgotPassword: React.FC = () => {
   const [globalMsg, setGlobalMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState('error');
+  const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      if (firebaseUser) navigate('/');
+    } catch (e: any) {
+      console.log(e);
+    }
+  }, [firebaseUser]);
 
   const sendResetPasswordLink = async (values: any) => {
     try {

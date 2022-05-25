@@ -13,23 +13,34 @@ import {
   Box, IconButton, InputAdornment,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/formFields/TextInput';
 import Checkbox from '../../components/formFields/Checkbox';
 import UserService from '../../services/UserService';
 import CustomAlert from '../../components/alert/CustomAlert';
+import { useAppSelector } from '../../store/Hooks';
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [globalMsg, setGlobalMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
+  const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
+
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    try {
+      if (firebaseUser) navigate('/');
+    } catch (e: any) {
+      console.log(e);
+    }
+  }, [firebaseUser]);
 
   const login = async (values: any) => {
     try {

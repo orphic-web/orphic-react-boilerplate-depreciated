@@ -13,18 +13,20 @@ import {
   Box, IconButton, InputAdornment,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/formFields/TextInput';
 import UserService from '../../services/UserService';
 import CustomAlert from '../../components/alert/CustomAlert';
+import { useAppSelector } from '../../store/Hooks';
 
 const Signup: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [globalMsg, setGlobalMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
   const navigate = useNavigate();
+  const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -40,6 +42,14 @@ const Signup: React.FC = () => {
       setGlobalMsg('We could not create an account at the moment, try again later.');
     }
   };
+
+  useEffect(() => {
+    try {
+      if (firebaseUser) navigate('/');
+    } catch (e: any) {
+      console.log(e);
+    }
+  }, [firebaseUser]);
 
   return (
     <>
