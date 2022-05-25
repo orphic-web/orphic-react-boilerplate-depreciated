@@ -76,9 +76,10 @@ const Signup: React.FC = () => {
 
       >
         {(formikProps) => (
-          <Container maxWidth='md'>
+          <Container maxWidth='md' >
             <Box
               sx={{
+                position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -89,6 +90,7 @@ const Signup: React.FC = () => {
                 maxWidth: '800px',
               }}
             >
+
               <Avatar sx={{ m: '0 auto 15px auto', bgcolor: 'secondary.dark' }}>
                 <LockOutlinedIcon style={{ color: '#fdfdfd' }} />
               </Avatar>

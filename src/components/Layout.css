@@ -14,3 +14,12 @@ nav a button {
 nav a {
   text-decoration: none;
 }
+
+.layout__absolute-nav {
+  position: absolute;
+  width: 100%;
+  padding: 10px 10px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

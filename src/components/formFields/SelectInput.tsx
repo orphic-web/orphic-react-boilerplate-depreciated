@@ -13,6 +13,7 @@ interface ContainerProps {
   size?: 'small' | 'medium' | undefined,
   renderValue?: any,
   readOnly?: boolean,
+  multiple?: boolean,
   sx?: any,
   margin?: 'none' | 'dense' | 'normal' | undefined,
 }
@@ -27,6 +28,7 @@ const SelectInput: React.FC<FieldHookConfig<string> & ContainerProps> = ({
   readOnly,
   sx,
   margin,
+  multiple,
   children,
   ...props
 }) => {
@@ -54,14 +56,14 @@ const SelectInput: React.FC<FieldHookConfig<string> & ContainerProps> = ({
         id={props.id}
         label={label}
         labelId={`${labelId}-${label}`}
-        multiple
+        multiple={multiple}
         type={props.type}
         autoFocus={props.autoFocus}
         autoComplete={props.autoComplete}
         size={size}
         color={color}
         inputProps={{ readOnly }}
-        renderValue={(value) => `⚠️  - ${value}`}
+        renderValue={renderValue}
         autoWidth={false}
         {...field}
       >
