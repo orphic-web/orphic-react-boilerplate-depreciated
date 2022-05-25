@@ -33,7 +33,6 @@ const Signup: React.FC = () => {
   const createAccount = async (values: any) => {
     try {
       await UserService.createAccount(values.email, values.password, 'fr');
-      throw Error('asdasdasd');
       navigate('/');
     } catch (e: any) {
       console.log(e);
@@ -168,7 +167,7 @@ const Signup: React.FC = () => {
           </Container>
         )}
       </Formik>
-      <CustomAlert open={openAlert} severity="error" message={globalMsg} setOpen={setOpenAlert}/>
+      <CustomAlert open={openAlert} severity='error' message={globalMsg} setOpen={setOpenAlert}/>
     </>
 
   );
