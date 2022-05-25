@@ -7,4 +7,5 @@ Load all fonts here
   text-align: center;
   background-color: var(--dark);
   min-height: 100vh;
+  position: relative;
 }

@@ -2,6 +2,7 @@ import {
   setPersistence, signInWithEmailAndPassword, signOut, browserSessionPersistence, browserLocalPersistence, createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
+import EmailService from './EmailService';
 
 class UserService {
   static login = async (email: string, password: string, browserPersistence: boolean) => {
@@ -18,7 +19,6 @@ class UserService {
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (e: any) {
-      console.log(e);
       throw e.message;
     }
   };
@@ -26,13 +26,14 @@ class UserService {
   static createAccount = async (email: string, password: string, language: string) => {
     try {
       const firebaseUser = await createUserWithEmailAndPassword(auth, email, password);
+
+      await EmailService.sendVerificationEmail();
       // const createUserAccount = functions.httpsCallable('user-createUserAccount');
       // await createUserAccount({
       //   userId: firebaseUser.user?.uid, email, name, birthDate: birthDate.toDateString(), language,
       // });
       return firebaseUser;
     } catch (e: any) {
-      console.log(e.message);
       throw e.message;
     }
   };
@@ -41,7 +42,6 @@ class UserService {
     try {
       await signOut(auth);
     } catch (e: any) {
-      console.log(e);
       throw e.message;
     }
   };
