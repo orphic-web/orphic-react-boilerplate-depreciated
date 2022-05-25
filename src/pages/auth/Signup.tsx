@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 
 import * as yup from 'yup';
 
-import './Login.css';
+import './Signup.css';
 import {
   Box, IconButton, InputAdornment,
 } from '@mui/material';
@@ -52,7 +52,7 @@ const Signup: React.FC = () => {
   }, [firebaseUser]);
 
   return (
-    <>
+    <div className='signup__container'>
       <Formik
         initialValues={{
           email: '',
@@ -166,7 +166,7 @@ const Signup: React.FC = () => {
                   xs='auto'
                   md={6}
                   sx={{
-                    textAlign: 'right',
+                    textAlign: 'left',
                   }}>
                   <Link href="/login" variant="body2">
                   Already have an account?
@@ -178,7 +178,7 @@ const Signup: React.FC = () => {
         )}
       </Formik>
       <CustomAlert open={openAlert} severity='error' message={globalMsg} setOpen={setOpenAlert}/>
-    </>
+    </div>
 
   );
 };

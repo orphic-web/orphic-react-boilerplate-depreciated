@@ -54,7 +54,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <>
+    <div className='login__container'>
       <Formik
         initialValues={{
           email: '',
@@ -175,7 +175,7 @@ const Login: React.FC = () => {
         )}
       </Formik>
       <CustomAlert open={openAlert} severity="error" message={globalMsg} setOpen={setOpenAlert}/>
-    </>
+    </div>
 
   );
 };

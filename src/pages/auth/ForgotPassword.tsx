@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 
 import * as yup from 'yup';
 
-import './Login.css';
+import './ForgotPassword.css';
 import {
   Box,
 } from '@mui/material';
@@ -50,7 +50,7 @@ const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <>
+    <div className='forgotPassword__container'>
       <Formik
         initialValues={{
           email: '',
@@ -116,7 +116,7 @@ const ForgotPassword: React.FC = () => {
                   xs='auto'
                   md={6}
                   sx={{
-                    textAlign: 'right',
+                    textAlign: 'left',
                   }}>
                   <Link href="/login" variant="body2">
                   back to login
@@ -128,7 +128,7 @@ const ForgotPassword: React.FC = () => {
         )}
       </Formik>
       <CustomAlert open={openAlert} severity={alertSeverity} message={globalMsg} setOpen={setOpenAlert}/>
-    </>
+    </div>
   );
 };
 
