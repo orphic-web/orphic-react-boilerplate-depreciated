@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/formFields/TextInput';
 import EmailService from '../../services/EmailService';
-import CustomAlert from '../../components/alert/CustomAlert';
+import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
 
 const ForgotPassword: React.FC = () => {

@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/formFields/TextInput';
 import Checkbox from '../../components/formFields/Checkbox';
 import UserService from '../../services/UserService';
-import CustomAlert from '../../components/alert/CustomAlert';
+import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
 
 const Login: React.FC = () => {

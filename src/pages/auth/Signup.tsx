@@ -18,7 +18,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/formFields/TextInput';
 import UserService from '../../services/UserService';
-import CustomAlert from '../../components/alert/CustomAlert';
+import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
 
 const Signup: React.FC = () => {
