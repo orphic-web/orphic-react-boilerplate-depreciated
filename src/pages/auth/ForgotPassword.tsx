@@ -21,13 +21,18 @@ import CustomAlert from '../../components/alert/CustomAlert';
 const ForgotPassword: React.FC = () => {
   const [globalMsg, setGlobalMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
+  const [alertSeverity, setAlertSeverity] = useState('error');
 
   const sendResetPasswordLink = async (values: any) => {
     try {
       await EmailService.sendResetPasswordLink(values.email);
+      setGlobalMsg('An email as been sent, if the user exists.');
+      setAlertSeverity('success');
+      setOpenAlert(true);
     } catch (e: any) {
       console.log(e);
       setOpenAlert(false);
+      setAlertSeverity('error');
       setGlobalMsg('We could not send password reset link at the moment, try again later.');
     }
   };
@@ -110,7 +115,7 @@ const ForgotPassword: React.FC = () => {
           </Container>
         )}
       </Formik>
-      <CustomAlert open={openAlert} severity="error" message={globalMsg} setOpen={setOpenAlert}/>
+      <CustomAlert open={openAlert} severity={alertSeverity} message={globalMsg} setOpen={setOpenAlert}/>
     </>
   );
 };

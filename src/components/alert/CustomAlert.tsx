@@ -1,11 +1,11 @@
 import { Collapse, Container, IconButton } from '@mui/material';
-import Alert, { AlertColor } from '@mui/material/Alert';
+import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import './CustomAlert.css';
 import { useEffect, useState } from 'react';
 
 interface ContainerProps {
-  severity: AlertColor,
+  severity: any,
   message: string,
   open: boolean,
   setOpen: any
