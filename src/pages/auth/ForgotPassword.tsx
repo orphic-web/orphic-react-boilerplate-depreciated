@@ -10,8 +10,9 @@ import * as yup from 'yup';
 
 import './ForgotPassword.css';
 import {
-  Box, TextField,
+  Box,
 } from '@mui/material';
+import { TextField } from 'formik-mui';
 import { Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
