@@ -1,0 +1,75 @@
+{
+  "pages": {
+    "authPages": {
+      "login": {},
+      "register": {
+        "createAccount": {},
+        "createFamily": {},
+        "joinFamily": {},
+        "checkout": {},
+        "chooseAvatar": {},
+        "choosePlan": {},
+        "buyPowerplug": {}
+      }
+    },
+    "notFound": {}
+  },
+  "menu": {
+    "dashboard": {
+      "en": "Dashboard",
+      "fr": "Tableau de bord"
+    },
+    "login": {
+      "en": "Login",
+      "fr": "Se connecter"
+    },
+    "signup": {
+      "en": "Signup",
+      "fr": "Débuter"
+    },
+    "language": {
+      "en": "FR",
+      "fr": "EN"
+    },
+    "logout": {
+      "en": "Logout",
+      "fr": "Se déconnecter"
+    }
+  },
+  "models": {
+    "user": {
+      "email": {
+        "en": "Email",
+        "fr": "Courriel"
+      },
+      "name": {
+        "en": "Name",
+        "fr": "Nom"
+      }
+    },
+    "enums": {
+      "AvailableLanguages": {
+        "FR": {
+          "en": "EN",
+          "fr": "FR",
+          "default": "EN"
+        },
+        "EN": {
+          "en": "EN",
+          "fr": "FR",
+          "default": "EN"
+        }
+      },
+      "TestEnum": {
+        "FR": {
+          "en": "FR",
+          "fr": "FR"
+        },
+        "EN": {
+          "en": "EN",
+          "fr": "EN"
+        }
+      }
+    }
+  }
+}

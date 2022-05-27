@@ -1,37 +1,26 @@
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import AvailableLanguages from '../models/enums/AvailableLanguages';
-import UserService from '../services/UserService';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
 import { updateLanguage } from '../store/slices/UserSlice';
 import CustomAlert from './CustomAlert';
 import './Layout.css';
+import Sidebar from './Sidebar';
 
 const Layout: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
   const language = useAppSelector((state) => state.user.language);
   const dispatch = useAppDispatch();
 
-  const navigate = useNavigate();
-
-  const [show, setShow] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [globalMsg, setGlobalMsg] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
 
-  const logout = async () => {
-    try {
-      await UserService.logout();
-      navigate('/login');
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
     try {
-      if (!firebaseUser) setShow(false);
-      else setShow(true);
+      if (!firebaseUser) setLoggedIn(false);
+      else setLoggedIn(true);
     } catch (e: any) {
       console.log(e);
     }
@@ -51,12 +40,8 @@ const Layout: React.FC = () => {
   return (
     <>
       {
-        show
-          ? <nav>
-            <Button onClick={() => navigate('/login')} variant="contained">Login</Button>
-            <Button onClick={() => navigate('/signup')} variant="contained">Signup</Button>
-            <Button color='light' onClick={() => logout()} variant="contained">Logout</Button>
-          </nav>
+        loggedIn
+          ? <Sidebar />
           : <nav className="layout__absolute-nav">
             <Button
               onClick={() => toggleLanguage()}
@@ -65,10 +50,9 @@ const Layout: React.FC = () => {
             >
               {language}
             </Button>
-
           </nav>
       }
-      <div className="content">
+      <div className={`content ${loggedIn ? 'with-sidebar' : ''}`}>
         <Outlet />
         <CustomAlert open={openAlert} severity='error' message={globalMsg} setOpen={setOpenAlert}/>
       </div>

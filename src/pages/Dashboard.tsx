@@ -1,7 +1,6 @@
 import './Dashboard.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../theme/assets/logo.svg';
 import { useAppSelector } from '../store/Hooks';
 
 const Dashboard: React.FC = () => {
@@ -25,7 +24,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard">
-      <img src={logo} className="dashboard__logo" alt="logo" />
       <h1>React boilerplate</h1>
       <a
         className="dashboard__link"
