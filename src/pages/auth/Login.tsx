@@ -10,14 +10,13 @@ import * as yup from 'yup';
 
 import './Login.css';
 import {
-  Box, IconButton, InputAdornment,
+  Box, FormControlLabel, IconButton, InputAdornment,
 } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import TextInput from '../../components/formFields/TextInput';
-import Checkbox from '../../components/formFields/Checkbox';
+import { Switch, TextField } from 'formik-mui';
 import UserService from '../../services/UserService';
 import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
@@ -59,9 +58,8 @@ const Login: React.FC = () => {
         initialValues={{
           email: '',
           password: '',
-          stayConnected: true,
+          rememberMe: true,
         }}
-        validateOnBlur={false}
         validationSchema={yup.object({
           email: yup.string()
             .email('Email is invalid')
@@ -96,19 +94,21 @@ const Login: React.FC = () => {
             Sign in
               </Typography>
               <Form className="login__form-container">
-                <TextInput
-                  name='email'
-                  label="Email"
-                  autoComplete="email"
+                <Field
+                  component={TextField}
+                  name="email"
                   type="email"
-                  required
+                  label="Email"
+                  margin='normal'
+                  fullWidth
                 />
-                <TextInput
-                  name='password'
-                  label="Password"
+                <Field
+                  component={TextField}
+                  name="password"
+                  margin='normal'
                   type={showPassword ? 'text' : 'password'}
-                  autoComplete="current-password"
-                  required
+                  label="Password"
+                  fullWidth
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -124,12 +124,11 @@ const Login: React.FC = () => {
                     ),
                   }}
                 />
-                <Checkbox
-                  name='stayConnected'
-                  label='Remember me'
-                  color='primary'
-                  fullWidth={false}
-                  checked={formikProps.values.stayConnected}
+                <FormControlLabel
+                  control={
+                    <Field component={Switch} type="checkbox" name="rememberMe" />
+                  }
+                  label="Remember Me"
                 />
                 <Button
                   type="submit"

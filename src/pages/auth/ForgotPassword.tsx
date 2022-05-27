@@ -10,12 +10,11 @@ import * as yup from 'yup';
 
 import './ForgotPassword.css';
 import {
-  Box,
+  Box, TextField,
 } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TextInput from '../../components/formFields/TextInput';
 import EmailService from '../../services/EmailService';
 import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
@@ -55,7 +54,6 @@ const ForgotPassword: React.FC = () => {
         initialValues={{
           email: '',
         }}
-        validateOnBlur={false}
         validationSchema={yup.object({
           email: yup.string()
             .email('Email is invalid')
@@ -88,12 +86,13 @@ const ForgotPassword: React.FC = () => {
             Reset your password
               </Typography>
               <Form className="login__form-container">
-                <TextInput
-                  name='email'
-                  label="Email"
-                  autoComplete="email"
+                <Field
+                  component={TextField}
+                  name="email"
                   type="email"
-                  required
+                  label="Email"
+                  margin='normal'
+                  fullWidth
                 />
                 <Button
                   type="submit"

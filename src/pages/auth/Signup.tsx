@@ -12,11 +12,11 @@ import './Signup.css';
 import {
   Box, IconButton, InputAdornment,
 } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import TextInput from '../../components/formFields/TextInput';
+import { TextField } from 'formik-mui';
 import UserService from '../../services/UserService';
 import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
@@ -59,23 +59,24 @@ const Signup: React.FC = () => {
           password: '',
           passwordConfirmation: '',
         }}
-        validateOnBlur={false}
         validationSchema={yup.object({
           email: yup.string()
             .email('Email is invalid')
             .required('Required'),
-          password: yup.string().required('Required'),
+          password: yup.string().min(6).required('Required'),
           passwordConfirmation: yup.string()
             .required('Requis')
             .oneOf([yup.ref('password'), null], 'Passwords must match'),
         })}
         onSubmit={(values, { setSubmitting }) => {
+          console.log(values);
           createAccount(values);
           setSubmitting(false);
         }}
 
       >
         {(formikProps) => (
+
           <Container maxWidth='md' >
             <Box
               sx={{
@@ -90,27 +91,28 @@ const Signup: React.FC = () => {
                 maxWidth: '800px',
               }}
             >
-
               <Avatar sx={{ m: '0 auto 15px auto', bgcolor: 'secondary.dark' }}>
                 <LockOutlinedIcon style={{ color: '#fdfdfd' }} />
               </Avatar>
               <Typography component="h1" variant="h5">
             Create your account
               </Typography>
-              <Form className="login__form-container">
-                <TextInput
-                  name='email'
-                  label="Email"
-                  autoComplete="email"
+              <Form onSubmit={formikProps.handleSubmit} className="login__form-container">
+                <Field
+                  component={TextField}
+                  name="email"
                   type="email"
-                  required
+                  label="Email"
+                  margin='normal'
+                  fullWidth
                 />
-                <TextInput
-                  name='password'
-                  label="Password"
+                <Field
+                  component={TextField}
+                  name="password"
+                  margin='normal'
                   type={showPassword ? 'text' : 'password'}
-                  autoComplete="current-password"
-                  required
+                  label="Password"
+                  fullWidth
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -126,12 +128,13 @@ const Signup: React.FC = () => {
                     ),
                   }}
                 />
-                <TextInput
-                  name='passwordConfirmation'
-                  label="Password Confirmation"
+                <Field
+                  component={TextField}
+                  name="passwordConfirmation"
+                  margin='normal'
                   type={showPassword ? 'text' : 'password'}
-                  autoComplete="current-password"
-                  required
+                  label="Password Confirmation"
+                  fullWidth
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -143,7 +146,6 @@ const Signup: React.FC = () => {
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-
                     ),
                   }}
                 />
