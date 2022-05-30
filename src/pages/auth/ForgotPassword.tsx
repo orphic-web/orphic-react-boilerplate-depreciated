@@ -14,38 +14,34 @@ import {
 } from '@mui/material';
 import { TextField } from 'formik-mui';
 import { Field, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import EmailService from '../../services/EmailService';
-import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
+import AlertUtil from '../../utils/AlertUtil';
+import AlertSeverity from '../../models/enums/AlertSeverity';
 
 const ForgotPassword: React.FC = () => {
-  const [globalMsg, setGlobalMsg] = useState('');
-  const [openAlert, setOpenAlert] = useState(false);
-  const [alertSeverity, setAlertSeverity] = useState('error');
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
       console.log(e);
+      AlertUtil.createAlert(AlertSeverity.ERROR, 'An error occured, try again later.', dispatch);
     }
   }, [firebaseUser]);
 
   const sendResetPasswordLink = async (values: any) => {
     try {
       await EmailService.sendResetPasswordLink(values.email);
-      setGlobalMsg('An email as been sent, if the user exists.');
-      setAlertSeverity('success');
-      setOpenAlert(true);
+      AlertUtil.createAlert(AlertSeverity.SUCCESS, 'An email has been sent to reset your password.', dispatch);
     } catch (e: any) {
-      console.log(e);
-      setOpenAlert(false);
-      setAlertSeverity('error');
-      setGlobalMsg('We could not send password reset link at the moment, try again later.');
+      AlertUtil.createAlert(AlertSeverity.ERROR, 'We could not send a password reset email at the moment.', dispatch);
     }
   };
 
@@ -127,7 +123,6 @@ const ForgotPassword: React.FC = () => {
           </Container>
         )}
       </Formik>
-      <CustomAlert open={openAlert} severity={alertSeverity} message={globalMsg} setOpen={setOpenAlert}/>
     </div>
   );
 };

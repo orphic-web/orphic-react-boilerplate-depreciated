@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 import createTheme from '@mui/material/styles/createTheme';
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import { ThemeProvider, CssBaseline, Button } from '@mui/material';
 import { useEffect } from 'react';
 import Layout from './components/Layout';
 import Login from './pages/auth/Login';
@@ -15,6 +15,9 @@ import AvailableLanguages from './models/enums/AvailableLanguages';
 import { auth } from './FirebaseConfig';
 import { useAppDispatch } from './store/Hooks';
 import { updateFirebaseUser, updateLanguage } from './store/slices/UserSlice';
+import AlertsManager from './components/AlertsManager';
+import AlertUtil from './utils/AlertUtil';
+import AlertSeverity from './models/enums/AlertSeverity';
 
 function App() {
   const theme = createTheme(themeConfig);
@@ -61,6 +64,11 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        <Button style={{ position: 'absolute', top: '100px', left: '100px' }}
+          onClick={() => AlertUtil.createAlert(AlertSeverity.SUCCESS, 'laksdjlaksjdlakjsdlkajsldk', dispatch)}>
+            try me ~ 1
+        </Button>
+        <AlertsManager/>
       </div>
     </ThemeProvider>
 

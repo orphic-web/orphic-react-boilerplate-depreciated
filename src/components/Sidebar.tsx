@@ -11,7 +11,6 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
 import AvailableLanguages from '../models/enums/AvailableLanguages';
 import { updateLanguage } from '../store/slices/UserSlice';
-import CustomAlert from './CustomAlert';
 import UserService from '../services/UserService';
 import Logo from '../theme/assets/logo.svg';
 import Hamburger from './Hamburger';
@@ -26,8 +25,6 @@ const Sidebar: React.FC = () => {
 
   const [navOpen, setnavOpen] = useState(false);
   const [menuBusy, setMenuBusy] = useState(false);
-  const [globalMsg, setGlobalMsg] = useState('');
-  const [openAlert, setOpenAlert] = useState(false);
 
   const toggleMenu = (e: any) => {
     if (menuBusy) return;
@@ -50,8 +47,6 @@ const Sidebar: React.FC = () => {
       else dispatch(updateLanguage(AvailableLanguages.EN));
     } catch (e: any) {
       console.log(e);
-      setOpenAlert(true);
-      setGlobalMsg('We could change language, try again later.');
     }
   };
 
@@ -146,7 +141,6 @@ const Sidebar: React.FC = () => {
           </Button>
         </div>
       </div>
-      <CustomAlert open={openAlert} severity='error' message={globalMsg} setOpen={setOpenAlert}/>
     </>
   );
 };

@@ -1,7 +1,4 @@
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -10,24 +7,25 @@ import * as yup from 'yup';
 
 import './Login.css';
 import {
-  Box, FormControlLabel, IconButton, InputAdornment,
+  Box, Button, FormControlLabel, Grid, IconButton, InputAdornment, Link,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { Switch, TextField } from 'formik-mui';
+import { useDispatch } from 'react-redux';
 import UserService from '../../services/UserService';
-import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
+import AlertUtil from '../../utils/AlertUtil';
+import AlertSeverity from '../../models/enums/AlertSeverity';
 
 const Login: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [globalMsg, setGlobalMsg] = useState('');
-  const [openAlert, setOpenAlert] = useState(false);
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -46,9 +44,7 @@ const Login: React.FC = () => {
       await UserService.login(values.email, values.password, values.stayConnected);
       navigate('/');
     } catch (e: any) {
-      console.log(e);
-      setOpenAlert(true);
-      setGlobalMsg('We could not authentificate you at the moment, try again later.');
+      AlertUtil.createAlert(AlertSeverity.ERROR, 'We could not logged you in at the moment.', dispatch);
     }
   };
 
@@ -173,7 +169,6 @@ const Login: React.FC = () => {
           </Container>
         )}
       </Formik>
-      <CustomAlert open={openAlert} severity="error" message={globalMsg} setOpen={setOpenAlert}/>
     </div>
 
   );

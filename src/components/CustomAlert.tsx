@@ -1,92 +1,67 @@
-import { Collapse, Container, IconButton } from '@mui/material';
-import Alert from '@mui/material/Alert';
+import { Alert, Collapse, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import './CustomAlert.css';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { removeAlert } from '../store/slices/AlertSlice';
+import AlertSeverity from '../models/enums/AlertSeverity';
 
 interface ContainerProps {
-  severity: any,
+  severity: AlertSeverity,
   message: string,
-  open: boolean,
-  setOpen: any
-  delay?: number,
+  id?: string,
+  alert: any,
 }
 const CustomAlert: React.FC<ContainerProps> = ({
-  open, severity, message, setOpen, delay,
+  severity, message, alert,
 }) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setShow(open);
-    if (open) {
-      const timer = setTimeout(() => {
-        setShow(false);
-        setOpen(false);
-      }, delay);
-
-      return () => {
-        clearTimeout(timer);
-      };
+    try {
+      if (alert.dismiss) setShow(false);
+    } catch (e: any) {
+      console.log(e);
     }
-    setShow(false);
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return () => {};
-  }, [open]);
+  }, [alert]);
 
   const toggleAlert = () => {
     try {
-      setOpen(!open);
       setShow(!show);
+      dispatch(removeAlert(alert.id));
     } catch (e: any) {
       console.log(e);
     }
   };
 
   return (
-    <Container
+    <Collapse
       sx={{
-        width: '100%',
-        position: 'fixed',
-        bottom: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        padding: 0,
+        maxWidth: '800px',
       }}
-    >
-      <Collapse in={show}>
-        <Alert
-          severity={severity}
-          sx={{
-            width: '100%',
-            maxWidth: '800px',
-          }}
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                toggleAlert();
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          {message}
-        </Alert>
-      </Collapse>
-
-    </Container>
+      in={show}>
+      <Alert
+        severity={severity}
+        sx={{
+          width: '100%',
+          maxWidth: '800px',
+        }}
+        action={
+          <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={() => {
+              toggleAlert();
+            }}>
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+        }>
+        {message}
+      </Alert>
+    </Collapse>
   );
-};
-
-CustomAlert.defaultProps = {
-  severity: 'success',
-  open: false,
-  message: 'Something is wrong, try again later.',
-  delay: 4000,
 };
 
 export default CustomAlert;

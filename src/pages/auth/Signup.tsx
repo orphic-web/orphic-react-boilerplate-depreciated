@@ -17,16 +17,18 @@ import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { TextField } from 'formik-mui';
+import { useDispatch } from 'react-redux';
 import UserService from '../../services/UserService';
-import CustomAlert from '../../components/CustomAlert';
 import { useAppSelector } from '../../store/Hooks';
+import AlertSeverity from '../../models/enums/AlertSeverity';
+import AlertUtil from '../../utils/AlertUtil';
 
 const Signup: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [globalMsg, setGlobalMsg] = useState('');
-  const [openAlert, setOpenAlert] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -37,9 +39,7 @@ const Signup: React.FC = () => {
       await UserService.createAccount(values.email, values.password, 'fr');
       navigate('/');
     } catch (e: any) {
-      console.log(e);
-      setOpenAlert(true);
-      setGlobalMsg('We could not create an account at the moment, try again later.');
+      AlertUtil.createAlert(AlertSeverity.ERROR, 'A problem occured. Reload page if needed.', dispatch);
     }
   };
 
@@ -47,7 +47,7 @@ const Signup: React.FC = () => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
-      console.log(e);
+      AlertUtil.createAlert(AlertSeverity.ERROR, 'A problem occured. Reload page if needed.', dispatch);
     }
   }, [firebaseUser]);
 
@@ -69,14 +69,11 @@ const Signup: React.FC = () => {
             .oneOf([yup.ref('password'), null], 'Passwords must match'),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           createAccount(values);
           setSubmitting(false);
         }}
-
       >
         {(formikProps) => (
-
           <Container maxWidth='md' >
             <Box
               sx={{
@@ -181,7 +178,6 @@ const Signup: React.FC = () => {
           </Container>
         )}
       </Formik>
-      <CustomAlert open={openAlert} severity='error' message={globalMsg} setOpen={setOpenAlert}/>
     </div>
 
   );

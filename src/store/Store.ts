@@ -1,9 +1,11 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { userSlice } from './slices/UserSlice';
+import { alertSlice } from './slices/AlertSlice';
 
 const store = configureStore({
   reducer: {
     user: userSlice.reducer,
+    alert: alertSlice.reducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,

@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom';
 import AvailableLanguages from '../models/enums/AvailableLanguages';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
 import { updateLanguage } from '../store/slices/UserSlice';
-import CustomAlert from './CustomAlert';
 import './Layout.css';
 import Sidebar from './Sidebar';
 
@@ -14,8 +13,6 @@ const Layout: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const [loggedIn, setLoggedIn] = useState(true);
-  const [globalMsg, setGlobalMsg] = useState('');
-  const [openAlert, setOpenAlert] = useState(false);
 
   useEffect(() => {
     try {
@@ -32,8 +29,6 @@ const Layout: React.FC = () => {
       else dispatch(updateLanguage(AvailableLanguages.EN));
     } catch (e: any) {
       console.log(e);
-      setOpenAlert(true);
-      setGlobalMsg('We could change language, try again later.');
     }
   };
 
@@ -54,7 +49,6 @@ const Layout: React.FC = () => {
       }
       <div className={`content ${loggedIn ? 'with-sidebar' : ''}`}>
         <Outlet />
-        <CustomAlert open={openAlert} severity='error' message={globalMsg} setOpen={setOpenAlert}/>
       </div>
     </>
   );
