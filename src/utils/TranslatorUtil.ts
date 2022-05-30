@@ -37,7 +37,7 @@ class TranslatorUtils {
    *
    * @returns {string | boolean} the translated value or false if value was not found in translator
    */
-  getTranslatedEnumValue = (language: string, values: string, value: string): string | boolean => {
+  static getTranslatedEnumValue = (language: string, values: string, value: string): string | boolean => {
     try {
       // Get all the enums
       const enums = Object.entries(translator.models.enums);
@@ -70,7 +70,7 @@ class TranslatorUtils {
    * @param {enum} values
    * @returns {Array<{ string, string }>} an array of options
    */
-  optionsFromEnum = (values: any) => {
+  static optionsFromEnum = (values: any) => {
     const options: any[] = [];
     (Object.keys(values) as (keyof typeof values)[]).map(
       (key, index) => options.push(

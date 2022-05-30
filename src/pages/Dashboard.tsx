@@ -1,15 +1,13 @@
 import './Dashboard.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../store/Hooks';
-import AlertUtil from '../utils/AlertUtil';
-import AlertSeverity from '../models/enums/AlertSeverity';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -23,7 +21,7 @@ const Dashboard: React.FC = () => {
       };
     } catch (e: any) {
       console.log(e);
-      AlertUtil.createAlert(AlertSeverity.ERROR, 'An error occured, try again later.', dispatch);
+      // AlertUtil.createAlert(AlertSeverity.ERROR, 'An error occured, try again later.', dispatch);
     }
   }, [firebaseUser]);
 

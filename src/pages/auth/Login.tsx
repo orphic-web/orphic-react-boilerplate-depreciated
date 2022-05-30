@@ -17,11 +17,12 @@ import { Switch, TextField } from 'formik-mui';
 import { useDispatch } from 'react-redux';
 import UserService from '../../services/UserService';
 import { useAppSelector } from '../../store/Hooks';
-import AlertUtil from '../../utils/AlertUtil';
-import AlertSeverity from '../../models/enums/AlertSeverity';
+import ErrorService from '../../services/ErrorService';
 
 const Login: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
+  const language = useAppSelector((state) => state.user.language);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,7 +45,7 @@ const Login: React.FC = () => {
       await UserService.login(values.email, values.password, values.stayConnected);
       navigate('/');
     } catch (e: any) {
-      AlertUtil.createAlert(AlertSeverity.ERROR, 'We could not logged you in at the moment.', dispatch);
+      ErrorService.handleHTTPError(e, language, dispatch);
     }
   };
 

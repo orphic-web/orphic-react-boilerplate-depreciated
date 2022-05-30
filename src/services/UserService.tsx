@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import {
   setPersistence, signInWithEmailAndPassword, signOut, browserSessionPersistence, browserLocalPersistence, createUserWithEmailAndPassword,
 } from 'firebase/auth';
@@ -19,7 +20,7 @@ class UserService {
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (e: any) {
-      throw e.message;
+      throw e;
     }
   };
 
@@ -34,7 +35,7 @@ class UserService {
       // });
       return firebaseUser;
     } catch (e: any) {
-      throw e.message;
+      throw e;
     }
   };
 
@@ -42,7 +43,7 @@ class UserService {
     try {
       await signOut(auth);
     } catch (e: any) {
-      throw e.message;
+      throw e;
     }
   };
 }

@@ -17,15 +17,13 @@ import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { TextField } from 'formik-mui';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import UserService from '../../services/UserService';
 import { useAppSelector } from '../../store/Hooks';
-import AlertSeverity from '../../models/enums/AlertSeverity';
-import AlertUtil from '../../utils/AlertUtil';
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -39,7 +37,8 @@ const Signup: React.FC = () => {
       await UserService.createAccount(values.email, values.password, 'fr');
       navigate('/');
     } catch (e: any) {
-      AlertUtil.createAlert(AlertSeverity.ERROR, 'A problem occured. Reload page if needed.', dispatch);
+      console.log(e);
+      // AlertUtil.createAlert(AlertSeverity.ERROR, 'A problem occured. Reload page if needed.', dispatch);
     }
   };
 
@@ -47,7 +46,8 @@ const Signup: React.FC = () => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
-      AlertUtil.createAlert(AlertSeverity.ERROR, 'A problem occured. Reload page if needed.', dispatch);
+      console.log(e);
+      // AlertUtil.createAlert(AlertSeverity.ERROR, 'A problem occured. Reload page if needed.', dispatch);
     }
   }, [firebaseUser]);
 

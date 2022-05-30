@@ -48,6 +48,12 @@
       }
     },
     "enums": {
+      "FirebaseErrorMessages": {
+        "AUTH_USER_NOT_FOUND": {
+          "en": "We could not find a user with those credentials.",
+          "fr": "Nous n'avons pas trouvé d'utilisateur avec ces informations."
+        }
+      },
       "AvailableLanguages": {
         "FR": {
           "en": "EN",

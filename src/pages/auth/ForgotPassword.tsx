@@ -20,7 +20,6 @@ import { useDispatch } from 'react-redux';
 import EmailService from '../../services/EmailService';
 import { useAppSelector } from '../../store/Hooks';
 import AlertUtil from '../../utils/AlertUtil';
-import AlertSeverity from '../../models/enums/AlertSeverity';
 
 const ForgotPassword: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
@@ -32,16 +31,17 @@ const ForgotPassword: React.FC = () => {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
       console.log(e);
-      AlertUtil.createAlert(AlertSeverity.ERROR, 'An error occured, try again later.', dispatch);
+      // AlertUtil.createAlert(AlertSeverity.ERROR, 'An error occured, try again later.', dispatch);
     }
   }, [firebaseUser]);
 
   const sendResetPasswordLink = async (values: any) => {
     try {
       await EmailService.sendResetPasswordLink(values.email);
-      AlertUtil.createAlert(AlertSeverity.SUCCESS, 'An email has been sent to reset your password.', dispatch);
+      AlertUtil.createSuccessAlert('An email has been sent to reset your password.', dispatch);
     } catch (e: any) {
-      AlertUtil.createAlert(AlertSeverity.ERROR, 'We could not send a password reset email at the moment.', dispatch);
+      console.log(e);
+      // AlertUtil.createAlert(AlertSeverity.ERROR, 'We could not send a password reset email at the moment.', dispatch);
     }
   };
 

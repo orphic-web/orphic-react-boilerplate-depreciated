@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import Alert from '../models/Alert';
 import AlertSeverity from '../models/enums/AlertSeverity';
+import AvailableLanguages from '../models/enums/AvailableLanguages';
 import { createAlert, dismissAlert, removeAlert } from '../store/slices/AlertSlice';
 
 class AlertsUtil {
@@ -11,21 +12,14 @@ class AlertsUtil {
    * @param {any} dispatch
    * @returns {void}
    */
-  static createAlert = async (severity: AlertSeverity, message: string, dispatch: any) => {
+  private static createAlert = async (alert: Alert, dispatch: any) => {
     try {
       let timer2: any;
-      const newAlert = {
-        id: uuid(),
-        severity,
-        message,
-        dismiss: false,
-      } as Alert;
-
-      dispatch(createAlert(newAlert));
+      dispatch(createAlert(alert));
       const timer1 = setTimeout(() => {
-        dispatch(dismissAlert(newAlert.id));
+        dispatch(dismissAlert(alert.id));
         timer2 = setTimeout(() => {
-          dispatch(removeAlert(newAlert.id));
+          dispatch(removeAlert(alert.id));
         }, 1000);
       }, 4000);
 
@@ -36,6 +30,69 @@ class AlertsUtil {
     } catch (e: any) {
       console.log(e);
       return e;
+    }
+  };
+
+  /**
+   * Creates, dismiss and remove an ERROR alert
+   * @param {string} message
+   * @param {AvailableLanguages} language
+   * @param {any} dispatch
+   * @returns {void}
+   */
+  static createErrorAlert = async (message: string, language: AvailableLanguages, dispatch: any) => {
+    try {
+      const alert = {
+        id: uuid(),
+        severity: AlertSeverity.ERROR,
+        message,
+        dismiss: false,
+      } as Alert;
+      await this.createAlert(alert, dispatch);
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+
+  /**
+   * Creates, dismiss and remove an SUCCESS alert
+   * @param {string} message
+   * @param {AvailableLanguages} language
+   * @param {any} dispatch
+   * @returns {void}
+   */
+  static createSuccessAlert = async (message: string, dispatch: any) => {
+    try {
+      const alert = {
+        id: uuid(),
+        severity: AlertSeverity.SUCCESS,
+        message,
+        dismiss: false,
+      } as Alert;
+      await this.createAlert(alert, dispatch);
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+
+  /**
+   * Creates, dismiss and remove an INFO alert
+   * @param {string} message
+   * @param {AvailableLanguages} language
+   * @param {any} dispatch
+   * @returns {void}
+   */
+  static createInfoAlert = async (message: string, dispatch: any) => {
+    try {
+      const alert = {
+        id: uuid(),
+        severity: AlertSeverity.INFO,
+        message,
+        dismiss: false,
+      } as Alert;
+      await this.createAlert(alert, dispatch);
+    } catch (e: any) {
+      console.log(e);
     }
   };
 }

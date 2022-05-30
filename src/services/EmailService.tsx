@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import {
   sendEmailVerification, sendPasswordResetEmail,
 } from 'firebase/auth';
@@ -9,7 +10,7 @@ class EmailService {
       if (!auth.currentUser) throw Error('Could not send verification email.');
       await sendEmailVerification(auth.currentUser);
     } catch (e: any) {
-      throw e.message;
+      throw e;
     }
   };
 
@@ -24,8 +25,7 @@ class EmailService {
       await sendPasswordResetEmail(auth, email, { url: 'http://localhost:3000/login' });
       return true;
     } catch (e: any) {
-      console.log(e.message);
-      throw e.message;
+      throw e;
     }
   };
 }
