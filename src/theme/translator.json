@@ -76,19 +76,19 @@
     "firebase": {
       "auth": {
         "userNotFound": {
-          "en": "Wrong email or password.",
-          "fr": "Mauvais courriel ou mot de passe."
+          "en": "Invalid email or password.",
+          "fr": "L'adresse courriel ou le mot de passe est invalide."
         },
         "networkRequestFailed": {
-          "en": "We have difficulties connecting to our servers, try again later.",
-          "fr": "Nous avons de la difficulté à se connecter à nos serveurs. Réessayer plus tard."
+          "en": "We are having trouble connecting to our servers. Please try again later.",
+          "fr": "Nous avons de la difficulté à nous connecter à nos serveurs. Veuillez réessayer plus tard."
         }
       }
     },
     "general": {
       "unknown": {
-        "en": "An error occured, try again later.",
-        "fr": "Un erreur est survenu, réessayer plus tard."
+        "en": "An error has occured, please try again later.",
+        "fr": "Un erreur est survenue, veuillez réessayer plus tard."
       }
     }
   }
