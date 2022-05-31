@@ -14,16 +14,14 @@ import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { Switch, TextField } from 'formik-mui';
-import { useDispatch } from 'react-redux';
 import UserService from '../../services/UserService';
-import { useAppSelector } from '../../store/Hooks';
+import { useAppSelector, useAppDispatch } from '../../store/Hooks';
 import ErrorService from '../../services/ErrorService';
 
 const Login: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
   const language = useAppSelector((state) => state.user.language);
-
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +34,7 @@ const Login: React.FC = () => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
-      console.log(e);
+      ErrorService.handleHTTPError(e, language, dispatch);
     }
   }, [firebaseUser]);
 
@@ -117,7 +115,6 @@ const Login: React.FC = () => {
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-
                     ),
                   }}
                 />

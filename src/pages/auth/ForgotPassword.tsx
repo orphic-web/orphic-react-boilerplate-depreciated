@@ -16,22 +16,23 @@ import { TextField } from 'formik-mui';
 import { Field, Form, Formik } from 'formik';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../store/Hooks';
 import EmailService from '../../services/EmailService';
-import { useAppSelector } from '../../store/Hooks';
+
 import AlertUtil from '../../utils/AlertUtil';
+import ErrorService from '../../services/ErrorService';
 
 const ForgotPassword: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
+  const language = useAppSelector((state) => state.user.language);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
-      console.log(e);
-      // AlertUtil.createAlert(AlertSeverity.ERROR, 'An error occured, try again later.', dispatch);
+      ErrorService.handleHTTPError(e, language, dispatch);
     }
   }, [firebaseUser]);
 
@@ -40,8 +41,7 @@ const ForgotPassword: React.FC = () => {
       await EmailService.sendResetPasswordLink(values.email);
       AlertUtil.createSuccessAlert('An email has been sent to reset your password.', dispatch);
     } catch (e: any) {
-      console.log(e);
-      // AlertUtil.createAlert(AlertSeverity.ERROR, 'We could not send a password reset email at the moment.', dispatch);
+      ErrorService.handleHTTPError(e, language, dispatch);
     }
   };
 

@@ -25,7 +25,7 @@ const AlertMessages: React.FC = () => {
           minWidth: '325px',
         }}
       >
-        <CustomAlert alert={alert} id={alert.id} severity={alert.severity} message={alert.message} />
+        <CustomAlert alert={alert}/>
       </div>)
     }
   </Container>;

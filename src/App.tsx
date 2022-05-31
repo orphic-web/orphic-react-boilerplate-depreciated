@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -16,6 +17,13 @@ import { auth } from './FirebaseConfig';
 import { useAppDispatch } from './store/Hooks';
 import { updateFirebaseUser, updateLanguage } from './store/slices/UserSlice';
 import AlertsManager from './components/AlertsManager';
+
+// replace console.* for disable log on production
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {};
+  console.error = () => {};
+  console.debug = () => {};
+}
 
 function App() {
   const theme = createTheme(themeConfig);

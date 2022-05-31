@@ -2,21 +2,18 @@ import { Alert, Collapse, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import './CustomAlert.css';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { removeAlert } from '../store/slices/AlertSlice';
-import AlertSeverity from '../models/enums/AlertSeverity';
+import CustomAlertType from '../models/CustomAlert';
+import { useAppDispatch } from '../store/Hooks';
 
 interface ContainerProps {
-  severity: AlertSeverity,
-  message: string,
-  id?: string,
-  alert: any,
+  alert: CustomAlertType,
 }
 const CustomAlert: React.FC<ContainerProps> = ({
-  severity, message, alert,
+  alert,
 }) => {
   const [show, setShow] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     try {
@@ -42,7 +39,7 @@ const CustomAlert: React.FC<ContainerProps> = ({
       }}
       in={show}>
       <Alert
-        severity={severity}
+        severity={alert.severity}
         sx={{
           width: '100%',
           maxWidth: '800px',
@@ -58,7 +55,7 @@ const CustomAlert: React.FC<ContainerProps> = ({
             <CloseIcon fontSize="inherit" />
           </IconButton>
         }>
-        {message}
+        {alert.message}
       </Alert>
     </Collapse>
   );

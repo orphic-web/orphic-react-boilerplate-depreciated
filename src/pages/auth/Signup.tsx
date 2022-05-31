@@ -17,14 +17,15 @@ import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { TextField } from 'formik-mui';
-// import { useDispatch } from 'react-redux';
 import UserService from '../../services/UserService';
-import { useAppSelector } from '../../store/Hooks';
+import { useAppDispatch, useAppSelector } from '../../store/Hooks';
+import ErrorService from '../../services/ErrorService';
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const language = useAppSelector((state) => state.user.language);
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
+  const dispatch = useAppDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -37,8 +38,7 @@ const Signup: React.FC = () => {
       await UserService.createAccount(values.email, values.password, 'fr');
       navigate('/');
     } catch (e: any) {
-      console.log(e);
-      // AlertUtil.createAlert(AlertSeverity.ERROR, 'A problem occured. Reload page if needed.', dispatch);
+      ErrorService.handleHTTPError(e, language, dispatch);
     }
   };
 
@@ -46,8 +46,7 @@ const Signup: React.FC = () => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
-      console.log(e);
-      // AlertUtil.createAlert(AlertSeverity.ERROR, 'A problem occured. Reload page if needed.', dispatch);
+      ErrorService.handleHTTPError(e, language, dispatch);
     }
   }, [firebaseUser]);
 
@@ -94,7 +93,7 @@ const Signup: React.FC = () => {
               <Typography component="h1" variant="h5">
             Create your account
               </Typography>
-              <Form onSubmit={formikProps.handleSubmit} className="login__form-container">
+              <Form className="login__form-container">
                 <Field
                   component={TextField}
                   name="email"
