@@ -78,6 +78,10 @@
         "userNotFound": {
           "en": "Wrong email or password.",
           "fr": "Mauvais courriel ou mot de passe."
+        },
+        "networkRequestFailed": {
+          "en": "We have difficulties connecting to our servers, try again later.",
+          "fr": "Nous avons de la difficulté à se connecter à nos serveurs. Réessayer plus tard."
         }
       }
     },

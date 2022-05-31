@@ -66,8 +66,8 @@ function App() {
               <Route path='login' element={<Login />}/>
               <Route path='signup' element={<Signup />}/>
               <Route path='forgot-password' element={<ForgotPassword />}/>
-              <Route path="*" element={<NotFound />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
         <AlertsManager/>

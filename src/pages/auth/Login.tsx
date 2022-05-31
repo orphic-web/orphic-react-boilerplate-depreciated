@@ -40,7 +40,7 @@ const Login: React.FC = () => {
 
   const login = async (values: any) => {
     try {
-      await UserService.login(values.email, values.password, values.stayConnected);
+      await UserService.login(values.email, values.password, values.rememberMe);
       navigate('/');
     } catch (e: any) {
       ErrorService.handleHTTPError(e, language, dispatch);
@@ -63,6 +63,7 @@ const Login: React.FC = () => {
           stayConnected: yup.boolean(),
         })}
         onSubmit={(values, { setSubmitting }) => {
+          console.log(values);
           login(values);
           setSubmitting(false);
         }}

@@ -13,6 +13,8 @@ class ErrorService {
 
       if (language) ErrorService.currentLanguage = language;
 
+      console.log(language);
+
       if (error instanceof FirebaseError) {
         await ErrorService.handleFirebaseError(error, dispatch);
       } else {
@@ -27,13 +29,18 @@ class ErrorService {
     try {
       switch (error.code) {
         case 'auth/user-not-found': {
-          // Should log the event in firestore.
           const message = await TranslatorUtils.getTranslation(this.currentLanguage, translator.errors.firebase.auth.userNotFound);
           if (message) AlertUtil.createErrorAlert(message as string, dispatch);
           break;
         }
+        case 'auth/network-request-failed': {
+          const message = await TranslatorUtils.getTranslation(this.currentLanguage, translator.errors.firebase.auth.networkRequestFailed);
+          if (message) AlertUtil.createErrorAlert(message as string, dispatch);
+          break;
+        }
         default: {
-          // statements;
+          const message = await TranslatorUtils.getTranslation(this.currentLanguage, translator.errors.general.unknown);
+          if (message) AlertUtil.createErrorAlert(message as string, dispatch);
           break;
         }
       }
@@ -44,7 +51,6 @@ class ErrorService {
 
   static handleGeneralError = async (error: Error, dispatch: any) => {
     try {
-      // Should log the event in firestore.
       const message = await TranslatorUtils.getTranslation(this.currentLanguage, translator.errors.general.unknown);
       if (message) AlertUtil.createErrorAlert(message as string, dispatch);
     } catch (e: any) {

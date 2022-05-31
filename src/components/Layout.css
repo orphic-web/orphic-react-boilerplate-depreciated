@@ -24,6 +24,10 @@ nav a {
   align-items: center;
 }
 
+.content {
+  min-height: 100vh;
+}
+
 .content.with-sidebar {
-  padding-left: 350px;
+  padding-left: 260px;
 }
