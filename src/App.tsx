@@ -16,6 +16,7 @@ import { auth } from './FirebaseConfig';
 import { useAppDispatch } from './store/Hooks';
 import { updateFirebaseUser, updateLanguage } from './store/slices/UserSlice';
 import AlertsManager from './components/AlertsManager';
+import UserService from './services/UserService';
 
 function App() {
   const theme = createTheme(themeConfig);
@@ -27,6 +28,9 @@ function App() {
       const unsubscribe = () => { };
 
       auth.onAuthStateChanged(async (firebaseUser: any) => {
+        if() {
+          
+        }
         if (firebaseUser) {
           // unsubscribe = await db.collection('Users').doc(firebaseUser.uid)
           //   .onSnapshot(async (doc: any) => {
@@ -62,6 +66,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        <button onClick={() => UserService.checkIfSuperAdmin()}>asdkljaslkdjalksjdlkasjd</button>
         <AlertsManager/>
       </div>
     </ThemeProvider>
