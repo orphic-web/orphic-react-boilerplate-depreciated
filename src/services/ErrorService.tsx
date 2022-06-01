@@ -1,22 +1,24 @@
 import { FirebaseError } from 'firebase/app';
 import AvailableLanguages from '../models/enums/AvailableLanguages';
-import FirebaseErrorMessages from '../models/enums/FirebaseErrorMessages';
 import AlertUtil from '../utils/AlertUtil';
 import TranslatorUtils from '../utils/TranslatorUtil';
+import translator from '../theme/translator.json';
 
 class ErrorService {
   private static currentLanguage = AvailableLanguages.DEFAULT;
 
   static handleHTTPError = async (error: any, language: AvailableLanguages, dispatch: any) => {
     try {
-      if (language) this.currentLanguage = language;
+      console.log(error);
+
+      if (language) ErrorService.currentLanguage = language;
+
+      console.log(language);
 
       if (error instanceof FirebaseError) {
-        console.log('firebaseError');
-        await this.handleFirebaseError(error, dispatch);
+        await ErrorService.handleFirebaseError(error, dispatch);
       } else {
-        console.log('unknown error');
-        AlertUtil.createErrorAlert('Unknow error', this.currentLanguage, dispatch);
+        ErrorService.handleGeneralError(error, dispatch);
       }
     } catch (e: any) {
       throw e.message;
@@ -27,17 +29,30 @@ class ErrorService {
     try {
       switch (error.code) {
         case 'auth/user-not-found': {
-          // Should log the event in firestore.
-          const message = await TranslatorUtils.getTranslatedEnumValue(this.currentLanguage, 'FirebaseErrorMessages', FirebaseErrorMessages.AUTH_USER_NOT_FOUND);
-          console.log(message);
-          if (message) AlertUtil.createErrorAlert(message as string, this.currentLanguage, dispatch);
+          const message = await TranslatorUtils.getTranslation(this.currentLanguage, translator.errors.firebase.auth.userNotFound);
+          if (message) AlertUtil.createErrorAlert(message as string, dispatch);
+          break;
+        }
+        case 'auth/network-request-failed': {
+          const message = await TranslatorUtils.getTranslation(this.currentLanguage, translator.errors.firebase.auth.networkRequestFailed);
+          if (message) AlertUtil.createErrorAlert(message as string, dispatch);
           break;
         }
         default: {
-          // statements;
+          const message = await TranslatorUtils.getTranslation(this.currentLanguage, translator.errors.general.unknown);
+          if (message) AlertUtil.createErrorAlert(message as string, dispatch);
           break;
         }
       }
+    } catch (e: any) {
+      throw e.message;
+    }
+  };
+
+  static handleGeneralError = async (error: Error, dispatch: any) => {
+    try {
+      const message = await TranslatorUtils.getTranslation(this.currentLanguage, translator.errors.general.unknown);
+      if (message) AlertUtil.createErrorAlert(message as string, dispatch);
     } catch (e: any) {
       throw e.message;
     }

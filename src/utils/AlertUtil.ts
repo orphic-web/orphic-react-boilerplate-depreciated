@@ -1,7 +1,6 @@
 import { v4 as uuid } from 'uuid';
-import Alert from '../models/Alert';
+import CustomAlert from '../models/CustomAlert';
 import AlertSeverity from '../models/enums/AlertSeverity';
-import AvailableLanguages from '../models/enums/AvailableLanguages';
 import { createAlert, dismissAlert, removeAlert } from '../store/slices/AlertSlice';
 
 class AlertsUtil {
@@ -12,7 +11,7 @@ class AlertsUtil {
    * @param {any} dispatch
    * @returns {void}
    */
-  private static createAlert = async (alert: Alert, dispatch: any) => {
+  private static createAlert = async (alert: CustomAlert, dispatch: any) => {
     try {
       let timer2: any;
       dispatch(createAlert(alert));
@@ -40,14 +39,14 @@ class AlertsUtil {
    * @param {any} dispatch
    * @returns {void}
    */
-  static createErrorAlert = async (message: string, language: AvailableLanguages, dispatch: any) => {
+  static createErrorAlert = async (message: string, dispatch: any) => {
     try {
       const alert = {
         id: uuid(),
         severity: AlertSeverity.ERROR,
         message,
         dismiss: false,
-      } as Alert;
+      } as CustomAlert;
       await this.createAlert(alert, dispatch);
     } catch (e: any) {
       console.log(e);
@@ -68,7 +67,7 @@ class AlertsUtil {
         severity: AlertSeverity.SUCCESS,
         message,
         dismiss: false,
-      } as Alert;
+      } as CustomAlert;
       await this.createAlert(alert, dispatch);
     } catch (e: any) {
       console.log(e);
@@ -89,7 +88,7 @@ class AlertsUtil {
         severity: AlertSeverity.INFO,
         message,
         dismiss: false,
-      } as Alert;
+      } as CustomAlert;
       await this.createAlert(alert, dispatch);
     } catch (e: any) {
       console.log(e);

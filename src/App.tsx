@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -17,6 +18,13 @@ import { useAppDispatch } from './store/Hooks';
 import { updateFirebaseUser, updateLanguage } from './store/slices/UserSlice';
 import AlertsManager from './components/AlertsManager';
 import UserService from './services/UserService';
+
+// replace console.* for disable log on production
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {};
+  console.error = () => {};
+  console.debug = () => {};
+}
 
 function App() {
   const theme = createTheme(themeConfig);
@@ -62,8 +70,8 @@ function App() {
               <Route path='login' element={<Login />}/>
               <Route path='signup' element={<Signup />}/>
               <Route path='forgot-password' element={<ForgotPassword />}/>
-              <Route path="*" element={<NotFound />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
         <button onClick={() => UserService.checkIfSuperAdmin()}>asdkljaslkdjalksjdlkasjd</button>

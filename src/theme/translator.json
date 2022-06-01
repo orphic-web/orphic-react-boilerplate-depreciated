@@ -48,12 +48,6 @@
       }
     },
     "enums": {
-      "FirebaseErrorMessages": {
-        "AUTH_USER_NOT_FOUND": {
-          "en": "We could not find a user with those credentials.",
-          "fr": "Nous n'avons pas trouvé d'utilisateur avec ces informations."
-        }
-      },
       "AvailableLanguages": {
         "FR": {
           "en": "EN",
@@ -75,6 +69,26 @@
           "en": "EN",
           "fr": "EN"
         }
+      }
+    }
+  },
+  "errors": {
+    "firebase": {
+      "auth": {
+        "userNotFound": {
+          "en": "Invalid email or password.",
+          "fr": "L'adresse courriel ou le mot de passe est invalide."
+        },
+        "networkRequestFailed": {
+          "en": "We are having trouble connecting to our servers. Please try again later.",
+          "fr": "Nous avons de la difficulté à nous connecter à nos serveurs. Veuillez réessayer plus tard."
+        }
+      }
+    },
+    "general": {
+      "unknown": {
+        "en": "An error has occured, please try again later.",
+        "fr": "Un erreur est survenue, veuillez réessayer plus tard."
       }
     }
   }

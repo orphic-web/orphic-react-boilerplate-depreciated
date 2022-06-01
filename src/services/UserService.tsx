@@ -8,17 +8,18 @@ import { auth, functions } from '../FirebaseConfig';
 import EmailService from './EmailService';
 
 class UserService {
-  static login = async (email: string, password: string, browserPersistence: boolean) => {
+  static login = async (email: string, password: string, rememberMe: boolean) => {
     try {
-      if (browserPersistence) {
-        await setPersistence(auth, browserSessionPersistence);
-        // Existing and future Auth states are now persisted in the current
-        // session only. Closing the window would clear any existing state
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await setPersistence(auth, browserLocalPersistence);
+      console.log(rememberMe);
+      if (rememberMe) {
         // Existing and future Auth states are now persisted locally.
         // Closing the window would not clear any existing state
+        await setPersistence(auth, browserLocalPersistence);
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        // Existing and future Auth states are now persisted in the current
+        // session only. Closing the window would clear any existing state
+        await setPersistence(auth, browserSessionPersistence);
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (e: any) {
