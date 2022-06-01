@@ -79,6 +79,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        <button onClick={() => UserService.checkIfSuperAdmin()}>asdkljaslkdjalksjdlkasjd</button>
         <AlertsManager/>
       </div>
     </ThemeProvider>
