@@ -2,7 +2,9 @@
 import {
   setPersistence, signInWithEmailAndPassword, signOut, browserSessionPersistence, browserLocalPersistence, createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth } from '../FirebaseConfig';
+import { httpsCallable } from 'firebase/functions';
+
+import { auth, functions } from '../FirebaseConfig';
 import EmailService from './EmailService';
 
 class UserService {
@@ -42,6 +44,16 @@ class UserService {
   static logout = async () => {
     try {
       await signOut(auth);
+    } catch (e: any) {
+      throw e;
+    }
+  };
+
+  static checkIfSuperAdmin = async () => {
+    try {
+      const checkIfSuperAdminRef = httpsCallable(functions, 'user-checkIfSuperAdmin');
+      const isSuperAdmin = await checkIfSuperAdminRef();
+      return isSuperAdmin;
     } catch (e: any) {
       throw e;
     }
