@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter, Routes, Route,
+} from 'react-router-dom';
 
 import './App.css';
 import createTheme from '@mui/material/styles/createTheme';
@@ -17,6 +19,7 @@ import { auth } from './FirebaseConfig';
 import { useAppDispatch } from './store/Hooks';
 import { updateFirebaseUser, updateLanguage } from './store/slices/UserSlice';
 import AlertsManager from './components/AlertsManager';
+import UserService from './services/UserService';
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
@@ -35,6 +38,12 @@ function App() {
       const unsubscribe = () => { };
 
       auth.onAuthStateChanged(async (firebaseUser: any) => {
+        console.log(process.env.REACT_APP_PUBLIC_URL);
+
+        if (process.env.REACT_APP_PUBLIC_URL === 'http://localhost:3000/') {
+          UserService.che;
+        }
+
         if (firebaseUser) {
           // unsubscribe = await db.collection('Users').doc(firebaseUser.uid)
           //   .onSnapshot(async (doc: any) => {
