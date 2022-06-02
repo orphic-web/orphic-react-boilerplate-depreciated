@@ -1,7 +1,9 @@
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import AvailableLanguages from '../models/enums/AvailableLanguages';
+import ErrorService from '../services/ErrorService';
+import UserService from '../services/UserService';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
 import { updateLanguage } from '../store/slices/UserSlice';
 import './Layout.css';
@@ -11,6 +13,7 @@ const Layout: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
   const language = useAppSelector((state) => state.user.language);
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   const [loggedIn, setLoggedIn] = useState(true);
 
@@ -22,6 +25,25 @@ const Layout: React.FC = () => {
       console.log(e);
     }
   }, [firebaseUser]);
+
+  useEffect(() => {
+    try {
+      if (process.env.REACT_APP_REQUIRE_ADMIN
+        && !location.pathname.startsWith('/login')
+        && !location.pathname.startsWith('/signup')) {
+        UserService.checkIfSuperAdmin().then((isAdmin: any) => {
+          console.log(isAdmin);
+          if (!isAdmin) {
+            UserService.logout();
+          }
+        }).catch((e: any) => {
+          ErrorService.handleHTTPError(e, language, dispatch);
+        });
+      }
+    } catch (e: any) {
+      ErrorService.handleHTTPError(e, language, dispatch);
+    }
+  }, [location.pathname]);
 
   const toggleLanguage = () => {
     try {

@@ -38,12 +38,6 @@ function App() {
       const unsubscribe = () => { };
 
       auth.onAuthStateChanged(async (firebaseUser: any) => {
-        console.log(process.env.REACT_APP_PUBLIC_URL);
-
-        if (process.env.REACT_APP_PUBLIC_URL === 'http://localhost:3000/') {
-          UserService.che;
-        }
-
         if (firebaseUser) {
           // unsubscribe = await db.collection('Users').doc(firebaseUser.uid)
           //   .onSnapshot(async (doc: any) => {
@@ -56,7 +50,6 @@ function App() {
           dispatch(updateLanguage(AvailableLanguages.DEFAULT));
         }
       });
-
       return unsubscribe;
     } catch (e: any) {
       console.error(e);
@@ -83,7 +76,6 @@ function App() {
         <AlertsManager/>
       </div>
     </ThemeProvider>
-
   );
 }
 

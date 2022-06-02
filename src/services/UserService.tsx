@@ -10,7 +10,6 @@ import EmailService from './EmailService';
 class UserService {
   static login = async (email: string, password: string, rememberMe: boolean) => {
     try {
-      console.log(rememberMe);
       if (rememberMe) {
         // Existing and future Auth states are now persisted locally.
         // Closing the window would not clear any existing state
@@ -54,7 +53,7 @@ class UserService {
     try {
       const checkIfSuperAdminRef = httpsCallable(functions, 'user-checkIfSuperAdmin');
       const isSuperAdmin = await checkIfSuperAdminRef();
-      return isSuperAdmin;
+      return isSuperAdmin.data;
     } catch (e: any) {
       throw e;
     }
