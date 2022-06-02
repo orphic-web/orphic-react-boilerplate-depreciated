@@ -1,11 +1,13 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { userSlice } from './slices/UserSlice';
 import { alertSlice } from './slices/AlertSlice';
+import { spinnerSlice } from './slices/SpinnerSlice';
 
 const store = configureStore({
   reducer: {
     user: userSlice.reducer,
     alert: alertSlice.reducer,
+    spinner: spinnerSlice.reducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,

@@ -35,7 +35,7 @@ class AlertsUtil {
   /**
    * Creates, dismiss and remove an ERROR alert
    * @param {string} message
-   * @param {AvailableLanguages} language
+   * @param {SupportedLanguages} language
    * @param {any} dispatch
    * @returns {void}
    */
@@ -56,7 +56,7 @@ class AlertsUtil {
   /**
    * Creates, dismiss and remove an SUCCESS alert
    * @param {string} message
-   * @param {AvailableLanguages} language
+   * @param {SupportedLanguages} language
    * @param {any} dispatch
    * @returns {void}
    */
@@ -77,7 +77,7 @@ class AlertsUtil {
   /**
    * Creates, dismiss and remove an INFO alert
    * @param {string} message
-   * @param {AvailableLanguages} language
+   * @param {SupportedLanguages} language
    * @param {any} dispatch
    * @returns {void}
    */

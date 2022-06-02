@@ -5,25 +5,31 @@ import {
 import { auth } from '../FirebaseConfig';
 
 class EmailService {
-  static sendVerificationEmail = async () => {
+  static publicUrl: string = process.env.REACT_APP_PUBLIC_URL as string;
+
+  /**
+   * Send account confirmation to user email
+   *
+   * @returns {void}
+   */
+  static sendAccountConfirmation = async () => {
     try {
       if (!auth.currentUser) throw Error('Could not send verification email.');
-      await sendEmailVerification(auth.currentUser);
+      await sendEmailVerification(auth.currentUser, { url: `${this.publicUrl}/?from=accountConfirmed` });
     } catch (e: any) {
       throw e;
     }
   };
 
   /**
-   * Send password reset password to the user
+   * Send reset password link to the user
    *
    * @param {string} email
-   * @returns {boolean} if the request is a success
+   * @returns {void}
    */
   static sendResetPasswordLink = async (email: string) => {
     try {
-      await sendPasswordResetEmail(auth, email, { url: 'http://localhost:3000/login' });
-      return true;
+      await sendPasswordResetEmail(auth, email, { url: `${this.publicUrl}/login?from=passwordReset` });
     } catch (e: any) {
       throw e;
     }

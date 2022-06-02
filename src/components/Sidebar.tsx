@@ -9,13 +9,14 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
-import AvailableLanguages from '../models/enums/AvailableLanguages';
+import SupportedLanguages from '../models/enums/SupportedLanguages';
 import { updateLanguage } from '../store/slices/UserSlice';
 import UserService from '../services/UserService';
 import Logo from '../theme/assets/logo.svg';
 import Hamburger from './Hamburger';
 import translator from '../theme/translator.json';
 import TranslatorUtils from '../utils/TranslatorUtil';
+import { toggleSpinner } from '../store/slices/SpinnerSlice';
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
@@ -43,8 +44,8 @@ const Sidebar: React.FC = () => {
 
   const toggleLanguage = async () => {
     try {
-      if (language === AvailableLanguages.EN) dispatch(updateLanguage(AvailableLanguages.FR));
-      else dispatch(updateLanguage(AvailableLanguages.EN));
+      if (language === SupportedLanguages.EN) dispatch(updateLanguage(SupportedLanguages.FR));
+      else dispatch(updateLanguage(SupportedLanguages.EN));
     } catch (e: any) {
       console.log(e);
     }
@@ -52,9 +53,10 @@ const Sidebar: React.FC = () => {
 
   const logout = async () => {
     try {
+      dispatch(toggleSpinner(true));
       await UserService.logout();
+      dispatch(toggleSpinner(false));
       navigate('/login');
-      console.log(location);
     } catch (e: any) {
       console.log(e);
     }
@@ -76,7 +78,7 @@ const Sidebar: React.FC = () => {
       <div className="sidebar__wrapper">
         <div className="sidebar__logo" onClick={() => navigate('/dashboard')}>
           {
-            language === AvailableLanguages.EN
+            language === SupportedLanguages.EN
               ? <img src={Logo} alt="logo" />
               : <img src={Logo} alt="logo" />
           }

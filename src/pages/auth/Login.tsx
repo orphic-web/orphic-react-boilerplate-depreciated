@@ -17,6 +17,7 @@ import { Switch, TextField } from 'formik-mui';
 import UserService from '../../services/UserService';
 import { useAppSelector, useAppDispatch } from '../../store/Hooks';
 import ErrorService from '../../services/ErrorService';
+import { toggleSpinner } from '../../store/slices/SpinnerSlice';
 
 const Login: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
@@ -34,16 +35,18 @@ const Login: React.FC = () => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
-      ErrorService.handleHTTPError(e, language, dispatch);
+      ErrorService.handleError(e, language, dispatch);
     }
   }, [firebaseUser]);
 
   const login = async (values: any) => {
     try {
+      dispatch(toggleSpinner(true));
       await UserService.login(values.email, values.password, values.rememberMe);
+      dispatch(toggleSpinner(false));
       navigate('/');
     } catch (e: any) {
-      ErrorService.handleHTTPError(e, language, dispatch);
+      ErrorService.handleError(e, language, dispatch);
     }
   };
 

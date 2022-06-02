@@ -14,12 +14,13 @@ import themeConfig from './theme/ThemeConfig';
 import Signup from './pages/auth/Signup';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import NotFound from './pages/NotFound';
-import AvailableLanguages from './models/enums/AvailableLanguages';
+import SupportedLanguages from './models/enums/SupportedLanguages';
 import { auth } from './FirebaseConfig';
 import { useAppDispatch } from './store/Hooks';
 import { updateFirebaseUser, updateLanguage } from './store/slices/UserSlice';
 import AlertsManager from './components/AlertsManager';
 import UserService from './services/UserService';
+import Spinner from './components/Spinner';
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
@@ -44,10 +45,10 @@ function App() {
           //     // Should subscribe to firestore user data here
           //   });
           dispatch(updateFirebaseUser(firebaseUser));
-          dispatch(updateLanguage(AvailableLanguages.DEFAULT));
+          dispatch(updateLanguage(SupportedLanguages.DEFAULT));
         } else {
           dispatch(updateFirebaseUser(null));
-          dispatch(updateLanguage(AvailableLanguages.DEFAULT));
+          dispatch(updateLanguage(SupportedLanguages.DEFAULT));
         }
       });
       return unsubscribe;
@@ -74,6 +75,7 @@ function App() {
         </BrowserRouter>
         <button onClick={() => UserService.checkIfSuperAdmin()}>asdkljaslkdjalksjdlkasjd</button>
         <AlertsManager/>
+        <Spinner/>
       </div>
     </ThemeProvider>
   );

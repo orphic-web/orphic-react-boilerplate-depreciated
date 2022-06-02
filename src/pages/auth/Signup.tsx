@@ -20,6 +20,7 @@ import { TextField } from 'formik-mui';
 import UserService from '../../services/UserService';
 import { useAppDispatch, useAppSelector } from '../../store/Hooks';
 import ErrorService from '../../services/ErrorService';
+import { toggleSpinner } from '../../store/slices/SpinnerSlice';
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
@@ -35,10 +36,11 @@ const Signup: React.FC = () => {
 
   const createAccount = async (values: any) => {
     try {
-      await UserService.createAccount(values.email, values.password, 'fr');
+      dispatch(toggleSpinner(true));
+      await UserService.createAccount(values.name, values.email, values.password, language);
       navigate('/');
     } catch (e: any) {
-      ErrorService.handleHTTPError(e, language, dispatch);
+      ErrorService.handleError(e, language, dispatch);
     }
   };
 
@@ -46,7 +48,7 @@ const Signup: React.FC = () => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
-      ErrorService.handleHTTPError(e, language, dispatch);
+      ErrorService.handleError(e, language, dispatch);
     }
   }, [firebaseUser]);
 
@@ -54,11 +56,14 @@ const Signup: React.FC = () => {
     <div className='signup__container'>
       <Formik
         initialValues={{
+          name: '',
           email: '',
           password: '',
           passwordConfirmation: '',
         }}
         validationSchema={yup.object({
+          name: yup.string()
+            .required('Required'),
           email: yup.string()
             .email('Email is invalid')
             .required('Required'),
@@ -94,6 +99,14 @@ const Signup: React.FC = () => {
             Create your account
               </Typography>
               <Form className="login__form-container">
+                <Field
+                  component={TextField}
+                  name="name"
+                  type="text"
+                  label="Name"
+                  margin='normal'
+                  fullWidth
+                />
                 <Field
                   component={TextField}
                   name="email"

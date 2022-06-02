@@ -48,7 +48,7 @@
       }
     },
     "enums": {
-      "AvailableLanguages": {
+      "SupportedLanguages": {
         "FR": {
           "en": "EN",
           "fr": "FR",

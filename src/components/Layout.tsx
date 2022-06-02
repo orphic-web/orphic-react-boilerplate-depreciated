@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import AvailableLanguages from '../models/enums/AvailableLanguages';
+import SupportedLanguages from '../models/enums/SupportedLanguages';
 import ErrorService from '../services/ErrorService';
 import UserService from '../services/UserService';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
@@ -30,25 +30,25 @@ const Layout: React.FC = () => {
     try {
       if (process.env.REACT_APP_REQUIRE_ADMIN
         && !location.pathname.startsWith('/login')
-        && !location.pathname.startsWith('/signup')) {
-        UserService.checkIfSuperAdmin().then((isAdmin: any) => {
-          console.log(isAdmin);
+        && !location.pathname.startsWith('/signup')
+      ) {
+        UserService.checkIfSuperAdmin().then(async (isAdmin: any) => {
           if (!isAdmin) {
-            UserService.logout();
+            await UserService.logout();
           }
         }).catch((e: any) => {
-          ErrorService.handleHTTPError(e, language, dispatch);
+          ErrorService.handleError(e, language, dispatch);
         });
       }
     } catch (e: any) {
-      ErrorService.handleHTTPError(e, language, dispatch);
+      ErrorService.handleError(e, language, dispatch);
     }
   }, [location.pathname]);
 
   const toggleLanguage = () => {
     try {
-      if (language === AvailableLanguages.EN) dispatch(updateLanguage(AvailableLanguages.FR));
-      else dispatch(updateLanguage(AvailableLanguages.EN));
+      if (language === SupportedLanguages.EN) dispatch(updateLanguage(SupportedLanguages.FR));
+      else dispatch(updateLanguage(SupportedLanguages.EN));
     } catch (e: any) {
       console.log(e);
     }

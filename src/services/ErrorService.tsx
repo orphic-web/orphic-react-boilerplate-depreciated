@@ -1,19 +1,17 @@
 import { FirebaseError } from 'firebase/app';
-import AvailableLanguages from '../models/enums/AvailableLanguages';
+import SupportedLanguages from '../models/enums/SupportedLanguages';
 import AlertUtil from '../utils/AlertUtil';
 import TranslatorUtils from '../utils/TranslatorUtil';
 import translator from '../theme/translator.json';
 
 class ErrorService {
-  private static currentLanguage = AvailableLanguages.DEFAULT;
+  private static currentLanguage = SupportedLanguages.DEFAULT;
 
-  static handleHTTPError = async (error: any, language: AvailableLanguages, dispatch: any) => {
+  static handleError = async (error: any, language: SupportedLanguages, dispatch: any) => {
     try {
       console.log(error);
 
       if (language) ErrorService.currentLanguage = language;
-
-      console.log(language);
 
       if (error instanceof FirebaseError) {
         await ErrorService.handleFirebaseError(error, dispatch);

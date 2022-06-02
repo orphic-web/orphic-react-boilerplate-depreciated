@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
         clearTimeout(timer);
       };
     } catch (e: any) {
-      ErrorService.handleHTTPError(e, language, dispatch);
+      ErrorService.handleError(e, language, dispatch);
     }
   }, [firebaseUser]);
 

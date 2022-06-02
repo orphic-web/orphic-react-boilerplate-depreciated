@@ -1,13 +1,21 @@
 /* eslint-disable no-useless-catch */
 import {
-  setPersistence, signInWithEmailAndPassword, signOut, browserSessionPersistence, browserLocalPersistence, createUserWithEmailAndPassword,
+  setPersistence, updateEmail, updatePassword, signInWithEmailAndPassword, signOut, browserSessionPersistence, browserLocalPersistence, createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { httpsCallable } from 'firebase/functions';
-
 import { auth, functions } from '../FirebaseConfig';
+import User from '../models/User';
 import EmailService from './EmailService';
 
 class UserService {
+  /**
+   * Used to authenticate user from login
+   *
+   * @param {string} email
+   * @param {string} password
+   * @param {boolean} rememberMe
+   * @returns {void}
+   */
   static login = async (email: string, password: string, rememberMe: boolean) => {
     try {
       if (rememberMe) {
@@ -26,16 +34,62 @@ class UserService {
     }
   };
 
-  static createAccount = async (email: string, password: string, language: string) => {
+  /**
+   * Used to create a firebase and firestore user account
+   *
+   * @param {string} name
+   * @param {string} email
+   * @param {string} password
+   * @param {string} language
+   * @returns {timestamp} write time
+   */
+  static createAccount = async (name: string, email: string, password: string, language: string) => {
     try {
       const firebaseUser = await createUserWithEmailAndPassword(auth, email, password);
 
-      await EmailService.sendVerificationEmail();
-      // const createUserAccount = functions.httpsCallable('user-createUserAccount');
-      // await createUserAccount({
-      //   userId: firebaseUser.user?.uid, email, name, birthDate: birthDate.toDateString(), language,
-      // });
-      return firebaseUser;
+      const createUserAccount = httpsCallable(functions, 'user-createUserAccount');
+      await createUserAccount({
+        id: firebaseUser.user?.uid, email, name, language,
+      });
+
+      EmailService.sendAccountConfirmation();
+    } catch (e: any) {
+      if (auth.currentUser) {
+        const uid = auth.currentUser?.uid as string;
+        UserService.deleteFirebaseUser(auth.currentUser);
+        UserService.deleteFirestoreUser(uid);
+      }
+      throw e;
+    }
+  };
+
+  /**
+   * Delete a specified Firebase user
+   *
+   * @param {FirebaseUser} firebaseUser
+   * @returns {void}
+   */
+  static deleteFirebaseUser = async (firebaseUser: any) => {
+    try {
+      if (firebaseUser === null) throw new Error('There is no current user to delete!');
+      firebaseUser.delete();
+    } catch (e: any) {
+      throw e;
+    }
+  };
+
+  /**
+   * Delete a specified Firestore user
+   *
+   * @param {string} id
+   * @returns {void}
+   */
+  static deleteFirestoreUser = async (id: string) => {
+    try {
+      if (id) throw new Error('userId is undefined!');
+      const deleteUserAccount = httpsCallable(functions, 'user-deleteUserAccount');
+      const deleteUserAccountResponse = await deleteUserAccount({ id });
+      return deleteUserAccountResponse;
     } catch (e: any) {
       throw e;
     }
@@ -44,6 +98,22 @@ class UserService {
   static logout = async () => {
     try {
       await signOut(auth);
+    } catch (e: any) {
+      throw e;
+    }
+  };
+
+  static updatePassword = async (newPassword: string) => {
+    try {
+      if (auth.currentUser) { await updatePassword(auth.currentUser, newPassword); }
+    } catch (e: any) {
+      throw e;
+    }
+  };
+
+  static updateEmail = async (user: User) => {
+    try {
+      if (auth.currentUser) { await updateEmail(auth.currentUser, user.email); }
     } catch (e: any) {
       throw e;
     }

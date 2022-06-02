@@ -32,7 +32,7 @@ const ForgotPassword: React.FC = () => {
     try {
       if (firebaseUser) navigate('/');
     } catch (e: any) {
-      ErrorService.handleHTTPError(e, language, dispatch);
+      ErrorService.handleError(e, language, dispatch);
     }
   }, [firebaseUser]);
 
@@ -41,7 +41,7 @@ const ForgotPassword: React.FC = () => {
       await EmailService.sendResetPasswordLink(values.email);
       AlertUtil.createSuccessAlert('An email has been sent to reset your password.', dispatch);
     } catch (e: any) {
-      ErrorService.handleHTTPError(e, language, dispatch);
+      ErrorService.handleError(e, language, dispatch);
     }
   };
 

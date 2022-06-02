@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import AvailableLanguages from '../../models/enums/AvailableLanguages';
+import SupportedLanguages from '../../models/enums/SupportedLanguages';
 
 const initialState = {
   firebaseUser: null,
-  language: AvailableLanguages.DEFAULT,
+  language: SupportedLanguages.DEFAULT,
 };
 
 export const userSlice = createSlice({

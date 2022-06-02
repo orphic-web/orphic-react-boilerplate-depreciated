@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const alertSlice = createSlice({
-  name: 'user',
+  name: 'alert',
   initialState,
   reducers: {
     createAlert(state, action: PayloadAction<any>) {
