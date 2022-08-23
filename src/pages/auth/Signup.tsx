@@ -21,6 +21,8 @@ import UserService from '../../services/UserService';
 import { useAppDispatch, useAppSelector } from '../../store/Hooks';
 import ErrorService from '../../services/ErrorService';
 import { toggleSpinner } from '../../store/slices/SpinnerSlice';
+import EmailService from '../../services/EmailService';
+import { auth } from '../../FirebaseConfig';
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
@@ -37,10 +39,21 @@ const Signup: React.FC = () => {
   const createAccount = async (values: any) => {
     try {
       dispatch(toggleSpinner(true));
-      await UserService.createAccount(values.name, values.email, values.password, language);
+
+      const newFirebaseUser = await UserService.createAccount(values.email, values.password);
+      await UserService.create(newFirebaseUser.user.uid, values.name, values.email, language);
+
+      if (auth.currentUser) await EmailService.sendAccountConfirmation(auth.currentUser);
+
+      dispatch(toggleSpinner(false));
       navigate('/');
     } catch (e: any) {
+      if (auth.currentUser) {
+        UserService.delete(auth.currentUser.uid);
+        UserService.deleteAccount(auth.currentUser);
+      }
       ErrorService.handleError(e, language, dispatch);
+      dispatch(toggleSpinner(false));
     }
   };
 

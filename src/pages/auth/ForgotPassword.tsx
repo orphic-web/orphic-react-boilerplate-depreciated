@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/Hooks';
 import EmailService from '../../services/EmailService';
 
-import AlertUtil from '../../utils/AlertUtil';
+import AlertUtil from '../../utils/AlertUtils';
 import ErrorService from '../../services/ErrorService';
 
 const ForgotPassword: React.FC = () => {

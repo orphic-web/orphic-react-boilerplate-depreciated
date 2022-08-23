@@ -9,20 +9,22 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
+import { toggleLanguage } from '../store/slices/UserSlice';
+
 import SupportedLanguages from '../models/enums/SupportedLanguages';
-import { updateLanguage } from '../store/slices/UserSlice';
 import UserService from '../services/UserService';
 import Logo from '../theme/assets/logo.svg';
 import Hamburger from './Hamburger';
 import translator from '../theme/translator.json';
 import TranslatorUtils from '../utils/TranslatorUtil';
 import { toggleSpinner } from '../store/slices/SpinnerSlice';
+import ErrorService from '../services/ErrorService';
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const language = useAppSelector((state) => state.user.language) as string | any;
+  const language = useAppSelector((state) => state.user.language) as SupportedLanguages | any;
 
   const [navOpen, setnavOpen] = useState(false);
   const [menuBusy, setMenuBusy] = useState(false);
@@ -42,12 +44,11 @@ const Sidebar: React.FC = () => {
     }, 1);
   };
 
-  const toggleLanguage = async () => {
+  const changeLanguage = async () => {
     try {
-      if (language === SupportedLanguages.EN) dispatch(updateLanguage(SupportedLanguages.FR));
-      else dispatch(updateLanguage(SupportedLanguages.EN));
+      dispatch(toggleLanguage());
     } catch (e: any) {
-      console.log(e);
+      ErrorService.handleError(e, language, dispatch);
     }
   };
 
@@ -58,7 +59,7 @@ const Sidebar: React.FC = () => {
       dispatch(toggleSpinner(false));
       navigate('/login');
     } catch (e: any) {
-      console.log(e);
+      ErrorService.handleError(e, language, dispatch);
     }
   };
 
@@ -69,7 +70,7 @@ const Sidebar: React.FC = () => {
       if (location.pathname === url) itemIsActive = true;
       return itemIsActive;
     } catch (e: any) {
-      console.log(e);
+      ErrorService.handleError(e, language, dispatch);
     }
   };
 
@@ -122,7 +123,7 @@ const Sidebar: React.FC = () => {
               className='sidebar__btn-language'
             >
               <Button
-                onClick={() => toggleLanguage()}
+                onClick={() => changeLanguage()}
                 color='light'
                 size='small'
                 variant='outlined'>

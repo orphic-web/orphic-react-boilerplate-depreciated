@@ -1,133 +1,115 @@
 /* eslint-disable no-useless-catch */
 import {
-  setPersistence, updateEmail, updatePassword, signInWithEmailAndPassword, signOut, browserSessionPersistence, browserLocalPersistence, createUserWithEmailAndPassword,
+  User as FirebaseUser, updateEmail, updatePassword, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { httpsCallable } from 'firebase/functions';
-import { auth, functions } from '../FirebaseConfig';
+import {
+  doc, collection, setDoc, deleteDoc, updateDoc,
+} from 'firebase/firestore';
+
+import { auth, db } from '../FirebaseConfig';
+import Permissions from '../models/enums/Permissions';
 import User from '../models/User';
-import EmailService from './EmailService';
 
 class UserService {
   /**
-   * Used to authenticate user from login
+   * Sign in a user by email & password
    *
    * @param {string} email
    * @param {string} password
-   * @param {boolean} rememberMe
    * @returns {void}
    */
-  static login = async (email: string, password: string, rememberMe: boolean) => {
-    try {
-      if (rememberMe) {
-        // Existing and future Auth states are now persisted locally.
-        // Closing the window would not clear any existing state
-        await setPersistence(auth, browserLocalPersistence);
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        // Existing and future Auth states are now persisted in the current
-        // session only. Closing the window would clear any existing state
-        await setPersistence(auth, browserSessionPersistence);
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-    } catch (e: any) {
-      throw e;
-    }
-  };
+  static login = (email: string, password: string) => signInWithEmailAndPassword(auth, email, password);
 
   /**
-   * Used to create a firebase and firestore user account
+   * Sign out a user
    *
-   * @param {string} name
+   * @returns {void}
+   */
+  static logout = () => signOut(auth);
+
+  /**
+   * Create a firebase user
+   *
    * @param {string} email
    * @param {string} password
+   * @returns {void}
+   */
+  static createAccount = (email: string, password: string) => createUserWithEmailAndPassword(auth, email, password);
+
+  /**
+   * Create a user document
+   *
+   * @param {string} id
+   * @param {string} name
+   * @param {string} email
    * @param {string} language
    * @returns {timestamp} write time
    */
-  static createAccount = async (name: string, email: string, password: string, language: string) => {
-    try {
-      const firebaseUser = await createUserWithEmailAndPassword(auth, email, password);
+  static create = async (id:string, name: string, email: string, language: string) => {
+    const usersRef = collection(db, 'Users');
 
-      const createUserAccount = httpsCallable(functions, 'user-createUserAccount');
-      await createUserAccount({
-        id: firebaseUser.user?.uid, email, name, language,
-      });
+    const newUser = {
+      id,
+      name,
+      email,
+      permission: Permissions.USER,
+      language,
+    };
 
-      EmailService.sendAccountConfirmation();
-    } catch (e: any) {
-      if (auth.currentUser) {
-        const uid = auth.currentUser?.uid as string;
-        UserService.deleteFirebaseUser(auth.currentUser);
-        UserService.deleteFirestoreUser(uid);
-      }
-      throw e;
-    }
+    return setDoc(doc(usersRef, id), newUser);
   };
 
   /**
-   * Delete a specified Firebase user
-   *
-   * @param {FirebaseUser} firebaseUser
-   * @returns {void}
-   */
-  static deleteFirebaseUser = async (firebaseUser: any) => {
-    try {
-      if (firebaseUser === null) throw new Error('There is no current user to delete!');
-      firebaseUser.delete();
-    } catch (e: any) {
-      throw e;
-    }
-  };
-
-  /**
-   * Delete a specified Firestore user
+   * Gets a user document by id
    *
    * @param {string} id
-   * @returns {void}
+   * @returns {User} user
    */
-  static deleteFirestoreUser = async (id: string) => {
-    try {
-      if (id) throw new Error('userId is undefined!');
-      const deleteUserAccount = httpsCallable(functions, 'user-deleteUserAccount');
-      const deleteUserAccountResponse = await deleteUserAccount({ id });
-      return deleteUserAccountResponse;
-    } catch (e: any) {
-      throw e;
-    }
+  static get = async (id: string) => doc(db, 'Users', id);
+
+  /**
+   * Delete user firebase user
+   *
+   * @param {FirebaseUser} firebaseUser
+   * @returns {timestamp} write time
+   */
+  static deleteAccount = (firebaseUser: any) => {
+    firebaseUser.delete();
   };
 
-  static logout = async () => {
-    try {
-      await signOut(auth);
-    } catch (e: any) {
-      throw e;
-    }
-  };
+  /**
+   * Delete user document
+   *
+   * @param {string} id
+   * @returns {timestamp} write time
+   */
+  static delete = (id: string) => deleteDoc(doc(db, 'Users', id));
 
-  static updatePassword = async (newPassword: string) => {
-    try {
-      if (auth.currentUser) { await updatePassword(auth.currentUser, newPassword); }
-    } catch (e: any) {
-      throw e;
-    }
-  };
+  /**
+   * Updates user password
+   *
+   * @param {FirebaseUser} firebaseUser
+   * @param {string} newPassword
+   * @returns {timestamp} write time
+   */
+  static updatePassword = (currentUser: FirebaseUser, newPassword: string) => updatePassword(currentUser, newPassword);
 
-  static updateEmail = async (user: User) => {
-    try {
-      if (auth.currentUser) { await updateEmail(auth.currentUser, user.email); }
-    } catch (e: any) {
-      throw e;
-    }
-  };
+  /**
+   * Updates user email
+   *
+   * @param {FirebaseUser} firebaseUser
+   * @param {string} email
+   * @returns {timestamp} write time
+   */
+  static updateEmail = (currentUser: FirebaseUser, newEmail: string) => updateEmail(currentUser, newEmail);
 
-  static checkIfSuperAdmin = async () => {
-    try {
-      const checkIfSuperAdminRef = httpsCallable(functions, 'user-checkIfSuperAdmin');
-      const isSuperAdmin = await checkIfSuperAdminRef();
-      return isSuperAdmin.data;
-    } catch (e: any) {
-      throw e;
-    }
-  };
+  /**
+   * Updates user document
+   *
+   * @param {User} user
+   * @returns {timestamp} write time
+   */
+  static update = (user: User) => updateDoc(doc(db, 'Users', user.id), user);
 }
 
 export default UserService;

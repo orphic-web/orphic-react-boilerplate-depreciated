@@ -72,12 +72,30 @@
       }
     }
   },
-  "errors": {
+  "formMessages": {
+    "invalidEmail": {
+      "en": "Please enter a valid email address.",
+      "fr": "Veuillez entrer une adresse courriel valide."
+    },
+    "passwordsMustMatch": {
+      "en": "Passwords do not match.",
+      "fr": "Les mots de passe ne correspondent pas."
+    },
+    "requiredField": {
+      "en": "Please fill this field.",
+      "fr": "Veuillez remplir ce champ."
+    }
+  },
+  "errorMessages": {
     "firebase": {
       "auth": {
         "userNotFound": {
           "en": "Invalid email or password.",
           "fr": "L'adresse courriel ou le mot de passe est invalide."
+        },
+        "emailAlreadyInUse": {
+          "en": "That email is already used by a user.",
+          "fr": "Ce courriel est déjà utilisé par un autre utilisateur."
         },
         "networkRequestFailed": {
           "en": "We are having trouble connecting to our servers. Please try again later.",
@@ -86,6 +104,10 @@
       }
     },
     "general": {
+      "superAdminRequired": {
+        "en": "You are currently not allowed to access this app!",
+        "fr": "Vous n'êtes actuellement pas autorisé à accéder à cette application !"
+      },
       "unknown": {
         "en": "An error has occured, please try again later.",
         "fr": "Un erreur est survenue, veuillez réessayer plus tard."

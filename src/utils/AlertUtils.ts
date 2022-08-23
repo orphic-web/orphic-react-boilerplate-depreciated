@@ -3,7 +3,7 @@ import CustomAlert from '../models/CustomAlert';
 import AlertSeverity from '../models/enums/AlertSeverity';
 import { createAlert, dismissAlert, removeAlert } from '../store/slices/AlertSlice';
 
-class AlertsUtil {
+class AlertUtils {
   /**
    * Creates, dismiss and remove an alert
    * @param {AlertSeverity} severity
@@ -96,4 +96,4 @@ class AlertsUtil {
   };
 }
 
-export default AlertsUtil;
+export default AlertUtils;

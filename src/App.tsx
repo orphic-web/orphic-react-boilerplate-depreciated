@@ -7,6 +7,8 @@ import './App.css';
 import createTheme from '@mui/material/styles/createTheme';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { useEffect } from 'react';
+import { onSnapshot, doc } from 'firebase/firestore';
+import { db, auth } from './FirebaseConfig';
 import Layout from './components/Layout';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/Dashboard';
@@ -14,13 +16,12 @@ import themeConfig from './theme/ThemeConfig';
 import Signup from './pages/auth/Signup';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import NotFound from './pages/NotFound';
-import SupportedLanguages from './models/enums/SupportedLanguages';
-import { auth } from './FirebaseConfig';
 import { useAppDispatch } from './store/Hooks';
-import { updateFirebaseUser, updateLanguage } from './store/slices/UserSlice';
+import { updateFirebaseUser, updateLanguage, updateUser } from './store/slices/UserSlice';
 import AlertsManager from './components/AlertsManager';
-import UserService from './services/UserService';
 import Spinner from './components/Spinner';
+import SupportedLanguages from './models/enums/SupportedLanguages';
+import User from './models/User';
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
@@ -36,19 +37,20 @@ function App() {
   useEffect(() => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      const unsubscribe = () => { };
+      let unsubscribe = () => { };
 
       auth.onAuthStateChanged(async (firebaseUser: any) => {
         if (firebaseUser) {
-          // unsubscribe = await db.collection('Users').doc(firebaseUser.uid)
-          //   .onSnapshot(async (doc: any) => {
-          //     // Should subscribe to firestore user data here
-          //   });
-          dispatch(updateFirebaseUser(firebaseUser));
-          dispatch(updateLanguage(SupportedLanguages.DEFAULT));
+          unsubscribe = onSnapshot(doc(db, 'Users', firebaseUser.uid), (response) => {
+            const userDoc = response.data() as User;
+            dispatch(updateUser(userDoc));
+            dispatch(updateFirebaseUser(firebaseUser));
+            dispatch(updateLanguage(userDoc.language));
+          });
         } else {
           dispatch(updateFirebaseUser(null));
-          dispatch(updateLanguage(SupportedLanguages.DEFAULT));
+          dispatch(updateUser(null));
+          dispatch(updateLanguage(SupportedLanguages.EN));
         }
       });
       return unsubscribe;
@@ -73,7 +75,6 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-        <button onClick={() => UserService.checkIfSuperAdmin()}>asdkljaslkdjalksjdlkasjd</button>
         <AlertsManager/>
         <Spinner/>
       </div>

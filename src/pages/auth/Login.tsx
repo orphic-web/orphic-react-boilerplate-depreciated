@@ -14,10 +14,12 @@ import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { Switch, TextField } from 'formik-mui';
+import { browserLocalPersistence, browserSessionPersistence, setPersistence } from 'firebase/auth';
 import UserService from '../../services/UserService';
 import { useAppSelector, useAppDispatch } from '../../store/Hooks';
 import ErrorService from '../../services/ErrorService';
 import { toggleSpinner } from '../../store/slices/SpinnerSlice';
+import { auth } from '../../FirebaseConfig';
 
 const Login: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
@@ -42,11 +44,19 @@ const Login: React.FC = () => {
   const login = async (values: any) => {
     try {
       dispatch(toggleSpinner(true));
-      await UserService.login(values.email, values.password, values.rememberMe);
+
+      // Closing the window would not clear any existing state
+      if (values.rememberMe) setPersistence(auth, browserLocalPersistence);
+
+      // Closing the window would clear any existing state
+      else setPersistence(auth, browserSessionPersistence);
+      await UserService.login(values.email, values.password);
+
       dispatch(toggleSpinner(false));
       navigate('/');
     } catch (e: any) {
       ErrorService.handleError(e, language, dispatch);
+      dispatch(toggleSpinner(false));
     }
   };
 
