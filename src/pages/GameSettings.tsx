@@ -71,6 +71,7 @@ const GameSettings: React.FC = () => {
 
   const getGame = async (id: string) => {
     try {
+      setLoading(true);
       const tempGame = await GameService.get(id);
 
       // TODO Should redirect depending on the state
@@ -111,6 +112,7 @@ const GameSettings: React.FC = () => {
 
   const deletePlayer = async (formik: any, index: number) => {
     try {
+      setLoading(true);
       const newPlayerCount = formik.values.players.length - 1;
       const tempPlayers = formik.values.players;
 
