@@ -99,7 +99,6 @@ const GameSettings: React.FC = () => {
       currentGame.playerCount = newPlayerCount;
       currentGame.players = tempPlayers;
 
-      formik.getFieldHelpers('playerCount').setValue(newPlayerCount);
       formik.getFieldHelpers('players').setValue(tempPlayers);
 
       GameService.update(currentGame);
@@ -112,7 +111,7 @@ const GameSettings: React.FC = () => {
 
   const deletePlayer = async (formik: any, index: number) => {
     try {
-      const newPlayerCount = formik.values.playerCount - 1;
+      const newPlayerCount = formik.values.players.length - 1;
       const tempPlayers = formik.values.players;
 
       tempPlayers.splice(index, 1);
@@ -120,7 +119,6 @@ const GameSettings: React.FC = () => {
       currentGame.playerCount = newPlayerCount;
       currentGame.players = tempPlayers;
 
-      formik.getFieldHelpers('playerCount').setValue(newPlayerCount);
       formik.getFieldHelpers('players').setValue(tempPlayers);
 
       GameService.update(currentGame);
