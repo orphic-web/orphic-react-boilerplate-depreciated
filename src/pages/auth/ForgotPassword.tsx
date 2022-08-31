@@ -14,19 +14,22 @@ import {
 } from '@mui/material';
 import { TextField } from 'formik-mui';
 import { Field, Form, Formik } from 'formik';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/Hooks';
 import EmailService from '../../services/EmailService';
 
 import AlertUtil from '../../utils/AlertUtils';
 import ErrorService from '../../services/ErrorService';
+import Spinner from '../../components/Spinner';
 
 const ForgotPassword: React.FC = () => {
   const firebaseUser = useAppSelector((state) => state.user.firebaseUser);
   const language = useAppSelector((state) => state.user.language);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     try {
@@ -38,15 +41,19 @@ const ForgotPassword: React.FC = () => {
 
   const sendResetPasswordLink = async (values: any) => {
     try {
+      setLoading(true);
       await EmailService.sendResetPasswordLink(values.email);
+      setLoading(false);
+
       AlertUtil.createSuccessAlert('An email has been sent to reset your password.', dispatch);
     } catch (e: any) {
+      setLoading(false);
       ErrorService.handleError(e, language, dispatch);
     }
   };
 
   return (
-    <div className='forgotPassword__container'>
+    <>
       <Formik
         initialValues={{
           email: '',
@@ -123,7 +130,9 @@ const ForgotPassword: React.FC = () => {
           </Container>
         )}
       </Formik>
-    </div>
+      <Spinner show={loading}/>
+    </>
+
   );
 };
 

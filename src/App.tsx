@@ -19,9 +19,10 @@ import NotFound from './pages/NotFound';
 import { useAppDispatch } from './store/Hooks';
 import { updateFirebaseUser, updateLanguage, updateUser } from './store/slices/UserSlice';
 import AlertsManager from './components/AlertsManager';
-import Spinner from './components/Spinner';
 import SupportedLanguages from './models/enums/SupportedLanguages';
 import User from './models/User';
+import Hero from './pages/Hero';
+import GameSettings from './pages/GameSettings';
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
@@ -69,6 +70,9 @@ function App() {
             <Route path="/" element={<Layout />} >
               <Route index element={<Dashboard />}/>
               <Route path='login' element={<Login />}/>
+              <Route path='hero' element={<Hero />}/>
+              <Route path='game/:id/settings' element={<GameSettings/>}/>
+              {/* <Route path='game/:id/play' element={<GamePlay />}/> */}
               <Route path='signup' element={<Signup />}/>
               <Route path='forgot-password' element={<ForgotPassword />}/>
             </Route>
@@ -76,7 +80,6 @@ function App() {
           </Routes>
         </BrowserRouter>
         <AlertsManager/>
-        <Spinner/>
       </div>
     </ThemeProvider>
   );

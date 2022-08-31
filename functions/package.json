@@ -4,6 +4,7 @@
     "lint": "eslint --ext .js,.ts .",
     "build": "tsc",
     "serve": "npm run build && firebase emulators:start",
+    "serve:offline": "firebase serve",
     "shell": "npm run build && firebase functions:shell",
     "build:watch": "eslint --fix --ext ts,tsx . && tsc -w",
     "serve:watch": "npm run build | firebase emulators:start --import=./emulated_data --export-on-exit",

@@ -5,22 +5,24 @@ import ErrorService from '../services/ErrorService';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
 import './Spinner.css';
 
-const Spinner: React.FC = () => {
+interface ContainerProps {
+  show: boolean,
+}
+
+const Spinner: React.FC<ContainerProps> = ({
+  show,
+}) => {
   const language = useAppSelector((state) => state.user.language);
-  const showSpinner = useAppSelector((state) => state.spinner.show);
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     try {
-      if (showSpinner !== open) {
+      if (show) {
         const timer1 = setTimeout(() => {
-          setOpen(showSpinner);
+          setOpen(show);
         }, 500);
 
         return () => {
@@ -30,13 +32,12 @@ const Spinner: React.FC = () => {
     } catch (e: any) {
       ErrorService.handleError(e, language, dispatch);
     }
-  }, [showSpinner]);
+  }, [show]);
 
   return (
     <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open={open}
-      onClick={handleClose}
     >
       <CircularProgress color="inherit" />
     </Backdrop>

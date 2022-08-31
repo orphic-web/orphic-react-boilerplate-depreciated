@@ -3,7 +3,7 @@ import {
   User as FirebaseUser, updateEmail, updatePassword, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import {
-  doc, collection, setDoc, deleteDoc, updateDoc,
+  doc, collection, setDoc, deleteDoc, updateDoc, getDoc,
 } from 'firebase/firestore';
 
 import { auth, db } from '../FirebaseConfig';
@@ -65,7 +65,7 @@ class UserService {
    * @param {string} id
    * @returns {User} user
    */
-  static get = async (id: string) => doc(db, 'Users', id);
+  static get = async (id: string) => (await getDoc(doc(db, 'Users', id))).data();
 
   /**
    * Delete user firebase user

@@ -17,8 +17,8 @@ import Logo from '../theme/assets/logo.svg';
 import Hamburger from './Hamburger';
 import translator from '../theme/translator.json';
 import TranslatorUtils from '../utils/TranslatorUtil';
-import { toggleSpinner } from '../store/slices/SpinnerSlice';
 import ErrorService from '../services/ErrorService';
+import Spinner from './Spinner';
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const Sidebar: React.FC = () => {
 
   const [navOpen, setnavOpen] = useState(false);
   const [menuBusy, setMenuBusy] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const toggleMenu = (e: any) => {
     if (menuBusy) return;
@@ -54,9 +55,10 @@ const Sidebar: React.FC = () => {
 
   const logout = async () => {
     try {
-      dispatch(toggleSpinner(true));
+      setLoading(true);
       await UserService.logout();
-      dispatch(toggleSpinner(false));
+      setLoading(false);
+
       navigate('/login');
     } catch (e: any) {
       ErrorService.handleError(e, language, dispatch);
@@ -144,6 +146,7 @@ const Sidebar: React.FC = () => {
           </Button>
         </div>
       </div>
+      <Spinner show={loading}></Spinner>
     </>
   );
 };
