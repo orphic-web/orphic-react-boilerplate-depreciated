@@ -23,6 +23,7 @@ import SupportedLanguages from './models/enums/SupportedLanguages';
 import User from './models/User';
 import Hero from './pages/Hero';
 import GameSettings from './pages/GameSettings';
+import GamePlay from './pages/GamePlay';
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
@@ -72,7 +73,7 @@ function App() {
               <Route path='login' element={<Login />}/>
               <Route path='hero' element={<Hero />}/>
               <Route path='game/:id/settings' element={<GameSettings/>}/>
-              {/* <Route path='game/:id/play' element={<GamePlay />}/> */}
+              <Route path='game/:id/play' element={<GamePlay />}/>
               <Route path='signup' element={<Signup />}/>
               <Route path='forgot-password' element={<ForgotPassword />}/>
             </Route>

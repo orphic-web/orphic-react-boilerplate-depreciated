@@ -1,8 +1,9 @@
 type Player = {
     username: string,
     score: {
-        hp: number
+        hp: number[],
     }
+
 }
 
 export default Player;

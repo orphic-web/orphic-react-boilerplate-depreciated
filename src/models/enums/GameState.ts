@@ -1,6 +1,7 @@
 enum GameState {
     INIT = 'init',
-    PLAYING = 'playing'
+    PLAYING = 'playing',
+    ENDED = 'ended'
   }
 
 export default GameState;

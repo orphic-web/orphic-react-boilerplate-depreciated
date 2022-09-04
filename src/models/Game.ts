@@ -8,7 +8,8 @@ type Game = {
     playerCount?: number,
     players?: Player[]
     boardgameName?: Boardgames,
-    lastEdited?: Date
+    lastEdited?: Date,
+    createdDate?: Date
 }
 
 export default Game;
