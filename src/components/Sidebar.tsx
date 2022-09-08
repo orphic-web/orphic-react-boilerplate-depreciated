@@ -80,11 +80,7 @@ const Sidebar: React.FC = () => {
     <>
       <div className="sidebar__wrapper">
         <div className="sidebar__logo" onClick={() => navigate('/dashboard')}>
-          {
-            language === SupportedLanguages.EN
-              ? <img src={Logo} alt="logo" />
-              : <img src={Logo} alt="logo" />
-          }
+          <img src={Logo} alt="logo" />
         </div>
         <div className="sidebar__hamburger">
           <Hamburger onClick={(e: any) => toggleMenu(e)}/>

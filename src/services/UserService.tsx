@@ -3,7 +3,7 @@ import {
   User as FirebaseUser, updateEmail, updatePassword, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import {
-  doc, collection, setDoc, deleteDoc, updateDoc, getDoc,
+  doc, collection, setDoc, deleteDoc, updateDoc, getDoc, query, orderBy, limit, getDocs,
 } from 'firebase/firestore';
 
 import { auth, db } from '../FirebaseConfig';
@@ -110,6 +110,17 @@ class UserService {
    * @returns {timestamp} write time
    */
   static update = (user: User) => updateDoc(doc(db, 'Users', user.id), user);
+
+  /**
+   * Get user last X games
+   *
+   * @param {number} quantity
+   * @returns {Game[]} Games
+   */
+  static getUserGames = (quantity: number) => {
+    const gamesRef = collection(db, `Users/${auth.currentUser?.uid}/Games`);
+    return getDocs(query(gamesRef, orderBy('createdDate'), limit(quantity)));
+  };
 }
 
 export default UserService;

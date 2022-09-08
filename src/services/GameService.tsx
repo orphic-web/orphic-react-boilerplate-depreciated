@@ -17,7 +17,7 @@ class GameService {
     const newGame = {
       id: gameRef.id,
       state: GameState.INIT,
-      lastEdited: new Date(),
+      createdDate: new Date(),
     } as Game;
 
     await setDoc(gameRef, newGame);
