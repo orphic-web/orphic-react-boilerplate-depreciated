@@ -22,5 +22,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESEAU_ENVIRONNEMENT_DEV }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCORE_KEEPER_DEV}}"
           projectId: ${{secrets.REACT_APP_PROJECT_ID_DEV}}
