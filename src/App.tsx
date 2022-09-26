@@ -1,101 +1,113 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
-  IonApp,
-  IonRouterOutlet,
-  isPlatform,
-  setupIonicReact,
-} from '@ionic/react';
-import React, { useEffect, useState } from 'react';
+  BrowserRouter, Routes, Route,
+} from 'react-router-dom';
 
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
-
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-
-/* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
-
-/* Theme variables */
-import './theme/variables.css';
-
-import { IonReactRouter } from '@ionic/react-router';
-import { Route } from 'react-router';
-import { auth, db } from './FirebaseConfig';
-import { useAppDispatch, useAppSelector } from './store/Hooks';
-import { updatePlatform, updateUser, updateFirebaseUser } from './store/slices/UserSlice';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { onSnapshot, doc } from 'firebase/firestore';
+import {
+  User as FirebaseUser,
+} from 'firebase/auth';
+import { db, auth } from './FirebaseConfig';
+import Login from './pages/auth/Login';
 import Dashboard from './pages/Dashboard';
-import Session from './pages/Session';
-import Account from './pages/Account';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import themeConfig from './theme/ThemeConfig';
+import Signup from './pages/auth/Signup';
 import NotFound from './pages/NotFound';
+import { useAppDispatch } from './store/Hooks';
+import { updateLanguage, updateUser } from './store/slices/UserSlice';
+import AlertsContainer from './components/AlertsContainer';
+import User from './models/User';
+import Spinner from './components/Spinner';
+import PrivateRoutes from './routing/PrivateRoutes';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import SupportedLanguages from './models/enums/SupportedLanguages';
+import AdminRoutes from './routing/AdminRoutes';
+import Logs from './pages/admin/Logs';
+import Settings from './pages/Settings';
+import Notifications from './pages/Notifications';
 
-setupIonicReact();
+// replace console.* for disable log on production
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {};
+  console.error = () => {};
+  console.debug = () => {};
+}
 
-const App: React.FC = () => {
+function App() {
   const dispatch = useAppDispatch();
-  const firebaseUser = useAppSelector((slice) => slice.user.firebaseUser) as any;
-  const user = useAppSelector((slice) => slice.user.user) as any;
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
-      if (isPlatform('ios')) dispatch(updatePlatform('ios'));
-      else dispatch(updatePlatform('md'));
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      let unsubscribe = () => {};
 
-      const unsubscribe = auth.onAuthStateChanged(async (doc: any) => {
-        if (doc) dispatch(updateFirebaseUser(doc));
-        else dispatch(updateFirebaseUser(null));
+      auth.onAuthStateChanged((response) => {
+        const firebaseUser = response as FirebaseUser;
+        if (firebaseUser) {
+          unsubscribe = onSnapshot(doc(db, 'Users', firebaseUser.uid), (result) => {
+            const userDoc = result.data() as User;
+            dispatch(updateUser(userDoc));
+            dispatch(updateLanguage(userDoc.language));
+          });
+        } else {
+          dispatch(updateUser(null));
+          dispatch(updateLanguage(SupportedLanguages.DEFAULT));
+        }
+        setLoading(false);
       });
-
-      // remember to unsubscribe from your realtime listener on unmount or you will create a memory leak
-      return () => unsubscribe();
+      return unsubscribe;
     } catch (e: any) {
       console.error(e);
       return e;
     }
   }, []);
 
-  useEffect(() => {
-    try {
-      if (!firebaseUser) {
-        dispatch(updateUser(null));
-        return {};
-      }
-
-      const unsubscribe = db.collection('Users').doc(firebaseUser.uid).onSnapshot((snap) => {
-        const userData = snap.data();
-        dispatch(updateUser(userData));
-      });
-
-      // remember to unsubscribe from your realtime listener on unmount or you will create a memory leak
-      return () => unsubscribe();
-    } catch (e: any) {
-      console.error(e);
-      return e;
-    }
-  }, [firebaseUser]);
-
   return (
-    <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route exact path="/" component={Dashboard}/>
-          <Route exact path="/account" component={Account} />
-          <Route exact path='/session/:id' render={(props) => <Session {...props} />} />
-          <Route exact path='/login' render={(props) => <Login {...props}/>} />
-          <Route exact path='/signup' render={() => <Signup />} />
-          <Route component={NotFound} />
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
+    <ThemeProvider theme={themeConfig}>
+      <CssBaseline/>
+      <div className="app">
+        {
+          !loading
+          && <BrowserRouter>
+            <Routes>
+              <Route element={<PrivateRoutes />} >
+                <Route path="/" element={<Dashboard />}/>
+                <Route path="/settings" element={<Settings />}/>
+                <Route path="/notifications" element={<Notifications />}/>
+                <Route element={<AdminRoutes />}>
+                  <Route path="/logs" element={<Logs />}/>
+                </Route>
+                {
+                  // Allow us to hide the signup and forgot-password pages in dev env
+                  process.env.NODE_ENV === 'development' && !process.env.REACT_APP_LOCALHOST_STATE
+                  && <>
+                    <Route path='/signup' element={<Signup />}/>
+                    <Route path='/forgot-password' element={<ForgotPassword />}/>
+                  </>
+                }
+              </Route>à
+              {
+                // Allow us to show signup and forgot-password in prod and localhost env
+                (process.env.NODE_ENV === 'production' || process.env.REACT_APP_LOCALHOST_STATE)
+                && <>
+                  <Route path='/signup' element={<Signup />}/>
+                  <Route path='/forgot-password' element={<ForgotPassword />}/>
+                </>
+              }
+              <Route path='/login' element={<Login />}/>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        }
+        <AlertsContainer/>
+        <Spinner show={loading}></Spinner>
+      </div>
+    </ThemeProvider>
   );
-};
+}
 
 export default App;

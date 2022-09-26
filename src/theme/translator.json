@@ -1,0 +1,231 @@
+{
+  "menu": {
+    "dashboard": {
+      "en": "Dashboard",
+      "fr": "Tableau de bord"
+    }
+  },
+  "components": {
+    "appBar": {
+      "notification": {
+        "en": "Notifications",
+        "fr": "Notifications"
+      },
+      "accountPopover": {
+        "title": {
+          "en": "Account",
+          "fr": "Compte"
+        },
+        "settings": {
+          "en": "Settings",
+          "fr": "Réglages"
+        },
+        "signOut": {
+          "en": "Sign out",
+          "fr": "Se déconnecter"
+        }
+      }
+    }
+  },
+  "pages": {
+    "admin": {
+      "logs": {
+        "title": {
+          "en": "Logs",
+          "fr": "Logs"
+        }
+      }
+    },
+    "settings": {
+      "title": {
+        "en": "Settings",
+        "fr": "Réglages"
+      },
+      "information": {
+        "title": {
+          "en": "General information",
+          "fr": "Information générale"
+        },
+        "subheader": {
+          "en": "Manage your general information",
+          "fr": "Gérer vos informations personnelles"
+        },
+        "inputs": {
+          "emailLabel": {
+            "en": "Email",
+            "fr": "Courriel"
+          },
+          "nameLabel": {
+            "en": "Full name",
+            "fr": "Nom complet"
+          }
+        },
+        "submit": {
+          "en": "Update",
+          "fr": "Modifier"
+        }
+      }
+    },
+    "notifications": {
+      "title": {
+        "en": "Notifications",
+        "fr": "Notifications"
+      }
+    },
+    "dashboard": {
+      "title": {
+        "en": "Dashboard",
+        "fr": "Tableau de bord"
+      }
+    },
+    "login": {
+      "title": {
+        "en": "Login",
+        "fr": "Connexion"
+      },
+      "submit": {
+        "en": "Login",
+        "fr": "Se connecter"
+      },
+      "toForgotPassword": {
+        "en": "I forgot my password",
+        "fr": "J'ai oublié mon mot de passe"
+      },
+      "toSignup": {
+        "en": "I don't have an account",
+        "fr": "Je n'ai pas de compte"
+      },
+      "password": {
+        "en": "Password",
+        "fr": "Mot de passe"
+      },
+      "email": {
+        "en": "Email",
+        "fr": "Courriel"
+      },
+      "rememberMe": {
+        "en": "Remember me",
+        "fr": "Se souvenir de moi"
+      }
+    },
+    "signup": {
+      "title": {
+        "en": "Create your account",
+        "fr": "Créez votre compte"
+      },
+      "confirmationPassword": {
+        "en": "Password confirmation",
+        "fr": "Confirmation du mot de passe"
+      },
+      "fullName": {
+        "en": "Full Name",
+        "fr": "Nom complet"
+      },
+      "email": {
+        "en": "Email",
+        "fr": "Courriel"
+      },
+      "password": {
+        "en": "Password",
+        "fr": "Mot de passe"
+      },
+      "passwordConfirmation": {
+        "en": "Password confirmation",
+        "fr": "Confirmation du mot de passe"
+      },
+      "submit": {
+        "en": "Create your account",
+        "fr": "Créez votre compte"
+      },
+      "toLogin": {
+        "en": "I already have an account",
+        "fr": "J'ai déjà un compte"
+      }
+    },
+    "forgotPassword": {
+      "emailSent": {
+        "en": "You should recieve an email soon.",
+        "fr": "Vous recevrez un courriel sous peu."
+      },
+      "submit": {
+        "en": "Submit",
+        "fr": "Envoyer"
+      },
+      "email": {
+        "en": "Email",
+        "fr": "Courriel"
+      },
+      "title": {
+        "en": "Recover your password",
+        "fr": "Récupérez votre mot de passe"
+      },
+      "toLogin": {
+        "en": "I already know my password",
+        "fr": "Je connais déjà mon mot de passe"
+      }
+    },
+    "notFound": {
+      "title": {
+        "en": "404",
+        "fr": "404"
+      },
+      "subtitle": {
+        "en": "Page not found",
+        "fr": "Page non trouvée"
+      },
+      "abstract": {
+        "en": "The page you are looking for was moved, removed, renamed or might never existed.",
+        "fr": "La page que vous recherchez a été déplacée, supprimée, renommée ou n'a peut-être jamais existé."
+      },
+      "toDashboard": {
+        "en": "Go to dashboard",
+        "fr": "Retournez au tableau de bord"
+      }
+    }
+  },
+  "models": {
+    "enums": {}
+  },
+  "formMessages": {
+    "invalidEmail": {
+      "en": "Please enter a valid email address.",
+      "fr": "Veuillez entrer une adresse courriel valide."
+    },
+    "passwordsMustMatch": {
+      "en": "Passwords do not match.",
+      "fr": "Les mots de passe ne correspondent pas."
+    },
+    "requiredField": {
+      "en": "Please fill this field.",
+      "fr": "Veuillez remplir ce champ."
+    }
+  },
+  "errorMessages": {
+    "firebase": {
+      "auth": {
+        "userNotFound": {
+          "en": "Invalid email or password.",
+          "fr": "L'adresse courriel ou le mot de passe est invalide."
+        },
+        "emailAlreadyInUse": {
+          "en": "That email is already used by a user.",
+          "fr": "Ce courriel est déjà utilisé par un autre utilisateur."
+        },
+        "networkRequestFailed": {
+          "en": "We are having trouble connecting to our servers. Please try again later.",
+          "fr": "Nous avons de la difficulté à nous connecter à nos serveurs. Veuillez réessayer plus tard."
+        }
+      }
+    },
+    "general": {
+      "superAdminRequired": {
+        "en": "You are currently not allowed to access this app!",
+        "fr": "Vous n'êtes actuellement pas autorisé à accéder à cette application !"
+      },
+      "unknown": {
+        "en": "An error has occured, please try again later.",
+        "fr": "Un erreur est survenue, veuillez réessayer plus tard."
+      }
+    }
+  }
+}

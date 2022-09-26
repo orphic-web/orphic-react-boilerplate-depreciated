@@ -1,0 +1,296 @@
+{
+  "notifications": {
+    "almostSessionEnd": {
+      "body": {
+        "en": "Attention!",
+        "fr": "Attention !"
+      },
+      "title": {
+        "en": "5 minutes before the automatic shutdown of the console.",
+        "fr": "5 minutes avant la fermeture automatique de la console."
+      }
+    },
+    "newGamingEntry": {
+      "body": {
+        "other": {
+          "en": "Member: {userName}<br>Duration: {entryDuration}",
+          "fr": "Membre : {userName}<br>Durée : {entryDuration}"
+        },
+        "self": {
+          "en": "Member: you<br>Duration: {entryDuration}",
+          "fr": "Membre : vous<br>Durée : {entryDuration}"
+        }
+      },
+      "title": {
+        "other": {
+          "en": "New Gaming Entry",
+          "fr": "Nouvelle entrée de jeux vidéo"
+        },
+        "self": {
+          "en": "New Gaming Entry",
+          "fr": "Nouvelle entrée de jeux vidéo"
+        }
+      }
+    },
+    "newSportEntry": {
+      "body": {
+        "other": {
+          "en": "Member: {userName}<br>Duration: {entryDuration}",
+          "fr": "Membre : {userName}<br>Durée : {entryDuration}"
+        },
+        "self": {
+          "en": "Member: you<br>Duration: {entryDuration}",
+          "fr": "Membre : vous<br>Durée : {entryDuration}"
+        }
+      },
+      "title": {
+        "other": {
+          "en": "New Sport Entry",
+          "fr": "Nouvelle entrée de sport"
+        },
+        "self": {
+          "en": "New Sport Entry",
+          "fr": "Nouvelle entrée de sport"
+        }
+      }
+    },
+    "outOfGamingTime": {
+      "body": {
+        "other": {
+          "en": "{userName} needs to earn game time in order to play again.",
+          "fr": "{userName} doit gagner du temps de jeu afin de pouvoir jouer à nouveau."
+        },
+        "self": {
+          "en": "You need to earn game time in order to play again.",
+          "fr": "Vous devez gagner du temps de jeu afin de pouvoir jouer à nouveau."
+        }
+      },
+      "title": {
+        "other": {
+          "en": "{userName} ran out of Gaming time!",
+          "fr": "{userName} a dépensé tout son temps de jeu !"
+        },
+        "self": {
+          "en": "You have run out of Gaming time!",
+          "fr": "Vous avez dépensé tout votre temps de jeu !"
+        }
+      }
+    },
+    "powerplugOffline": {
+      "body": {
+        "en": "The {powerplugName} Powerplug has been shut off.",
+        "fr": "La prise {powerPlugName} a été éteinte."
+      },
+      "title": {
+        "en": "The {powerplugName} Powerplug is offline!",
+        "fr": "La prise {powerplugName} est hors-ligne !"
+      }
+    },
+    "reachedConsecutive": {
+      "body": {
+        "other": {
+          "en": "Maximum consecutive Gaming time reached",
+          "fr": "Temps de jeu consécutif maximum atteint"
+        },
+        "self": {
+          "en": "Maximum consecutive Gaming time reached",
+          "fr": "Temps de jeu consécutif maximum atteint"
+        }
+      },
+      "title": {
+        "other": {
+          "en": "{userName} must take a break before he can play again.",
+          "fr": "{userName} doit prendre une pause avant de pouvoir rejouer."
+        },
+        "self": {
+          "en": "You must take a break before he can play again.",
+          "fr": "Vous devez prendre une pause avant de pouvoir rejouer."
+        }
+      }
+    },
+    "reachedGamingObjective": {
+      "body": {
+        "other": {
+          "en": "{userName} has reached his Weekly Gaming Objective.",
+          "fr": "{userName} a atteint son objectif de temps de jeu hebdomadaire."
+        },
+        "self": {
+          "en": "You have reached your Weekly Gaming Objective.",
+          "fr": "Vous avez atteint votre objectif de temps de jeu hebdomadaire."
+        }
+      },
+      "title": {
+        "other": {
+          "en": "Gaming Objective reached",
+          "fr": "Objectif de temps de jeu atteint"
+        },
+        "self": {
+          "en": "Gaming Objective reached",
+          "fr": "Objectif de temps de jeu atteint"
+        }
+      }
+    },
+    "reachedSportObjective": {
+      "body": {
+        "other": {
+          "en": "{userName} has reached his Weekly Sport Objective.",
+          "fr": "{userName} a atteint son objectif de temps de sport hebdomadaire."
+        },
+        "self": {
+          "en": "You have reached your Weekly Sport Objective.",
+          "fr": "Vous avez atteint votre objectif de temps de sport hebdomadaire."
+        }
+      },
+      "title": {
+        "other": {
+          "en": "Sport Objective reached",
+          "fr": "Objectif de temps de sport atteint"
+        },
+        "self": {
+          "en": "Sport Objective reached",
+          "fr": "Objectif de temps de sport atteint"
+        }
+      }
+    },
+    "repluggedPowerplug": {
+      "body": {
+        "en": "The {powerplugName} plug is online again.",
+        "fr": "La prise {powerplugName} est de nouveau en ligne."
+      },
+      "title": {
+        "en": "{powerplugName} replugged!",
+        "fr": "{powerplugName} rebranchée !"
+      }
+    },
+    "rulesChanged": {
+      "body": {
+        "other": {
+          "en": "{userName}'s Rules & Objectives have been modified.",
+          "fr": "Les règles et objectifs de {userName} ont été modifiés."
+        },
+        "self": {
+          "en": "Your Rules & Objectives have been modified.",
+          "fr": "Vos règles et objectifs ont été modifiés."
+        }
+      },
+      "title": {
+        "other": {
+          "en": "Modification of Rules & Objectives",
+          "fr": "Modification des règles et objectifs"
+        },
+        "self": {
+          "en": "Modification of Rules & Objectives",
+          "fr": "Modification des règles et objectifs"
+        }
+      }
+    },
+    "unpluggedConsole": {
+      "body": {
+        "en": "We have detected that the console {powerplugName} has been disconnected.",
+        "fr": "Nous avons détecté que la console {powerplugName} a été débranchée."
+      },
+      "title": {
+        "en": "Attention! Console {powerplugName} has been unplugged from the Powerplug.",
+        "fr": "Attention ! La console {powerplugName} a été débranchée de la prise."
+      }
+    },
+    "unpluggedPowerplug": {
+      "body": {
+        "en": "We have detected that the Powerplug {powerplugName} has been disconnected.",
+        "fr": "Nous avons détecté que la prise {powerplugName} a été débranchée."
+      },
+      "title": {
+        "en": "Attention! Console {powerplugName} has been unplugged from the outlet.",
+        "fr": "Attention ! La prise {powerplugName} a été débranchée du courant."
+      }
+    },
+    "startedPlaying": {
+      "body": {
+        "other": {
+          "en": "{userName} has started a Gaming session.",
+          "fr": "{userName} a débuté une session de jeu."
+        },
+        "self": {
+          "en": "You have started a Gaming session.",
+          "fr": "Vous avez débuté une session de jeu."
+        }
+      },
+      "title": {
+        "other": {
+          "en": "End of Gaming Session",
+          "fr": "Fin d'une session de jeu"
+        },
+        "self": {
+          "en": "End of Gaming Session",
+          "fr": "Fin d'une session de jeu"
+        }
+      }
+    },
+    "startedSport": {
+      "body": {
+        "other": {
+          "en": "{userName} has started a Sport session.",
+          "fr": "{userName} a débuté une session de sport."
+        },
+        "self": {
+          "en": "You have started a Sport session.",
+          "fr": "Vous avez débuté une session de sport."
+        }
+      },
+      "title": {
+        "other": {
+          "en": "End of Sport Session",
+          "fr": "Fin d'une session de sport"
+        },
+        "self": {
+          "en": "End of Sport Session",
+          "fr": "Fin d'une session de sport"
+        }
+      }
+    },
+    "stoppedPlaying": {
+      "body": {
+        "other": {
+          "en": "{userName} has played for {entryDuration}.",
+          "fr": "{userName} a joué pendant {entryDuration}."
+        },
+        "self": {
+          "en": "You have played for {entryDuration}.",
+          "fr": "Vous avez joué pendant {entryDuration}."
+        }
+      },
+      "title": {
+        "other": {
+          "en": "End of Gaming Session",
+          "fr": "Fin d'une session de jeu"
+        },
+        "self": {
+          "en": "End of Gaming Session",
+          "fr": "Fin d'une session de jeu"
+        }
+      }
+    },
+    "stoppedSport": {
+      "body": {
+        "other": {
+          "en": "{userName} has done {entryDuration} of sport.",
+          "fr": "{userName} a fait {entryDuration} de sport."
+        },
+        "self": {
+          "en": "You have done {entryDuration} of sport.",
+          "fr": "Vous avez fait {entryDuration} de sport."
+        }
+      },
+      "title": {
+        "other": {
+          "en": "End of Sport Session",
+          "fr": "Fin d'une session de sport"
+        },
+        "self": {
+          "en": "End of Sport Session",
+          "fr": "Fin d'une session de sport"
+        }
+      }
+    }
+  }
+}

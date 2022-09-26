@@ -1,7 +1,0 @@
-{
-  "name": "orphic-boardgame-tracker",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}

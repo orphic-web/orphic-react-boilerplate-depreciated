@@ -1,30 +1,11 @@
-node_modules
-.env
-*.log
-functions/firebase-debug.log
-functions/firestore-debug.log
-functions/emulated_data/firestore_export/firestore_export.overall_export_metadata
-functions/emulated_data/firestore_export/all_namespaces/all_kinds/all_namespaces_all_kinds.export_metadata
-functions/emulated_data/firestore_export/all_namespaces/all_kinds/output-0
-functions/firebase-debug.log
-functions/firestore-debug.log
-functions/emulated_data/firebase-export-metadata.json
-functions/emulated_data/auth_export/accounts.json
-functions/emulated_data/auth_export/config.json
-functions/emulated_data/firestore_export/all_namespaces/all_kinds/all_namespaces_all_kinds.export_metadata
-functions/emulated_data/firestore_export/all_namespaces/all_kinds/output-0
-functions/firebase-debug.log
-functions/firebase-debug.log
-functions/emulated_data/firebase-export-metadata.json
-
 # Logs
 logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-firebase-debug.log*
-firebase-debug.*.log*
+firestore-debug.log
+*-debug.log
 
 # Firebase cache
 .firebase/
@@ -65,6 +46,8 @@ build/Release
 
 # Dependency directories
 node_modules/
+lib/
+emulated_data
 
 # Optional npm cache directory
 .npm
@@ -84,9 +67,5 @@ node_modules/
 # dotenv environment variables file
 .env
 .runtimeconfig.json
-
-build/
-
-functions/firebase-debug.log
-functions/firestore-debug.log
+.DS_store
 functions/ui-debug.log

@@ -1,31 +1,41 @@
-import {
-  IonButton,
-  IonContent, IonPage,
-} from '@ionic/react';
-import { useEffect, useState } from 'react';
-import './NotFound.css';
+import { Box, Container, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../store/Hooks';
+import translator from '../theme/translator.json';
+import Utils from '../utils/Utils';
 
 const NotFound: React.FC = () => {
-  const [show, setShow] = useState(false);
+  const language = useAppSelector((state) => state.user.language);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShow(true), 600);
-
-    return () => clearTimeout(timer);
-  }, []);
-
+  const navigate = useNavigate();
   return (
-    show
-      ? <IonPage>
-        <IonContent >
-          <div className="not-found__wrapper">
-            <h1>Page not found</h1>
-            <p>Uh oh, we could not found the page you are looking for. Try going back to the dashboard</p>
-            <IonButton fill="solid" color='primary' href="/home">Go to dashboard</IonButton>
-          </div>
-        </IonContent>
-      </IonPage>
-      : <></>
+    <Container>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          maxWidth: '900px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          gap: '15px',
+        }}
+      >
+        <Typography variant="h1">
+          {Utils.getTranslation(language, translator.pages.notFound.title)}
+        </Typography>
+        <Typography variant="h4">
+          {Utils.getTranslation(language, translator.pages.notFound.subtitle)}
+        </Typography>
+        <Typography variant="body1" align="center">
+          {Utils.getTranslation(language, translator.pages.notFound.abstract)}
+        </Typography>
+        <Button onClick={() => navigate('/')} variant="contained">{Utils.getTranslation(language, translator.pages.notFound.toDashboard)}</Button>
+      </Box>
+    </Container>
   );
 };
 
