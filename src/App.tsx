@@ -64,7 +64,7 @@ function App() {
           unsubscribe = onSnapshot(doc(db, 'Users', firebaseUser.uid), (result) => {
             const userDoc = result.data() as User;
             dispatch(updateUser(userDoc));
-            dispatch(updateLanguage(userDoc.language));
+            dispatch(updateLanguage(userDoc?.language));
           });
         } else {
           dispatch(updateUser(null));
