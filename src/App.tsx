@@ -29,6 +29,7 @@ import AdminRoutes from './routing/AdminRoutes';
 import Logs from './pages/admin/Logs';
 import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
+import ErrorService from './services/ErrorService';
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
@@ -52,11 +53,11 @@ function App() {
 
   const [loading, setLoading] = useState(true);
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       let unsubscribe = () => {};
-
       auth.onAuthStateChanged((response) => {
         const firebaseUser = response as FirebaseUser;
         if (firebaseUser) {
@@ -73,8 +74,8 @@ function App() {
       });
       return unsubscribe;
     } catch (e: any) {
-      console.error(e);
-      return e;
+      ErrorService.handleError(e, dispatch);
+      setLoading(false);
     }
   }, []);
 
