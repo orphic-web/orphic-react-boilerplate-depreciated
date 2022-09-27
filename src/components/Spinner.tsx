@@ -19,7 +19,6 @@ const Spinner: React.FC<ContainerProps> = ({
   useEffect(() => {
     try {
       const timer1 = setTimeout(() => {
-        console.log('here');
         setOpen(show);
       }, 500);
 

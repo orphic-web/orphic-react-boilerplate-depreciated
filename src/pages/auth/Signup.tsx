@@ -55,9 +55,8 @@ const Signup: React.FC = () => {
         UserService.delete(auth.currentUser.uid);
         UserService.deleteAccount(auth.currentUser);
       }
-      console.log('asdasd');
-      setLoading(false);
       ErrorService.handleError(e, dispatch);
+      setLoading(false);
     }
   };
 
