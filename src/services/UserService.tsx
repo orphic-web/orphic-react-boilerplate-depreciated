@@ -3,7 +3,7 @@ import {
   User as FirebaseUser, updateEmail, updatePassword, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import {
-  doc, collection, setDoc, deleteDoc, updateDoc, getDoc,
+  doc, setDoc, deleteDoc, updateDoc, getDoc,
 } from 'firebase/firestore';
 
 import { auth, db } from '../FirebaseConfig';
@@ -45,19 +45,20 @@ class UserService {
    * @param {string} language
    * @returns {timestamp} write time
    */
+  // eslint-disable-next-line consistent-return
   static create = async (id:string, name: string, email: string, language?: string) => {
-    const usersRef = collection(db, 'Users');
-
-    const newUser = {
-      id,
-      name,
-      email,
-      permission: Permissions.USER,
-      createdDate: new Date(),
-      language,
-    } as User;
-
-    return setDoc(doc(usersRef, id), newUser);
+    try {
+      return setDoc(doc(db, 'Users', id), {
+        id,
+        name,
+        email,
+        permission: Permissions.USER,
+        createdDate: new Date(),
+        language,
+      });
+    } catch (e: any) {
+      console.log(e);
+    }
   };
 
   /**
