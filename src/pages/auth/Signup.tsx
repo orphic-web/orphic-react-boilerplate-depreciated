@@ -48,8 +48,8 @@ const Signup: React.FC = () => {
 
       if (auth.currentUser) await EmailService.sendAccountConfirmation(auth.currentUser);
 
-      setLoading(false);
-      navigate('/');
+      throw Error('asdasdasd');
+
     } catch (e: any) {
       if (auth.currentUser) {
         UserService.delete(auth.currentUser.uid);

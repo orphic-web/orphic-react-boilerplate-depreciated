@@ -6,6 +6,8 @@ import {
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
+import * as Sentry from '@sentry/react';
+import { BrowserTracing } from '@sentry/tracing';
 import {
   User as FirebaseUser,
 } from 'firebase/auth';
@@ -34,6 +36,16 @@ if (process.env.NODE_ENV === 'production') {
   console.error = () => {};
   console.debug = () => {};
 }
+
+Sentry.init({
+  dsn: 'https://0a01f04480ec42ca98fe66faaedf1606@o1428207.ingest.sentry.io/6778257',
+  integrations: [new BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
 
 function App() {
   const dispatch = useAppDispatch();
