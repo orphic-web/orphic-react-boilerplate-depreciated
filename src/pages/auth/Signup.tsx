@@ -47,7 +47,7 @@ const Signup: React.FC = () => {
       await UserService.create(firebaseUser.user.uid, values.name, values.email, SupportedLanguages.DEFAULT);
 
       if (auth.currentUser) await EmailService.sendAccountConfirmation(auth.currentUser);
-      console.log('asdasd');
+
       setLoading(false);
       navigate('/');
     } catch (e: any) {
@@ -199,8 +199,8 @@ const Signup: React.FC = () => {
             </Box>
           )}
         </Formik>
-        <Spinner show={loading}/>
       </Box>
+      <Spinner show={loading}/>
     </Container>
   );
 };
