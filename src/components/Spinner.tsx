@@ -18,15 +18,14 @@ const Spinner: React.FC<ContainerProps> = ({
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     try {
-      if (show) {
-        const timer1 = setTimeout(() => {
-          setOpen(show);
-        }, 500);
+      const timer1 = setTimeout(() => {
+        console.log('here');
+        setOpen(show);
+      }, 500);
 
-        return () => {
-          clearTimeout(timer1);
-        };
-      }
+      return () => {
+        clearTimeout(timer1);
+      };
     } catch (e: any) {
       ErrorService.handleError(e, dispatch);
     }
