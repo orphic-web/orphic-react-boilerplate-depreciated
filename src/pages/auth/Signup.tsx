@@ -47,9 +47,9 @@ const Signup: React.FC = () => {
       await UserService.create(firebaseUser.user.uid, values.name, values.email, SupportedLanguages.DEFAULT);
 
       if (auth.currentUser) await EmailService.sendAccountConfirmation(auth.currentUser);
-
-      throw Error('asdasdasd');
-
+      console.log('asdasd');
+      setLoading(false);
+      navigate('/');
     } catch (e: any) {
       if (auth.currentUser) {
         UserService.delete(auth.currentUser.uid);
