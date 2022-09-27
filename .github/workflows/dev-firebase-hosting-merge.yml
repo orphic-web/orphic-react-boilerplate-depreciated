@@ -1,0 +1,26 @@
+name: Deploy to Firebase Hosting DEVELOPMENT on merge
+"on":
+  push:
+    branches:
+      - dev
+env:
+  CI: false
+  REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID_DEV }}
+  REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_MESSAGING_SENDER_ID_DEV }}
+  REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET_DEV }}
+  REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID_DEV}}
+  REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN_DEV }}
+  REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY_DEV }}
+  REACT_APP_PUBLIC_URL: ${{ secrets.REACT_APP_PUBLIC_URL_DEV }}
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCORE_KEEPER_2E98B }}"
+          channelId: live
+          projectId: ${{secrets.REACT_APP_PROJECT_ID_DEV}}

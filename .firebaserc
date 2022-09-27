@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "orphic-boardgame-tracker"
+    "default": "scorekeeper-2e98b",
+    "dev": "score-keeper-2e98b",
+    "prod": "scorekeeper-prod"
   }
 }

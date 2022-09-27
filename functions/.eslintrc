@@ -1,109 +1,109 @@
 {
-    "root": true,
-    "env": {
-      "browser": true,
-      "es6": true,
-      "node": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "project": "tsconfig.json",
-      "sourceType": "module"
-    },
-    "plugins": [
-      "@typescript-eslint",
-      "import"
-    ],
-    "extends": [
-      "airbnb-base",
-      "plugin:import/typescript"
-    ],
-    "ignorePatterns": [
-      "node_modules",
-      "lib",
-      "emulated_data"
-    ],
-    "rules": {
-      "no-param-reassign": [
-        "error",
-        {
-          "props": false
-        }
-      ],
-      "import/prefer-default-export": "off",
-      "array-callback-return": [
-        0,
-        {
-          "allowImplicit": true
-        }
-      ],
-      "class-methods-use-this": [
-        0,
-        {
-          "enforceForClassFields": false
-        }
-      ],
-      "no-unused-vars": [
-        "error",
-        {
-          "args": "none"
-        }
-      ],
-      "import/no-import-module-exports": 0,
-      "max-len": [
-        2,
-        {
-          "code": 150,
-          "ignoreComments": true
-        }
-      ],
-      "linebreak-style": 0,
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "semi": [
-        "error",
-        "always"
-      ],
-      "indent": [
-        "error",
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "no-multi-spaces": [
-        "error"
-      ],
-      "no-shadow": "off",
-      "no-use-before-define": "off",
-      "@typescript-eslint/no-shadow": [
-        "error"
-      ],
-      "@typescript-eslint/naming-convention": [
-        "warn",
-        {
-          "selector": "enumMember",
-          "format": [
-            "UPPER_CASE"
-          ]
-        }
-      ],
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-          "js": "never",
-          "jsx": "never",
-          "ts": "never",
-          "tsx": "never"
-        }
-      ]
-    },
-    "settings": {
-      "import/resolver": {
-        "typescript": {}
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "import"
+  ],
+  "extends": [
+    "airbnb-base",
+    "plugin:import/typescript"
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    "lib",
+    "emulated_data"
+  ],
+  "rules": {
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
       }
+    ],
+    "import/prefer-default-export": "off",
+    "array-callback-return": [
+      0,
+      {
+        "allowImplicit": true
+      }
+    ],
+    "class-methods-use-this": [
+      0,
+      {
+        "enforceForClassFields": false
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "none"
+      }
+    ],
+    "import/no-import-module-exports": 0,
+    "max-len": [
+      2,
+      {
+        "code": 200,
+        "ignoreComments": true
+      }
+    ],
+    "linebreak-style": 0,
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "no-multi-spaces": [
+      "error"
+    ],
+    "no-shadow": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-shadow": [
+      "error"
+    ],
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        "selector": "enumMember",
+        "format": [
+          "UPPER_CASE"
+        ]
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
     }
   }
+}

@@ -1,0 +1,26 @@
+name: Deploy to Score keeper Hosting PRODUCTION on PR
+"on":
+  pull_request:
+    branches:
+      - main
+env:
+  CI: false
+  REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID_PROD }}
+  REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_MESSAGING_SENDER_ID_PROD }}
+  REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET_PROD }}
+  REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID_PROD }}
+  REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN_PROD }}
+  REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY_PROD }}
+  REACT_APP_PUBLIC_URL: ${{ secrets.REACT_APP_PUBLIC_URL_PROD }}
+jobs:
+  build_and_preview:
+    if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCOREKEEPER_PROD }}"
+          projectId: ${{secrets.REACT_APP_PROJECT_ID_PROD}}
