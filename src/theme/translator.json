@@ -25,6 +25,26 @@
           "fr": "Se déconnecter"
         }
       }
+    },
+    "promptForCredentials": {
+      "title": {
+        "en": "Authentification",
+        "fr": "Authentification"
+      },
+      "subheader": {
+        "en": "Enter your password to confirm your identity.",
+        "fr": "Entrez votre mot de passe pour confirmer votre identité."
+      },
+      "form": {
+        "password": {
+          "en": "Password",
+          "fr": "Mot de passe"
+        },
+        "submit": {
+          "en": "Confirm",
+          "fr": "Confirmer"
+        }
+      }
     }
   },
   "pages": {
