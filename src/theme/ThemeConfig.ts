@@ -23,10 +23,10 @@ let themeConfig = createTheme({
       disabled: 'rgba(255, 255, 255, 0.5)',
     },
     error: {
-      main: '#ff9d9b',
-      light: 'rgb(255, 176, 175)',
-      dark: 'rgb(178, 109, 108)',
-      contrastText: 'rgba(0, 0, 0, 0.87)',
+      main: '#d32f2f',
+      light: 'rgb(219, 88, 88)',
+      dark: 'rgb(147, 32, 32)',
+      contrastText: '#fff',
     },
     warning: {
       main: '#f9cf75',

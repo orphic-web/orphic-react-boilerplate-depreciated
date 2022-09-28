@@ -1,10 +1,11 @@
 import {
-  Box, Button, Card, CardContent, CardHeader, Container, Divider,
+  Box, Button, Card, CardContent, CardHeader, Container, Divider, Typography,
 } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { TextField } from 'formik-mui';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 import SupportedLanguages from '../models/enums/SupportedLanguages';
@@ -20,8 +21,9 @@ import { auth } from '../FirebaseConfig';
 const Settings: React.FC = () => {
   const user = useAppSelector((state) => state.user.user) as User;
   const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
-
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
 
@@ -74,6 +76,25 @@ const Settings: React.FC = () => {
         await UserService.updatePassword(auth.currentUser, password);
       }
 
+      setLoading(false);
+      await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
+    } catch (e: any) {
+      ErrorService.handleError(e, dispatch);
+      setLoading(false);
+    }
+  };
+
+  const deleteAccount = async () => {
+    try {
+      setLoading(true);
+      if (auth.currentUser) {
+        UserService.delete(auth.currentUser.uid);
+        UserService.deleteAccount(auth.currentUser);
+      } else {
+        throw Error('Delete account - Firebase user undefined');
+      }
+
+      navigate('/signup');
       setLoading(false);
       await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
     } catch (e: any) {
@@ -282,6 +303,43 @@ const Settings: React.FC = () => {
               </Form>
             )}
           </Formik>
+        </Container>
+        {/**
+           *  Deleting account form
+           */}
+        <Container
+          maxWidth="lg"
+          sx={{
+            marginTop: '20px',
+            marginBottom: '20px',
+          }}
+        >
+          <Card sx={{
+            backgroundColor: '#331f1e',
+          }}>
+            <CardHeader
+              title={
+                <Typography variant='h5' sx={{ color: 'error.main' }}>
+                  {Utils.getTranslation(language, translator.pages.settings.deleteAccount.title)}
+                </Typography>
+              }
+              subheader={
+                <Typography sx={{ color: 'error.main', fontWeight: 'bold' }}>
+                  {Utils.getTranslation(language, translator.pages.settings.deleteAccount.subheader)}
+                </Typography>
+              }
+            />
+            <CardContent>
+              <Button
+                sx={{ color: 'info.main' }}
+                variant='contained'
+                color="error"
+                onClick={() => deleteAccount()}
+              >
+                {Utils.getTranslation(language, translator.pages.settings.deleteAccount.submit)}
+              </Button>
+            </CardContent>
+          </Card>
         </Container>
       </Layout>
       <Spinner show={loading}/>

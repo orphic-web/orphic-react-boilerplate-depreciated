@@ -20,6 +20,7 @@ class ErrorService {
 
   static handleFirebaseError = async (error: FirebaseError, dispatch: any) => {
     switch (error.code) {
+      case 'auth/wrong-password':
       case 'auth/user-not-found': {
         const message = await Utils.getTranslation(this.currentLanguage, translator.errorMessages.firebase.auth.userNotFound);
         if (message) AlertUtil.createErrorAlert(message as string, dispatch);
