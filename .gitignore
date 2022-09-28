@@ -69,3 +69,5 @@ emulated_data
 .runtimeconfig.json
 .DS_store
 functions/ui-debug.log
+functions/firebase-debug.log
+functions/ui-debug.log

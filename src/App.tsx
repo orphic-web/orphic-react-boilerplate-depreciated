@@ -6,6 +6,8 @@ import {
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
+import * as Sentry from '@sentry/react';
+import { BrowserTracing } from '@sentry/tracing';
 import {
   User as FirebaseUser,
 } from 'firebase/auth';
@@ -27,12 +29,23 @@ import AdminRoutes from './routing/AdminRoutes';
 import Logs from './pages/admin/Logs';
 import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
+import ErrorService from './services/ErrorService';
 
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
   console.error = () => {};
   console.debug = () => {};
+
+  Sentry.init({
+    dsn: 'https://0a01f04480ec42ca98fe66faaedf1606@o1428207.ingest.sentry.io/6778257',
+    integrations: [new BrowserTracing()],
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
 }
 
 function App() {
@@ -40,18 +53,18 @@ function App() {
 
   const [loading, setLoading] = useState(true);
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       let unsubscribe = () => {};
-
       auth.onAuthStateChanged((response) => {
         const firebaseUser = response as FirebaseUser;
         if (firebaseUser) {
           unsubscribe = onSnapshot(doc(db, 'Users', firebaseUser.uid), (result) => {
             const userDoc = result.data() as User;
             dispatch(updateUser(userDoc));
-            dispatch(updateLanguage(userDoc.language));
+            dispatch(updateLanguage(userDoc?.language));
           });
         } else {
           dispatch(updateUser(null));
@@ -61,8 +74,8 @@ function App() {
       });
       return unsubscribe;
     } catch (e: any) {
-      console.error(e);
-      return e;
+      ErrorService.handleError(e, dispatch);
+      setLoading(false);
     }
   }, []);
 

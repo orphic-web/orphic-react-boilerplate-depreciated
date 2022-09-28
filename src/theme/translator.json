@@ -1,4 +1,14 @@
 {
+  "successMessages": {
+    "accountCreated": {
+      "en": "Your account has been successfully created!",
+      "fr": "Votre compte a été créé avec succès!"
+    },
+    "updateCompleted": {
+      "en": "Update completed!",
+      "fr": "Mise à jour complété!"
+    }
+  },
   "menu": {
     "dashboard": {
       "en": "Dashboard",
@@ -63,18 +73,14 @@
       },
       "information": {
         "title": {
-          "en": "General information",
-          "fr": "Information générale"
+          "en": "Personal information",
+          "fr": "Informations personnelles"
         },
         "subheader": {
           "en": "Manage your general information",
           "fr": "Gérer vos informations personnelles"
         },
         "inputs": {
-          "emailLabel": {
-            "en": "Email",
-            "fr": "Courriel"
-          },
           "nameLabel": {
             "en": "Full name",
             "fr": "Nom complet"
@@ -83,6 +89,56 @@
         "submit": {
           "en": "Update",
           "fr": "Modifier"
+        }
+      },
+      "changeEmail": {
+        "title": {
+          "en": "Modify your email",
+          "fr": "Modifier votre courriel"
+        },
+        "inputs": {
+          "email": {
+            "en": "New email",
+            "fr": "Nouveau courriel"
+          }
+        },
+        "submit": {
+          "en": "Save",
+          "fr": "Sauvegarder"
+        }
+      },
+      "changePassword": {
+        "title": {
+          "en": "Modify yourr password",
+          "fr": "Modifier votre mot de passe"
+        },
+        "inputs": {
+          "password": {
+            "en": "New password",
+            "fr": "Nouveau mot de passe"
+          },
+          "passwordConfirmation": {
+            "en": "Password confirmation",
+            "fr": "Confirmation du mot de passe"
+          }
+        },
+        "submit": {
+          "en": "Save",
+          "fr": "Sauvegarder"
+        }
+      },
+      "deleteAccount": {
+        "title": {
+          "en": "Delete yout account",
+          "fr": "Supprimer votre compte"
+        },
+        "subheader": {
+          "en": "Deleting your account is permanent and cannot be undone!",
+          "fr": "Supprimer votre compte est permanent et irréversible!"
+        },
+        "submit": {
+          "en": "Delete",
+          "fr": "Supprimer"
         }
       }
     },
@@ -96,7 +152,8 @@
       "title": {
         "en": "Dashboard",
         "fr": "Tableau de bord"
-      }
+      },
+      "modals": {}
     },
     "login": {
       "title": {

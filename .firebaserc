@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "score-keeper-2e98b",
+    "default": "scorekeeper-2e98b",
     "dev": "score-keeper-2e98b",
     "prod": "scorekeeper-prod"
   }

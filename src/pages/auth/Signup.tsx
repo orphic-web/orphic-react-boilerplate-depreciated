@@ -49,7 +49,7 @@ const Signup: React.FC = () => {
       if (auth.currentUser) await EmailService.sendAccountConfirmation(auth.currentUser);
 
       setLoading(false);
-      navigate('/');
+      navigate('/?from=accountCreated');
     } catch (e: any) {
       if (auth.currentUser) {
         UserService.delete(auth.currentUser.uid);
@@ -199,8 +199,8 @@ const Signup: React.FC = () => {
             </Box>
           )}
         </Formik>
-        <Spinner show={loading}/>
       </Box>
+      <Spinner show={loading}/>
     </Container>
   );
 };
