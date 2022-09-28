@@ -106,6 +106,20 @@
           "en": "Save",
           "fr": "Sauvegarder"
         }
+      },
+      "deleteAccount": {
+        "title": {
+          "en": "Delete yout account",
+          "fr": "Supprimer votre compte"
+        },
+        "subheader": {
+          "en": "Deleting your account is permanent and cannot be undone!",
+          "fr": "Supprimer votre compte est permanent et irréversible!"
+        },
+        "submit": {
+          "en": "Delete",
+          "fr": "Supprimer"
+        }
       }
     },
     "notifications": {
