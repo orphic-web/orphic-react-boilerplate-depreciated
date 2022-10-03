@@ -33,15 +33,11 @@ const CustomAlert: React.FC<ContainerProps> = ({
 
   return (
     <Collapse
-      sx={{
-        maxWidth: '800px',
-      }}
       in={show}>
       <Alert
         severity={alert.severity}
         sx={{
           width: '100%',
-          maxWidth: '800px',
         }}
         action={
           <IconButton

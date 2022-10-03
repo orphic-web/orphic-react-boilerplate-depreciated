@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {
-  BrowserRouter, Routes, Route,
+  BrowserRouter, Routes, Route, useLocation, useNavigationType, createRoutesFromChildren, matchRoutes,
 } from 'react-router-dom';
 
 import { ThemeProvider, CssBaseline } from '@mui/material';
@@ -19,7 +19,6 @@ import Signup from './pages/auth/Signup';
 import NotFound from './pages/NotFound';
 import { useAppDispatch } from './store/Hooks';
 import { updateLanguage, updateUser } from './store/slices/UserSlice';
-import AlertsContainer from './components/AlertsContainer';
 import User from './models/User';
 import Spinner from './components/Spinner';
 import PrivateRoutes from './routing/PrivateRoutes';
@@ -36,17 +35,31 @@ if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
   console.error = () => {};
   console.debug = () => {};
-
-  Sentry.init({
-    dsn: 'https://0a01f04480ec42ca98fe66faaedf1606@o1428207.ingest.sentry.io/6778257',
-    integrations: [new BrowserTracing()],
-
-    // Set tracesSampleRate to 1.0 to capture 100%
-    // of transactions for performance monitoring.
-    // We recommend adjusting this value in production
-    tracesSampleRate: 1.0,
-  });
 }
+
+Sentry.init({
+  dsn: 'https://0a01f04480ec42ca98fe66faaedf1606@o1428207.ingest.sentry.io/6778257',
+  integrations: [new BrowserTracing(
+    {
+      routingInstrumentation: Sentry.reactRouterV6Instrumentation(
+        useEffect,
+        useLocation,
+        useNavigationType,
+        createRoutesFromChildren,
+        matchRoutes,
+      ),
+    },
+  )],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+  debug: false,
+});
+// }
+
+const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 function App() {
   const dispatch = useAppDispatch();
@@ -65,10 +78,14 @@ function App() {
             const userDoc = result.data() as User;
             dispatch(updateUser(userDoc));
             dispatch(updateLanguage(userDoc?.language));
+            Sentry.setUser({
+              id: userDoc?.id, username: userDoc?.name, email: userDoc?.email, language: userDoc?.language,
+            });
           });
         } else {
           dispatch(updateUser(null));
           dispatch(updateLanguage(SupportedLanguages.DEFAULT));
+          Sentry.setUser(null);
         }
         setLoading(false);
       });
@@ -86,7 +103,7 @@ function App() {
         {
           !loading
           && <BrowserRouter>
-            <Routes>
+            <SentryRoutes>
               <Route element={<PrivateRoutes />} >
                 <Route path="/" element={<Dashboard />}/>
                 <Route path="/settings" element={<Settings />}/>
@@ -102,7 +119,7 @@ function App() {
                     <Route path='/forgot-password' element={<ForgotPassword />}/>
                   </>
                 }
-              </Route>à
+              </Route>
               {
                 // Allow us to show signup and forgot-password in prod and localhost env
                 (process.env.NODE_ENV === 'production' || process.env.REACT_APP_LOCALHOST_STATE)
@@ -113,10 +130,9 @@ function App() {
               }
               <Route path='/login' element={<Login />}/>
               <Route path="*" element={<NotFound />} />
-            </Routes>
+            </SentryRoutes>
           </BrowserRouter>
         }
-        <AlertsContainer/>
         <Spinner show={loading}></Spinner>
       </div>
     </ThemeProvider>
