@@ -21,6 +21,7 @@ import ErrorService from '../../services/ErrorService';
 import Spinner from '../../components/Spinner';
 import translator from '../../theme/translator.json';
 import Utils from '../../utils/Utils';
+import AlertsContainer from '../../components/AlertsContainer';
 
 const ForgotPassword: React.FC = () => {
   const language = useAppSelector((state) => state.user.language);
@@ -122,6 +123,7 @@ const ForgotPassword: React.FC = () => {
           )}
         </Formik>
         <Spinner show={loading}/>
+        <AlertsContainer/>
       </Box>
     </Container>
   );

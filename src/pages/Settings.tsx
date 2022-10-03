@@ -17,6 +17,7 @@ import UserService from '../services/UserService';
 import ErrorService from '../services/ErrorService';
 import AlertUtils from '../utils/AlertUtil';
 import { auth } from '../FirebaseConfig';
+import PromptForCredentials from '../components/PromptForCredentials';
 
 const Settings: React.FC = () => {
   const user = useAppSelector((state) => state.user.user) as User;
@@ -26,6 +27,12 @@ const Settings: React.FC = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [showPromptCredential, setShowPromptCredential] = useState(false);
+
+  const handlePromptCredentialAlert = (show: boolean) => {
+    if (show) setShowPromptCredential(true);
+    else setShowPromptCredential(false);
+  };
 
   const updateUser = async (values: any) => {
     try {
@@ -62,16 +69,23 @@ const Settings: React.FC = () => {
       setLoading(false);
       await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
-      setLoading(false);
+      // Change email needs reauthantification if credentials have timed out
+      if (e.code === 'auth/requires-recent-login') {
+        setLoading(false);
+        setShowPromptCredential(true);
+      } else {
+        setLoading(false);
+        ErrorService.handleError(e, dispatch);
+      }
     }
   };
 
   const changePassword = async (values: any) => {
     try {
       setLoading(true);
+      console.log(values);
       const { password } = values;
-
+      if (password === '123456') throw Error('asdasd');
       if (auth.currentUser) {
         await UserService.updatePassword(auth.currentUser, password);
       }
@@ -79,8 +93,14 @@ const Settings: React.FC = () => {
       setLoading(false);
       await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
-      setLoading(false);
+      // Change password needs reauthantification if credentials have timed out
+      if (e.code === 'auth/requires-recent-login') {
+        setLoading(false);
+        setShowPromptCredential(true);
+      } else {
+        setLoading(false);
+        ErrorService.handleError(e, dispatch);
+      }
     }
   };
 
@@ -98,8 +118,14 @@ const Settings: React.FC = () => {
       setLoading(false);
       await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
-      setLoading(false);
+      // Delete account needs reauthantification if credentials have timed out
+      if (e.code === 'auth/requires-recent-login') {
+        setLoading(false);
+        setShowPromptCredential(true);
+      } else {
+        setLoading(false);
+        ErrorService.handleError(e, dispatch);
+      }
     }
   };
 
@@ -343,6 +369,7 @@ const Settings: React.FC = () => {
         </Container>
       </Layout>
       <Spinner show={loading}/>
+      <PromptForCredentials show={showPromptCredential} setShow={handlePromptCredentialAlert} />
     </>
 
   );

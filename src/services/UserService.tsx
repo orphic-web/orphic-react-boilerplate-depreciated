@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 import {
-  User as FirebaseUser, updateEmail, updatePassword, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword,
+  User as FirebaseUser, updateEmail, updatePassword, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, reauthenticateWithCredential,
 } from 'firebase/auth';
 import {
   doc, setDoc, deleteDoc, updateDoc, getDoc,
@@ -112,6 +112,15 @@ class UserService {
    * @returns {timestamp} write time
    */
   static update = (user: User) => updateDoc(doc(db, 'Users', user.id), user);
+
+  /**
+   * Reauthenticate user
+   *
+   * @param {FirebaseUser} firebaseUser
+   * @param {string} password
+   * @returns {timestamp} write time
+   */
+  static reauthenticate = (currentUser: FirebaseUser, password: any) => reauthenticateWithCredential(currentUser, password);
 }
 
 export default UserService;

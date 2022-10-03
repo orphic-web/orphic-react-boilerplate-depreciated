@@ -7,6 +7,10 @@
     "updateCompleted": {
       "en": "Update completed!",
       "fr": "Mise à jour complété!"
+    },
+    "reauthenticate": {
+      "en": "You have successfully been reauthenticated!",
+      "fr": "Vous avez été authentifié avec succès!"
     }
   },
   "menu": {
@@ -42,8 +46,8 @@
         "fr": "Authentification"
       },
       "subheader": {
-        "en": "Enter your password to confirm your identity.",
-        "fr": "Entrez votre mot de passe pour confirmer votre identité."
+        "en": "We have to confirm your identity before continuing.",
+        "fr": "Nous devons confirmer votre identité avant de continuer."
       },
       "form": {
         "password": {
@@ -53,6 +57,10 @@
         "submit": {
           "en": "Confirm",
           "fr": "Confirmer"
+        },
+        "cancel": {
+          "en": "Cancel",
+          "fr": "Annuler"
         }
       }
     }
