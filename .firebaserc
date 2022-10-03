@@ -1,7 +1,6 @@
 {
   "projects": {
-    "default": "scorekeeper-2e98b",
-    "dev": "score-keeper-2e98b",
-    "prod": "scorekeeper-prod"
+    "default": "orphic-boilerplate",
+    "prod": "orphic-boilerplate"
   }
 }
