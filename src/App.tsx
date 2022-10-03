@@ -7,7 +7,6 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
 import * as Sentry from '@sentry/react';
-// import { BrowserTracing } from '@sentry/tracing';
 import {
   User as FirebaseUser,
 } from 'firebase/auth';
@@ -31,6 +30,7 @@ import Notifications from './pages/Notifications';
 import ErrorService from './services/ErrorService';
 
 console.log(process.env.NODE_ENV);
+console.log(process.env.REACT_APP_SENTRY_DNS);
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -66,6 +66,8 @@ function App() {
             const userDoc = result.data() as User;
             dispatch(updateUser(userDoc));
             dispatch(updateLanguage(userDoc?.language));
+
+            // Sets the user for sentry issue filters
             Sentry.setUser({
               id: userDoc?.id, username: userDoc?.name, email: userDoc?.email, language: userDoc?.language,
             });
