@@ -9,9 +9,9 @@ class ErrorService {
   private static currentLanguage = SupportedLanguages.DEFAULT;
 
   static handleError = async (error: any, dispatch: any, language?: SupportedLanguages) => {
-    console.error(error);
+    // Send event to Sentry project
     if (process.env.NODE_ENV === 'production') {
-      Sentry.captureException(error, error.details);
+      Sentry.captureException(error);
     }
 
     if (language) ErrorService.currentLanguage = language;
