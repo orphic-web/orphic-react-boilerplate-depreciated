@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../store/Hooks';
 import SupportedLanguages from '../models/enums/SupportedLanguages';
 import AlertUtils from '../utils/AlertUtil';
 import ErrorService from '../services/ErrorService';
-import ErrorDetail from '../models/ErrorDetail';
 
 const Dashboard: React.FC = () => {
   const [searchParams] = useSearchParams();
