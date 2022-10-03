@@ -17,6 +17,21 @@ To get a local copy up and running follow these simple example steps.
        
     #### Firestore service
         - Create firestore relationnal database with the good location, usely nam5 (us-central)
+        - Edit rules with this template :
+        
+            rules_version = '2';
+            service cloud.firestore {
+              match /databases/{database}/documents {
+                match /Users/{uid} {
+                  allow create: if request.auth != null;
+                  allow update: if request.auth != null &&
+                  request.auth.uid == uid &&
+                  request.resource.data.permission == 'user';
+                  allow read, delete: if request.auth != null &&
+                  request.auth.uid == uid;
+                }
+              }
+            }
     
     #### Hosting service
         - Add domain or subdomain create earlier
