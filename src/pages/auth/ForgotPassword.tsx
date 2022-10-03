@@ -21,10 +21,11 @@ import ErrorService from '../../services/ErrorService';
 import Spinner from '../../components/Spinner';
 import translator from '../../theme/translator.json';
 import Utils from '../../utils/Utils';
+import AlertsContainer from '../../components/AlertsContainer';
+import SupportedLanguages from '../../models/enums/SupportedLanguages';
 
 const ForgotPassword: React.FC = () => {
-  const language = useAppSelector((state) => state.user.language);
-
+  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -38,7 +39,7 @@ const ForgotPassword: React.FC = () => {
       AlertUtil.createSuccessAlert(Utils.getTranslation(language, translator.pages.forgotPassword.emailSent), dispatch);
     } catch (e: any) {
       setLoading(false);
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
     }
   };
 
@@ -122,6 +123,7 @@ const ForgotPassword: React.FC = () => {
           )}
         </Formik>
         <Spinner show={loading}/>
+        <AlertsContainer/>
       </Box>
     </Container>
   );

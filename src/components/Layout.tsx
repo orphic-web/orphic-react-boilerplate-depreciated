@@ -12,6 +12,7 @@ import SupportedLanguages from '../models/enums/SupportedLanguages';
 import { useAppSelector } from '../store/Hooks';
 
 import translator from '../theme/translator.json';
+import AlertsContainer from './AlertsContainer';
 
 const LayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -54,6 +55,7 @@ const Layout: React.FC<Props> = ({ children, title }) => {
         >
           {children}
         </Box>
+        <AlertsContainer/>
       </LayoutRoot>
       <Navbar title={title} onSidebarOpen={() => setSidebarOpen(true)} />
       <Sidebar

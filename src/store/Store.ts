@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { userSlice } from './slices/UserSlice';
 import { alertSlice } from './slices/AlertSlice';
 
@@ -7,9 +7,8 @@ const store = configureStore({
     user: userSlice.reducer,
     alert: alertSlice.reducer,
   },
-  middleware: getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(),
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

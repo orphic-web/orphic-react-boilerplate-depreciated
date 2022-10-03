@@ -15,33 +15,21 @@ const CustomAlert: React.FC<ContainerProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    try {
-      if (alert.dismiss) setShow(false);
-    } catch (e: any) {
-      console.log(e);
-    }
+    if (alert.dismiss) setShow(false);
   }, [alert]);
 
   const toggleAlert = () => {
-    try {
-      setShow(!show);
-      dispatch(removeAlert(alert.id));
-    } catch (e: any) {
-      console.log(e);
-    }
+    setShow(!show);
+    dispatch(removeAlert(alert.id));
   };
 
   return (
     <Collapse
-      sx={{
-        maxWidth: '800px',
-      }}
       in={show}>
       <Alert
         severity={alert.severity}
         sx={{
           width: '100%',
-          maxWidth: '800px',
         }}
         action={
           <IconButton

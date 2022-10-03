@@ -5,6 +5,7 @@ name: Deploy to Firebase Hosting DEVELOPMENT on merge
       - dev
 env:
   CI: false
+  REACT_APP_ONLY_SUPER_ADMIN: true
   REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID_DEV }}
   REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_MESSAGING_SENDER_ID_DEV }}
   REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET_DEV }}
@@ -12,6 +13,7 @@ env:
   REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN_DEV }}
   REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY_DEV }}
   REACT_APP_PUBLIC_URL: ${{ secrets.REACT_APP_PUBLIC_URL_DEV }}
+  REACT_APP_SENTRY_DNS: ${{ secrets.REACT_APP_PUBLIC_SENTRY_DNS }}
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest

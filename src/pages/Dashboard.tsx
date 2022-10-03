@@ -29,15 +29,15 @@ const Dashboard: React.FC = () => {
 
   const throwError = () => {
     try {
-      throw Error('Best throw of error of all time!');
+      throw Error('Test your Sentry connection');
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
     }
   };
 
   return (
     <Layout title={Utils.getTranslation(language, translator.pages.dashboard.title)}>
-      <Button onClick={() => throwError()}>Throw an error</Button>
+      <Button onClick={() => throwError()}>Test your Sentry connection</Button>
       <Spinner show={false}/>
     </Layout>
   );

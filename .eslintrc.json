@@ -87,7 +87,8 @@
                 "ts": "never",
                 "tsx": "never"
             }
-        ]
+        ],
+        "no-param-reassign": ["warn", { "props": false }]
     },
 
     "settings": {

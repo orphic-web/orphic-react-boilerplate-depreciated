@@ -1,8 +1,9 @@
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
+import SupportedLanguages from '../models/enums/SupportedLanguages';
 import ErrorService from '../services/ErrorService';
-import { useAppDispatch } from '../store/Hooks';
+import { useAppDispatch, useAppSelector } from '../store/Hooks';
 
 interface ContainerProps {
   show: boolean,
@@ -12,6 +13,7 @@ const Spinner: React.FC<ContainerProps> = ({
   show,
 }) => {
   const dispatch = useAppDispatch();
+  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   const [open, setOpen] = useState(false);
 
@@ -26,7 +28,7 @@ const Spinner: React.FC<ContainerProps> = ({
         clearTimeout(timer1);
       };
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
     }
   }, [show]);
 
