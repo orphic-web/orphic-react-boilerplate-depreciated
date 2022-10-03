@@ -24,6 +24,7 @@ import Spinner from '../../components/Spinner';
 import SupportedLanguages from '../../models/enums/SupportedLanguages';
 import translator from '../../theme/translator.json';
 import Utils from '../../utils/Utils';
+import AlertsContainer from '../../components/AlertsContainer';
 
 const Signup: React.FC = () => {
   const language = useAppSelector((state) => state.user.language);
@@ -201,6 +202,7 @@ const Signup: React.FC = () => {
         </Formik>
       </Box>
       <Spinner show={loading}/>
+      <AlertsContainer/>
     </Container>
   );
 };

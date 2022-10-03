@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {
-  BrowserRouter, Routes, Route, useLocation, useNavigationType, createRoutesFromChildren, matchRoutes,
+  BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
 import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
+// import { BrowserTracing } from '@sentry/tracing';
 import {
   User as FirebaseUser,
 } from 'firebase/auth';
@@ -30,36 +30,24 @@ import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
 import ErrorService from './services/ErrorService';
 
+console.log(process.env.NODE_ENV);
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
   console.error = () => {};
   console.debug = () => {};
+
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DNS,
+    integrations: [
+      new Sentry.Integrations.Breadcrumbs({
+        console: false,
+      }),
+    ],
+    tracesSampler: () => (process.env.NODE_ENV === 'production' ? 1 : 0.2),
+    debug: false,
+  });
 }
-
-Sentry.init({
-  dsn: 'https://0a01f04480ec42ca98fe66faaedf1606@o1428207.ingest.sentry.io/6778257',
-  integrations: [new BrowserTracing(
-    {
-      routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-        useEffect,
-        useLocation,
-        useNavigationType,
-        createRoutesFromChildren,
-        matchRoutes,
-      ),
-    },
-  )],
-
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-  debug: false,
-});
-// }
-
-const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 function App() {
   const dispatch = useAppDispatch();
@@ -103,7 +91,7 @@ function App() {
         {
           !loading
           && <BrowserRouter>
-            <SentryRoutes>
+            <Routes>
               <Route element={<PrivateRoutes />} >
                 <Route path="/" element={<Dashboard />}/>
                 <Route path="/settings" element={<Settings />}/>
@@ -130,7 +118,7 @@ function App() {
               }
               <Route path='/login' element={<Login />}/>
               <Route path="*" element={<NotFound />} />
-            </SentryRoutes>
+            </Routes>
           </BrowserRouter>
         }
         <Spinner show={loading}></Spinner>

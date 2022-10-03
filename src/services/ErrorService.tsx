@@ -4,16 +4,11 @@ import SupportedLanguages from '../models/enums/SupportedLanguages';
 import AlertUtil from '../utils/AlertUtil';
 import Utils from '../utils/Utils';
 import translator from '../theme/translator.json';
-import ErrorDetail from '../models/ErrorDetail';
 
 class ErrorService {
   private static currentLanguage = SupportedLanguages.DEFAULT;
 
-  static handleError = async (error: any, dispatch: any, details?: ErrorDetail, language?: SupportedLanguages) => {
-    // const error = {
-    //   ...e,
-    //   details,
-    // };
+  static handleError = async (error: any, dispatch: any, language?: SupportedLanguages) => {
     console.error(error);
 
     if (language) ErrorService.currentLanguage = language;
