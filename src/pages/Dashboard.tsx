@@ -32,7 +32,6 @@ const Dashboard: React.FC = () => {
     try {
       throw Error('Test your Sentry connection');
     } catch (e: any) {
-      e.details = { component: 'Dashboard', action: 'Test your sentry connection', requestName: e.details?.requestName } as ErrorDetail;
       ErrorService.handleError(e, dispatch, language);
     }
   };
