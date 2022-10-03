@@ -109,7 +109,7 @@ function App() {
                 </Route>
                 {
                   // Allow us to hide the signup and forgot-password pages in dev env
-                  process.env.NODE_ENV === 'development' && !process.env.REACT_APP_LOCALHOST_STATE
+                  process.env.REACT_APP_ONLY_SUPER_ADMIN && !process.env.REACT_APP_LOCALHOST_STATE
                   && <>
                     <Route path='/signup' element={<Signup />}/>
                     <Route path='/forgot-password' element={<ForgotPassword />}/>
@@ -118,7 +118,7 @@ function App() {
               </Route>
               {
                 // Allow us to show signup and forgot-password in prod and localhost env
-                (process.env.NODE_ENV === 'production' || process.env.REACT_APP_LOCALHOST_STATE)
+                (!process.env.REACT_APP_ONLY_SUPER_ADMIN || process.env.REACT_APP_LOCALHOST_STATE)
                 && <>
                   <Route path='/signup' element={<Signup />}/>
                   <Route path='/forgot-password' element={<ForgotPassword />}/>
