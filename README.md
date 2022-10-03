@@ -67,6 +67,7 @@ firebase init hosting (do not overwrite files)
   REACT_APP_APP_ID = XXXX
   REACT_APP_PUBLIC_URL = 'http://localhost:3000/'
   REACT_APP_SENTRY_DNS = XXXX
+  REACT_APP_REQUIRE_SUPERADMIN = 
 }
 ```
 
