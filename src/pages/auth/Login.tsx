@@ -21,6 +21,7 @@ import Spinner from '../../components/Spinner';
 import Utils from '../../utils/Utils';
 import translator from '../../theme/translator.json';
 import ErrorDetail from '../../models/ErrorDetail';
+import AlertsContainer from '../../components/AlertsContainer';
 
 const Login: React.FC = () => {
   const language = useAppSelector((state) => state.user.language);
@@ -50,8 +51,8 @@ const Login: React.FC = () => {
       setLoading(false);
       navigate('/');
     } catch (e: any) {
-      const details = { component: 'Login', action: 'login', requestName: e.details?.requestName } as ErrorDetail;
-      ErrorService.handleError(e, dispatch, details, language);
+      e.details = { component: 'Login', action: 'login', requestName: e.details?.requestName } as ErrorDetail;
+      await ErrorService.handleError(e, dispatch, language);
       setLoading(false);
     }
   };
@@ -173,6 +174,7 @@ const Login: React.FC = () => {
           )}
         </Formik>
         <Spinner show={loading}/>
+        <AlertsContainer/>
       </Box>
     </Container>
 
