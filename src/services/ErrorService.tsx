@@ -10,12 +10,12 @@ class ErrorService {
 
   static handleError = async (error: any, dispatch: any, language?: SupportedLanguages) => {
     console.error(error);
+    Sentry.captureException(error);
 
     if (language) ErrorService.currentLanguage = language;
     if (error instanceof FirebaseError) {
       return ErrorService.handleFirebaseError(error, dispatch);
     }
-    Sentry.captureException(error);
 
     return ErrorService.handleGeneralError(error, dispatch);
   };
