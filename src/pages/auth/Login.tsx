@@ -20,6 +20,7 @@ import { auth } from '../../FirebaseConfig';
 import Spinner from '../../components/Spinner';
 import Utils from '../../utils/Utils';
 import translator from '../../theme/translator.json';
+import ErrorDetail from '../../models/ErrorDetail';
 
 const Login: React.FC = () => {
   const language = useAppSelector((state) => state.user.language);
@@ -49,7 +50,8 @@ const Login: React.FC = () => {
       setLoading(false);
       navigate('/');
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      const details = { component: 'Login', action: 'login', requestName: e.details?.requestName } as ErrorDetail;
+      ErrorService.handleError(e, dispatch, details, language);
       setLoading(false);
     }
   };
