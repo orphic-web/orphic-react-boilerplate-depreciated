@@ -30,24 +30,24 @@ import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
 import ErrorService from './services/ErrorService';
 
+console.log(process.env.NODE_ENV);
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
   console.error = () => {};
   console.debug = () => {};
-}
 
-Sentry.init({
-  dsn: 'https://0a01f04480ec42ca98fe66faaedf1606@o1428207.ingest.sentry.io/6778257',
-  integrations: [
-    new Sentry.Integrations.Breadcrumbs({
-      console: false,
-    }),
-  ],
-  tracesSampler: () => (process.env.NODE_ENV === 'production' ? 1 : 0.2),
-  debug: false,
-});
-// }
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DNS,
+    integrations: [
+      new Sentry.Integrations.Breadcrumbs({
+        console: false,
+      }),
+    ],
+    tracesSampler: () => (process.env.NODE_ENV === 'production' ? 1 : 0.2),
+    debug: false,
+  });
+}
 
 function App() {
   const dispatch = useAppDispatch();
