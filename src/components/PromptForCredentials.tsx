@@ -97,11 +97,12 @@ const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
               >
                 <DialogTitle id="alert-dialog-title">
                   {Utils.getTranslation(language, translator.components.promptForCredentials.title)}
+                </DialogTitle>
+
+                <DialogContent>
                   <Typography variant="subtitle1">
                     {Utils.getTranslation(language, translator.components.promptForCredentials.subheader)}
                   </Typography>
-                </DialogTitle>
-                <DialogContent>
                   <Field
                     component={TextField}
                     name="password"

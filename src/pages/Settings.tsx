@@ -83,9 +83,7 @@ const Settings: React.FC = () => {
   const changePassword = async (values: any) => {
     try {
       setLoading(true);
-      console.log(values);
       const { password } = values;
-      if (password === '123456') throw Error('asdasd');
       if (auth.currentUser) {
         await UserService.updatePassword(auth.currentUser, password);
       }
