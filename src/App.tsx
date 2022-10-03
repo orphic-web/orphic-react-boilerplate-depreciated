@@ -10,6 +10,7 @@ import * as Sentry from '@sentry/react';
 import {
   User as FirebaseUser,
 } from 'firebase/auth';
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 import { db, auth } from './FirebaseConfig';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/Dashboard';
@@ -31,8 +32,12 @@ import ErrorService from './services/ErrorService';
 
 console.log(process.env.NODE_ENV);
 console.log(process.env.REACT_APP_SENTRY_DNS);
+
 // replace console.* for disable log on production
 if (process.env.NODE_ENV === 'production') {
+  // Disable react dev tools
+  disableReactDevTools();
+
   console.log = () => {};
   console.error = () => {};
   console.debug = () => {};
