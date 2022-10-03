@@ -10,6 +10,7 @@ import * as Sentry from '@sentry/react';
 import {
   User as FirebaseUser,
 } from 'firebase/auth';
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 import { db, auth } from './FirebaseConfig';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/Dashboard';
@@ -31,12 +32,17 @@ import ErrorService from './services/ErrorService';
 
 console.log(process.env.NODE_ENV);
 console.log(process.env.REACT_APP_SENTRY_DNS);
-// replace console.* for disable log on production
+
 if (process.env.NODE_ENV === 'production') {
+  // Disable react dev tools
+  disableReactDevTools();
+
+  // replace console.* for disable log on production
   console.log = () => {};
   console.error = () => {};
   console.debug = () => {};
 
+  // Initiate sentry session in the production environment
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DNS,
     integrations: [
@@ -67,10 +73,12 @@ function App() {
             dispatch(updateUser(userDoc));
             dispatch(updateLanguage(userDoc?.language));
 
-            // Sets the user for sentry issue filters
-            Sentry.setUser({
-              id: userDoc?.id, username: userDoc?.name, email: userDoc?.email, language: userDoc?.language,
-            });
+            if (process.env.NODE_ENV === 'production') {
+              // Sets the user for sentry issue filters
+              Sentry.setUser({
+                id: userDoc?.id, username: userDoc?.name, email: userDoc?.email, language: userDoc?.language,
+              });
+            }
           });
         } else {
           dispatch(updateUser(null));
