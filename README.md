@@ -9,7 +9,8 @@ To get a local copy up and running follow these simple example steps.
 1. Fork Orphic react boilerplate 
 2. (Optional) Register a domain or subdomain fo each env (199.36.158.100)
 3. (Optional) Create a sentry project and save the dns url for later
-4. For each environment, create a firebase project (new-project-env) and setup required firebase services
+        - Adjust Allowed domain to the domains create above.
+5. For each environment, create a firebase project (new-project-env) and setup required firebase services
     #### Auth service
         - Add the domain created earlier to the autorised domain in the authentification settings page.
         - We only support email/password auth provider at the moment
