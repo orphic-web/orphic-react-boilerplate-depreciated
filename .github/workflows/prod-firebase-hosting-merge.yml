@@ -5,6 +5,7 @@ name: Deploy to Firebase Hosting PRODUCTION on merge
       - main
 env:
   CI: false
+  NODE_ENV: "production"
   REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID_PROD }}
   REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_MESSAGING_SENDER_ID_PROD }}
   REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET_PROD }}
