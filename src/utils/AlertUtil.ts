@@ -12,24 +12,19 @@ class AlertUtils {
    * @returns {void}
    */
   private static createAlert = async (alert: CustomAlert, dispatch: any) => {
-    try {
-      let timer2: any;
-      dispatch(createAlert(alert));
-      const timer1 = setTimeout(() => {
-        dispatch(dismissAlert(alert.id));
-        timer2 = setTimeout(() => {
-          dispatch(removeAlert(alert.id));
-        }, 1000);
-      }, 4000);
+    let timer2: any;
+    dispatch(createAlert(alert));
+    const timer1 = setTimeout(() => {
+      dispatch(dismissAlert(alert.id));
+      timer2 = setTimeout(() => {
+        dispatch(removeAlert(alert.id));
+      }, 1000);
+    }, 4000);
 
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
-    } catch (e: any) {
-      console.log(e);
-      return e;
-    }
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
   };
 
   /**
@@ -40,17 +35,13 @@ class AlertUtils {
    * @returns {void}
    */
   static createErrorAlert = async (message: string, dispatch: any) => {
-    try {
-      const alert = {
-        id: uuid(),
-        severity: AlertSeverity.ERROR,
-        message,
-        dismiss: false,
-      } as CustomAlert;
-      await this.createAlert(alert, dispatch);
-    } catch (e: any) {
-      console.log(e);
-    }
+    const alert = {
+      id: uuid(),
+      severity: AlertSeverity.ERROR,
+      message,
+      dismiss: false,
+    } as CustomAlert;
+    await this.createAlert(alert, dispatch);
   };
 
   /**
@@ -61,17 +52,13 @@ class AlertUtils {
    * @returns {void}
    */
   static createSuccessAlert = async (message: string, dispatch: any) => {
-    try {
-      const alert = {
-        id: uuid(),
-        severity: AlertSeverity.SUCCESS,
-        message,
-        dismiss: false,
-      } as CustomAlert;
-      await this.createAlert(alert, dispatch);
-    } catch (e: any) {
-      console.log(e);
-    }
+    const alert = {
+      id: uuid(),
+      severity: AlertSeverity.SUCCESS,
+      message,
+      dismiss: false,
+    } as CustomAlert;
+    await this.createAlert(alert, dispatch);
   };
 
   /**
@@ -82,17 +69,13 @@ class AlertUtils {
    * @returns {void}
    */
   static createInfoAlert = async (message: string, dispatch: any) => {
-    try {
-      const alert = {
-        id: uuid(),
-        severity: AlertSeverity.INFO,
-        message,
-        dismiss: false,
-      } as CustomAlert;
-      await this.createAlert(alert, dispatch);
-    } catch (e: any) {
-      console.log(e);
-    }
+    const alert = {
+      id: uuid(),
+      severity: AlertSeverity.INFO,
+      message,
+      dismiss: false,
+    } as CustomAlert;
+    await this.createAlert(alert, dispatch);
   };
 }
 

@@ -47,7 +47,7 @@ const Settings: React.FC = () => {
       setLoading(false);
       await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
       setLoading(false);
     }
   };
@@ -75,7 +75,7 @@ const Settings: React.FC = () => {
         setShowPromptCredential(true);
       } else {
         setLoading(false);
-        ErrorService.handleError(e, dispatch);
+        ErrorService.handleError(e, dispatch, language);
       }
     }
   };
@@ -97,7 +97,7 @@ const Settings: React.FC = () => {
         setShowPromptCredential(true);
       } else {
         setLoading(false);
-        ErrorService.handleError(e, dispatch);
+        ErrorService.handleError(e, dispatch, language);
       }
     }
   };
@@ -122,7 +122,7 @@ const Settings: React.FC = () => {
         setShowPromptCredential(true);
       } else {
         setLoading(false);
-        ErrorService.handleError(e, dispatch);
+        ErrorService.handleError(e, dispatch, language);
       }
     }
   };

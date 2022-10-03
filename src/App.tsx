@@ -17,7 +17,7 @@ import Dashboard from './pages/Dashboard';
 import themeConfig from './theme/ThemeConfig';
 import Signup from './pages/auth/Signup';
 import NotFound from './pages/NotFound';
-import { useAppDispatch } from './store/Hooks';
+import { useAppDispatch, useAppSelector } from './store/Hooks';
 import { updateLanguage, updateUser } from './store/slices/UserSlice';
 import User from './models/User';
 import Spinner from './components/Spinner';
@@ -29,9 +29,6 @@ import Logs from './pages/admin/Logs';
 import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
 import ErrorService from './services/ErrorService';
-
-console.log(process.env.NODE_ENV);
-console.log(process.env.REACT_APP_SENTRY_DNS);
 
 if (process.env.NODE_ENV === 'production') {
   // Disable react dev tools
@@ -50,7 +47,7 @@ if (process.env.NODE_ENV === 'production') {
         console: false,
       }),
     ],
-    tracesSampler: () => (process.env.NODE_ENV === 'production' ? 1 : 0.2),
+    tracesSampler: () => (process.env.NODE_ENV === 'production' ? 0.2 : 1),
     debug: false,
   });
 }
@@ -59,6 +56,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(true);
+  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -89,7 +87,7 @@ function App() {
       });
       return unsubscribe;
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
       setLoading(false);
     }
   }, []);

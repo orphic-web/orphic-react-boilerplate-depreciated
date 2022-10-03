@@ -52,7 +52,7 @@ const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
       setLoading(false);
       navigate('/login');
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
       setLoading(false);
     }
   };
