@@ -26,7 +26,6 @@ import SupportedLanguages from '../../models/enums/SupportedLanguages';
 
 const ForgotPassword: React.FC = () => {
   const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
-
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);

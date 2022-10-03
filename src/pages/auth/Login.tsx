@@ -26,7 +26,6 @@ import SupportedLanguages from '../../models/enums/SupportedLanguages';
 
 const Login: React.FC = () => {
   const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
-
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();

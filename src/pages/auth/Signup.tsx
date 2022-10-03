@@ -28,10 +28,9 @@ import AlertsContainer from '../../components/AlertsContainer';
 
 const Signup: React.FC = () => {
   const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-
-  const dispatch = useAppDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);

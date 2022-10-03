@@ -45,21 +45,14 @@ class UserService {
    * @param {string} language
    * @returns {timestamp} write time
    */
-  // eslint-disable-next-line consistent-return
-  static create = async (id:string, name: string, email: string, language?: string) => {
-    try {
-      return setDoc(doc(db, 'Users', id), {
-        id,
-        name,
-        email,
-        permission: Permissions.USER,
-        createdDate: new Date(),
-        language,
-      });
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
+  static create = async (id:string, name: string, email: string, language?: string) => setDoc(doc(db, 'Users', id), {
+    id,
+    name,
+    email,
+    permission: Permissions.USER,
+    createdDate: new Date(),
+    language,
+  });
 
   /**
    * Gets a user document by id
