@@ -17,7 +17,7 @@ import Dashboard from './pages/Dashboard';
 import themeConfig from './theme/ThemeConfig';
 import Signup from './pages/auth/Signup';
 import NotFound from './pages/NotFound';
-import { useAppDispatch } from './store/Hooks';
+import { useAppDispatch, useAppSelector } from './store/Hooks';
 import { updateLanguage, updateUser } from './store/slices/UserSlice';
 import User from './models/User';
 import Spinner from './components/Spinner';
@@ -59,6 +59,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(true);
+  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -89,7 +90,7 @@ function App() {
       });
       return unsubscribe;
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
       setLoading(false);
     }
   }, []);

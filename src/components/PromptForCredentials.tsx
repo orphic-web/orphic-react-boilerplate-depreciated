@@ -16,6 +16,7 @@ import translator from '../theme/translator.json';
 import UserService from '../services/UserService';
 import { auth } from '../FirebaseConfig';
 import AlertUtils from '../utils/AlertUtil';
+import SupportedLanguages from '../models/enums/SupportedLanguages';
 
 interface Props {
   setShow: any,
@@ -23,7 +24,7 @@ interface Props {
 }
 
 const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
-  const language = useAppSelector((state) => state.user.language);
+  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   const dispatch = useAppDispatch();
 
@@ -53,7 +54,7 @@ const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
 
       setShow(false);
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
       setLoading(false);
       setShow(false);
     }

@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
     try {
       throw Error('Best throw of error of all time!');
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
     }
   };
 

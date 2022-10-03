@@ -22,9 +22,10 @@ import Utils from '../../utils/Utils';
 import translator from '../../theme/translator.json';
 import ErrorDetail from '../../models/ErrorDetail';
 import AlertsContainer from '../../components/AlertsContainer';
+import SupportedLanguages from '../../models/enums/SupportedLanguages';
 
 const Login: React.FC = () => {
-  const language = useAppSelector((state) => state.user.language);
+  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   const dispatch = useAppDispatch();
 

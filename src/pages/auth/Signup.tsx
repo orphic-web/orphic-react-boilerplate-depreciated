@@ -27,7 +27,7 @@ import Utils from '../../utils/Utils';
 import AlertsContainer from '../../components/AlertsContainer';
 
 const Signup: React.FC = () => {
-  const language = useAppSelector((state) => state.user.language);
+  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const Signup: React.FC = () => {
         UserService.delete(auth.currentUser.uid);
         UserService.deleteAccount(auth.currentUser);
       }
-      ErrorService.handleError(e, dispatch);
+      ErrorService.handleError(e, dispatch, language);
       setLoading(false);
     }
   };
