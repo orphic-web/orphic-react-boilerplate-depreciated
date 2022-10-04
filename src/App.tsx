@@ -53,7 +53,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 function App() {
-  console.log(process.env.REACT_APP_ONLY_SUPER_ADMIN);
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(true);
