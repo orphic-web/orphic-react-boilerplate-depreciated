@@ -1,7 +1,7 @@
 enum SupportedLanguages {
     FR = 'fr',
     EN = 'en',
-    DEFAULT = 'fr'
+    DEFAULT = 'en'
   }
 
 export default SupportedLanguages;
