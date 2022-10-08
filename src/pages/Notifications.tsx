@@ -9,7 +9,7 @@ const Notifications: React.FC = () => {
   const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   return (
-    <Layout title={Utils.getTranslation(language, translator.pages.notifications.title)}>
+    <Layout title={Utils.getTranslation(translator.pages.notifications.title, language)}>
       <Spinner show={false}/>
     </Layout>
   );

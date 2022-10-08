@@ -83,14 +83,14 @@ const Signup: React.FC = () => {
           }}
           validationSchema={yup.object({
             name: yup.string()
-              .required(Utils.getTranslation(language, translator.formMessages.requiredField)),
+              .required(Utils.getTranslation(translator.formMessages.requiredField, language)),
             email: yup.string()
-              .email(Utils.getTranslation(language, translator.formMessages.invalidEmail))
-              .required(Utils.getTranslation(language, translator.formMessages.requiredField)),
-            password: yup.string().min(6).required(Utils.getTranslation(language, translator.formMessages.requiredField)),
+              .email(Utils.getTranslation(translator.formMessages.invalidEmail, language))
+              .required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+            password: yup.string().min(6).required(Utils.getTranslation(translator.formMessages.requiredField, language)),
             passwordConfirmation: yup.string()
-              .required(Utils.getTranslation(language, translator.formMessages.requiredField))
-              .oneOf([yup.ref('password'), null], Utils.getTranslation(language, translator.formMessages.passwordsMustMatch)),
+              .required(Utils.getTranslation(translator.formMessages.requiredField, language))
+              .oneOf([yup.ref('password'), null], Utils.getTranslation(translator.formMessages.passwordsMustMatch, language)),
           })}
           onSubmit={(values, { setSubmitting }) => {
             createAccount(values);
@@ -112,14 +112,14 @@ const Signup: React.FC = () => {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography variant="h3">
-                {Utils.getTranslation(language, translator.pages.signup.title)}
+                {Utils.getTranslation(translator.pages.signup.title, language)}
               </Typography>
               <Form className="login__form-container">
                 <Field
                   component={TextField}
                   name="name"
                   type="text"
-                  label={Utils.getTranslation(language, translator.pages.signup.fullName)}
+                  label={Utils.getTranslation(translator.pages.signup.fullName, language)}
                   margin='normal'
                   fullWidth
                 />
@@ -127,7 +127,7 @@ const Signup: React.FC = () => {
                   component={TextField}
                   name="email"
                   type="email"
-                  label={Utils.getTranslation(language, translator.pages.signup.email)}
+                  label={Utils.getTranslation(translator.pages.signup.email, language)}
                   margin='normal'
                   fullWidth
                 />
@@ -136,7 +136,7 @@ const Signup: React.FC = () => {
                   name="password"
                   margin='normal'
                   type={showPassword ? 'text' : 'password'}
-                  label={Utils.getTranslation(language, translator.pages.signup.password)}
+                  label={Utils.getTranslation(translator.pages.signup.password, language)}
                   fullWidth
                   InputProps={{
                     endAdornment: (
@@ -158,7 +158,7 @@ const Signup: React.FC = () => {
                   name="passwordConfirmation"
                   margin='normal'
                   type={showPassword ? 'text' : 'password'}
-                  label={Utils.getTranslation(language, translator.pages.signup.passwordConfirmation)}
+                  label={Utils.getTranslation(translator.pages.signup.passwordConfirmation, language)}
                   fullWidth
                   InputProps={{
                     endAdornment: (
@@ -180,7 +180,7 @@ const Signup: React.FC = () => {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  {Utils.getTranslation(language, translator.pages.signup.submit)}
+                  {Utils.getTranslation(translator.pages.signup.submit, language)}
                 </Button>
               </Form>
               <Box
@@ -193,7 +193,7 @@ const Signup: React.FC = () => {
                 }}
               >
                 <Link href="/login" variant="body2">
-                  {Utils.getTranslation(language, translator.pages.signup.toLogin)}
+                  {Utils.getTranslation(translator.pages.signup.toLogin, language)}
                 </Link>
               </Box>
             </Box>

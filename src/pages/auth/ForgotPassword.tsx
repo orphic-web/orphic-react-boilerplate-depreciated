@@ -36,7 +36,7 @@ const ForgotPassword: React.FC = () => {
       await EmailService.sendResetPasswordLink(values.email);
       setLoading(false);
 
-      AlertUtil.createSuccessAlert(Utils.getTranslation(language, translator.pages.forgotPassword.emailSent), dispatch);
+      AlertUtil.createSuccessAlert(Utils.getTranslation(translator.pages.forgotPassword.emailSent, language), dispatch);
     } catch (e: any) {
       setLoading(false);
       ErrorService.handleError(e, dispatch, language);
@@ -63,8 +63,8 @@ const ForgotPassword: React.FC = () => {
           }}
           validationSchema={yup.object({
             email: yup.string()
-              .email(Utils.getTranslation(language, translator.formMessages.invalidEmail))
-              .required(Utils.getTranslation(language, translator.formMessages.requiredField)),
+              .email(Utils.getTranslation(translator.formMessages.invalidEmail, language))
+              .required(Utils.getTranslation(translator.formMessages.requiredField, language)),
           })}
           onSubmit={(values, { setSubmitting }) => {
             sendResetPasswordLink(values);
@@ -86,14 +86,14 @@ const ForgotPassword: React.FC = () => {
                 <LockOutlinedIcon style={{ color: '#fdfdfd' }} />
               </Avatar>
               <Typography variant="h5">
-                {Utils.getTranslation(language, translator.pages.forgotPassword.title)}
+                {Utils.getTranslation(translator.pages.forgotPassword.title, language)}
               </Typography>
               <Form>
                 <Field
                   component={TextField}
                   name="email"
                   type="email"
-                  label={Utils.getTranslation(language, translator.pages.forgotPassword.email)}
+                  label={Utils.getTranslation(translator.pages.forgotPassword.email, language)}
                   margin='normal'
                   fullWidth
                 />
@@ -103,7 +103,7 @@ const ForgotPassword: React.FC = () => {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  {Utils.getTranslation(language, translator.pages.forgotPassword.submit)}
+                  {Utils.getTranslation(translator.pages.forgotPassword.submit, language)}
                 </Button>
               </Form>
               <Box
@@ -116,7 +116,7 @@ const ForgotPassword: React.FC = () => {
                 }}
               >
                 <Link href="/login" variant="body2">
-                  {Utils.getTranslation(language, translator.pages.forgotPassword.toLogin)}
+                  {Utils.getTranslation(translator.pages.forgotPassword.toLogin, language)}
                 </Link>
               </Box>
             </Box>

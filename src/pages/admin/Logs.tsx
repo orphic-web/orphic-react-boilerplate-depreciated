@@ -9,7 +9,7 @@ const Logs: React.FC = () => {
   const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   return (
-    <Layout title={Utils.getTranslation(language, translator.pages.admin.logs.title)}>
+    <Layout title={Utils.getTranslation(translator.pages.admin.logs.title, language)}>
       <Spinner show={false}/>
     </Layout>
   );
