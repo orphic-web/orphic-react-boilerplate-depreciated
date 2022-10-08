@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
     const fromParam = searchParams.get('from');
     switch (fromParam) {
       case 'accountCreated':
-        AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.accountCreated), dispatch);
+        AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.accountCreated, language), dispatch);
         break;
       default:
         break;
@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <Layout title={Utils.getTranslation(language, translator.pages.dashboard.title)}>
+    <Layout title={Utils.getTranslation(translator.pages.dashboard.title, language)}>
       <Button onClick={() => throwError()}>Test your Sentry connection</Button>
       <Spinner show={false}/>
     </Layout>

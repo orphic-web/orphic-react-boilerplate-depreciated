@@ -79,9 +79,9 @@ const Login: React.FC = () => {
           }}
           validationSchema={yup.object({
             email: yup.string()
-              .email(Utils.getTranslation(language, translator.formMessages.invalidEmail))
-              .required(Utils.getTranslation(language, translator.formMessages.requiredField)),
-            password: yup.string().required(Utils.getTranslation(language, translator.formMessages.requiredField)),
+              .email(Utils.getTranslation(translator.formMessages.invalidEmail, language))
+              .required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+            password: yup.string().required(Utils.getTranslation(translator.formMessages.requiredField, language)),
             stayConnected: yup.boolean(),
           })}
           onSubmit={(values, { setSubmitting }) => {
@@ -104,7 +104,7 @@ const Login: React.FC = () => {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography variant="h3">
-                {Utils.getTranslation(language, translator.pages.login.title)}
+                {Utils.getTranslation(translator.pages.login.title, language)}
               </Typography>
               <Form>
                 <Field
@@ -112,7 +112,7 @@ const Login: React.FC = () => {
                   name="email"
                   type="email"
                   color='primary'
-                  label={Utils.getTranslation(language, translator.pages.login.email)}
+                  label={Utils.getTranslation(translator.pages.login.email, language)}
                   margin='normal'
                   fullWidth
                 />
@@ -122,7 +122,7 @@ const Login: React.FC = () => {
                   margin='normal'
                   color='primary'
                   type={showPassword ? 'text' : 'password'}
-                  label={Utils.getTranslation(language, translator.pages.login.password)}
+                  label={Utils.getTranslation(translator.pages.login.password, language)}
                   fullWidth
                   InputProps={{
                     endAdornment: (
@@ -143,7 +143,7 @@ const Login: React.FC = () => {
                   control={
                     <Field component={Switch} type="checkbox" name="rememberMe" />
                   }
-                  label={Utils.getTranslation(language, translator.pages.login.rememberMe)}
+                  label={Utils.getTranslation(translator.pages.login.rememberMe, language)}
                 />
                 <Button
                   type="submit"
@@ -151,7 +151,7 @@ const Login: React.FC = () => {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  {Utils.getTranslation(language, translator.pages.login.submit)}
+                  {Utils.getTranslation(translator.pages.login.submit, language)}
                 </Button>
               </Form>
               <Box
@@ -164,10 +164,10 @@ const Login: React.FC = () => {
                 }}
               >
                 <Link href="/forgot-password" variant="body2">
-                  {Utils.getTranslation(language, translator.pages.login.toForgotPassword)}
+                  {Utils.getTranslation(translator.pages.login.toForgotPassword, language)}
                 </Link>
                 <Link href="/signup" variant="body2">
-                  {Utils.getTranslation(language, translator.pages.login.toSignup)}
+                  {Utils.getTranslation(translator.pages.login.toSignup, language)}
                 </Link>
               </Box>
             </Box>
@@ -177,7 +177,6 @@ const Login: React.FC = () => {
         <AlertsContainer/>
       </Box>
     </Container>
-
   );
 };
 

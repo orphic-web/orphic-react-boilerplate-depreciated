@@ -36,7 +36,7 @@ const Layout: React.FC<Props> = ({ children, title }) => {
     {
       href: '/',
       icon: (<HomeIcon fontSize="small" />),
-      title: Utils.getTranslation(language, translator.menu.dashboard),
+      title: Utils.getTranslation(translator.menu.dashboard, language),
     },
   ] as MenuItem[];
 

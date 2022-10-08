@@ -25,15 +25,15 @@ const NotFound: React.FC = () => {
         }}
       >
         <Typography variant="h1">
-          {Utils.getTranslation(language, translator.pages.notFound.title)}
+          {Utils.getTranslation(translator.pages.notFound.title, language)}
         </Typography>
         <Typography variant="h4">
-          {Utils.getTranslation(language, translator.pages.notFound.subtitle)}
+          {Utils.getTranslation(translator.pages.notFound.subtitle, language)}
         </Typography>
         <Typography variant="body1" align="center">
-          {Utils.getTranslation(language, translator.pages.notFound.abstract)}
+          {Utils.getTranslation(translator.pages.notFound.abstract, language)}
         </Typography>
-        <Button onClick={() => navigate('/')} variant="contained">{Utils.getTranslation(language, translator.pages.notFound.toDashboard)}</Button>
+        <Button onClick={() => navigate('/')} variant="contained">{Utils.getTranslation(translator.pages.notFound.toDashboard, language)}</Button>
       </Box>
     </Container>
   );

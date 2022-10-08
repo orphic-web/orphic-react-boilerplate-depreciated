@@ -47,7 +47,7 @@ const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
         );
         await UserService.reauthenticate(auth?.currentUser, credential);
         setLoading(false);
-        await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.reauthenticate), dispatch);
+        await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.reauthenticate, language), dispatch);
       } else {
         throw Error();
       }
@@ -79,7 +79,7 @@ const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
             password: '',
           }}
           validationSchema={yup.object({
-            password: yup.string().required(Utils.getTranslation(language, translator.formMessages.requiredField)),
+            password: yup.string().required(Utils.getTranslation(translator.formMessages.requiredField, language)),
           })}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             reauthenticate(values);
@@ -97,12 +97,12 @@ const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
                 aria-describedby="alert-dialog-description"
               >
                 <DialogTitle id="alert-dialog-title">
-                  {Utils.getTranslation(language, translator.components.promptForCredentials.title)}
+                  {Utils.getTranslation(translator.components.promptForCredentials.title, language)}
                 </DialogTitle>
 
                 <DialogContent>
                   <Typography variant="subtitle1">
-                    {Utils.getTranslation(language, translator.components.promptForCredentials.subheader)}
+                    {Utils.getTranslation(translator.components.promptForCredentials.subheader, language)}
                   </Typography>
                   <Field
                     component={TextField}
@@ -110,7 +110,7 @@ const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
                     margin='normal'
                     color='primary'
                     type={showPassword ? 'text' : 'password'}
-                    label={Utils.getTranslation(language, translator.components.promptForCredentials.form.password)}
+                    label={Utils.getTranslation(translator.components.promptForCredentials.form.password, language)}
                     fullWidth
                     InputProps={{
                       endAdornment: (
@@ -136,7 +136,7 @@ const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
                     sx={{ mt: 3, mb: 2 }}
                     onClick={() => setShow(false)}
                   >
-                    {Utils.getTranslation(language, translator.components.promptForCredentials.form.cancel)}
+                    {Utils.getTranslation(translator.components.promptForCredentials.form.cancel, language)}
                   </Button>
                   <Button
                     type="submit"
@@ -145,7 +145,7 @@ const PromptForCredentials: React.FC<Props> = ({ setShow, show }) => {
                     sx={{ mt: 3, mb: 2 }}
                     onClick={() => formikProps.submitForm()}
                   >
-                    {Utils.getTranslation(language, translator.components.promptForCredentials.form.submit)}
+                    {Utils.getTranslation(translator.components.promptForCredentials.form.submit, language)}
                   </Button>
                 </DialogActions>
               </Dialog>

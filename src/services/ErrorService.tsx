@@ -26,22 +26,22 @@ class ErrorService {
     switch (error.code) {
       case 'auth/wrong-password':
       case 'auth/user-not-found': {
-        const message = await Utils.getTranslation(this.currentLanguage, translator.errorMessages.firebase.auth.userNotFound);
+        const message = await Utils.getTranslation(translator.errorMessages.firebase.auth.userNotFound, this.currentLanguage);
         if (message) AlertUtil.createErrorAlert(message as string, dispatch);
         break;
       }
       case 'auth/network-request-failed': {
-        const message = await Utils.getTranslation(this.currentLanguage, translator.errorMessages.firebase.auth.networkRequestFailed);
+        const message = await Utils.getTranslation(translator.errorMessages.firebase.auth.networkRequestFailed, this.currentLanguage);
         if (message) AlertUtil.createErrorAlert(message as string, dispatch);
         break;
       }
       case 'auth/email-already-in-use': {
-        const message = await Utils.getTranslation(this.currentLanguage, translator.errorMessages.firebase.auth.emailAlreadyInUse);
+        const message = await Utils.getTranslation(translator.errorMessages.firebase.auth.emailAlreadyInUse, this.currentLanguage);
         if (message) AlertUtil.createErrorAlert(message as string, dispatch);
         break;
       }
       default: {
-        const message = await Utils.getTranslation(this.currentLanguage, translator.errorMessages.general.unknown);
+        const message = await Utils.getTranslation(translator.errorMessages.general.unknown, this.currentLanguage);
         if (message) AlertUtil.createErrorAlert(message as string, dispatch);
         break;
       }
@@ -49,7 +49,7 @@ class ErrorService {
   };
 
   static handleGeneralError = async (error: Error, dispatch: any) => {
-    const message = await Utils.getTranslation(this.currentLanguage, translator.errorMessages.general.unknown);
+    const message = await Utils.getTranslation(translator.errorMessages.general.unknown, this.currentLanguage);
     if (message) AlertUtil.createErrorAlert(message as string, dispatch);
   };
 }

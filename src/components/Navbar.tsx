@@ -90,7 +90,7 @@ const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
           </IconButton>
           <Typography variant="h5">{title}</Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title={Utils.getTranslation(language, translator.components.appBar.notification)}>
+          <Tooltip title={Utils.getTranslation(translator.components.appBar.notification, language)}>
             <IconButton
               onClick={() => navigate('/notifications')}
               sx={{ ml: 1, mr: '10px' }}
@@ -131,7 +131,7 @@ const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
           }}
         >
           <Typography variant="overline">
-            {Utils.getTranslation(language, translator.components.appBar.accountPopover.title)}
+            {Utils.getTranslation(translator.components.appBar.accountPopover.title, language)}
           </Typography>
           <Typography
             color="text.secondary"
@@ -156,13 +156,13 @@ const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
-            {Utils.getTranslation(language, translator.components.appBar.accountPopover.settings)}
+            {Utils.getTranslation(translator.components.appBar.accountPopover.settings, language)}
           </MenuItem>
           <MenuItem onClick={() => signout()}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
-            {Utils.getTranslation(language, translator.components.appBar.accountPopover.signOut)}
+            {Utils.getTranslation(translator.components.appBar.accountPopover.signOut, language)}
           </MenuItem>
         </MenuList>
       </Popover>

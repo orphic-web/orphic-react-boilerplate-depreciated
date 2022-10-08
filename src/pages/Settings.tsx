@@ -45,7 +45,7 @@ const Settings: React.FC = () => {
 
       await UserService.update(newUser);
       setLoading(false);
-      await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
+      await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.updateCompleted, language), dispatch);
     } catch (e: any) {
       ErrorService.handleError(e, dispatch, language);
       setLoading(false);
@@ -67,7 +67,7 @@ const Settings: React.FC = () => {
       }
 
       setLoading(false);
-      await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
+      await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.updateCompleted, language), dispatch);
     } catch (e: any) {
       // Change email needs reauthantification if credentials have timed out
       if (e.code === 'auth/requires-recent-login') {
@@ -89,7 +89,7 @@ const Settings: React.FC = () => {
       }
 
       setLoading(false);
-      await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
+      await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.updateCompleted, language), dispatch);
     } catch (e: any) {
       // Change password needs reauthantification if credentials have timed out
       if (e.code === 'auth/requires-recent-login') {
@@ -114,7 +114,7 @@ const Settings: React.FC = () => {
 
       navigate('/signup');
       setLoading(false);
-      await AlertUtils.createSuccessAlert(Utils.getTranslation(language, translator.successMessages.updateCompleted), dispatch);
+      await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.updateCompleted, language), dispatch);
     } catch (e: any) {
       // Delete account needs reauthantification if credentials have timed out
       if (e.code === 'auth/requires-recent-login') {
@@ -129,7 +129,7 @@ const Settings: React.FC = () => {
 
   return (
     <>
-      <Layout title={Utils.getTranslation(language, translator.pages.settings.title)}>
+      <Layout title={Utils.getTranslation(translator.pages.settings.title, language)}>
         <Container
           maxWidth="lg"
           sx={{
@@ -144,7 +144,7 @@ const Settings: React.FC = () => {
               name: user?.name,
             }}
             validationSchema={yup.object({
-              name: yup.string().required(Utils.getTranslation(language, translator.formMessages.requiredField)),
+              name: yup.string().required(Utils.getTranslation(translator.formMessages.requiredField, language)),
             })}
             onSubmit={(values, { setSubmitting }) => {
               updateUser(values);
@@ -155,8 +155,8 @@ const Settings: React.FC = () => {
               <Form>
                 <Card>
                   <CardHeader
-                    title={Utils.getTranslation(language, translator.pages.settings.information.title)}
-                    subheader={Utils.getTranslation(language, translator.pages.settings.information.subheader)}
+                    title={Utils.getTranslation(translator.pages.settings.information.title, language)}
+                    subheader={Utils.getTranslation(translator.pages.settings.information.subheader, language)}
                   />
                   <Divider />
                   <CardContent>
@@ -164,7 +164,7 @@ const Settings: React.FC = () => {
                       component={TextField}
                       name="name"
                       type="text"
-                      label={Utils.getTranslation(language, translator.pages.settings.information.inputs.nameLabel)}
+                      label={Utils.getTranslation(translator.pages.settings.information.inputs.nameLabel, language)}
                       margin='normal'
                       fullWidth
                     />
@@ -183,7 +183,7 @@ const Settings: React.FC = () => {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      {Utils.getTranslation(language, translator.pages.settings.information.submit)}
+                      {Utils.getTranslation(translator.pages.settings.information.submit, language)}
                     </Button>
                   </Box>
                 </Card>
@@ -206,7 +206,7 @@ const Settings: React.FC = () => {
               newEmail: '',
             }}
             validationSchema={yup.object({
-              newEmail: yup.string().required(Utils.getTranslation(language, translator.formMessages.requiredField)),
+              newEmail: yup.string().required(Utils.getTranslation(translator.formMessages.requiredField, language)),
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               changeEmail(values);
@@ -218,7 +218,7 @@ const Settings: React.FC = () => {
               <Form>
                 <Card>
                   <CardHeader
-                    title={Utils.getTranslation(language, translator.pages.settings.changeEmail.title)}
+                    title={Utils.getTranslation(translator.pages.settings.changeEmail.title, language)}
                     subheader={user?.email}
                   />
                   <Divider />
@@ -227,7 +227,7 @@ const Settings: React.FC = () => {
                       component={TextField}
                       name="newEmail"
                       type="text"
-                      label={Utils.getTranslation(language, translator.pages.settings.changeEmail.inputs.email)}
+                      label={Utils.getTranslation(translator.pages.settings.changeEmail.inputs.email, language)}
                       margin='normal'
                       fullWidth
                     />
@@ -246,7 +246,7 @@ const Settings: React.FC = () => {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      {Utils.getTranslation(language, translator.pages.settings.changeEmail.submit)}
+                      {Utils.getTranslation(translator.pages.settings.changeEmail.submit, language)}
                     </Button>
                   </Box>
                 </Card>
@@ -270,10 +270,10 @@ const Settings: React.FC = () => {
               passwordConfirmation: '',
             }}
             validationSchema={yup.object({
-              password: yup.string().min(6).required(Utils.getTranslation(language, translator.formMessages.requiredField)),
+              password: yup.string().min(6).required(Utils.getTranslation(translator.formMessages.requiredField, language)),
               passwordConfirmation: yup.string()
-                .required(Utils.getTranslation(language, translator.formMessages.requiredField))
-                .oneOf([yup.ref('password'), null], Utils.getTranslation(language, translator.formMessages.passwordsMustMatch)),
+                .required(Utils.getTranslation(translator.formMessages.requiredField))
+                .oneOf([yup.ref('password'), null], Utils.getTranslation(translator.formMessages.passwordsMustMatch, language)),
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               changePassword(values);
@@ -285,7 +285,7 @@ const Settings: React.FC = () => {
               <Form>
                 <Card>
                   <CardHeader
-                    title={Utils.getTranslation(language, translator.pages.settings.changePassword.title)}
+                    title={Utils.getTranslation(translator.pages.settings.changePassword.title, language)}
                   />
                   <Divider />
                   <CardContent>
@@ -293,7 +293,7 @@ const Settings: React.FC = () => {
                       component={TextField}
                       name="password"
                       type="password"
-                      label={Utils.getTranslation(language, translator.pages.settings.changePassword.inputs.password)}
+                      label={Utils.getTranslation(translator.pages.settings.changePassword.inputs.password, language)}
                       margin='normal'
                       fullWidth
                     />
@@ -301,7 +301,7 @@ const Settings: React.FC = () => {
                       component={TextField}
                       name="passwordConfirmation"
                       type="password"
-                      label={Utils.getTranslation(language, translator.pages.settings.changePassword.inputs.passwordConfirmation)}
+                      label={Utils.getTranslation(translator.pages.settings.changePassword.inputs.passwordConfirmation, language)}
                       margin='normal'
                       fullWidth
                     />
@@ -320,7 +320,7 @@ const Settings: React.FC = () => {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      {Utils.getTranslation(language, translator.pages.settings.changePassword.submit)}
+                      {Utils.getTranslation(translator.pages.settings.changePassword.submit, language)}
                     </Button>
                   </Box>
                 </Card>
@@ -344,12 +344,12 @@ const Settings: React.FC = () => {
             <CardHeader
               title={
                 <Typography variant='h5' sx={{ color: 'error.main' }}>
-                  {Utils.getTranslation(language, translator.pages.settings.deleteAccount.title)}
+                  {Utils.getTranslation(translator.pages.settings.deleteAccount.title, language)}
                 </Typography>
               }
               subheader={
                 <Typography sx={{ color: 'error.main', fontWeight: 'bold' }}>
-                  {Utils.getTranslation(language, translator.pages.settings.deleteAccount.subheader)}
+                  {Utils.getTranslation(translator.pages.settings.deleteAccount.subheader, language)}
                 </Typography>
               }
             />
@@ -360,7 +360,7 @@ const Settings: React.FC = () => {
                 color="error"
                 onClick={() => deleteAccount()}
               >
-                {Utils.getTranslation(language, translator.pages.settings.deleteAccount.submit)}
+                {Utils.getTranslation(translator.pages.settings.deleteAccount.submit, language)}
               </Button>
             </CardContent>
           </Card>

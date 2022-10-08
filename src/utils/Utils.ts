@@ -56,7 +56,7 @@ abstract class Utils {
    * @param {any} field
    * @returns {string} the display value
    */
-  static getTranslation = (language: string, field: any): string => {
+  static getTranslation = (field: any, language?: string): string => {
     let lang = language;
     let translation = '';
     if (!lang) lang = SupportedLanguages.DEFAULT;
