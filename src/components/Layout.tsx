@@ -3,13 +3,12 @@ import {
   Box, styled,
 } from '@mui/material';
 import { useState } from 'react';
-import HomeIcon from '@mui/icons-material/Home';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import MenuItem from '../models/MenuItem';
 import Utils from '../utils/Utils';
-import SupportedLanguages from '../models/enums/SupportedLanguages';
-import { useAppSelector } from '../store/Hooks';
 
 import translator from '../theme/translator.json';
 import AlertsContainer from './AlertsContainer';
@@ -30,13 +29,16 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = ({ children, title }) => {
-  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
-
   const sidebarMenuItems = [
     {
       href: '/',
-      icon: (<HomeIcon fontSize="small" />),
-      title: Utils.getTranslation(translator.menu.dashboard, language),
+      icon: (<DashboardIcon fontSize="small" />),
+      title: Utils.getTranslation(translator.menu.dashboard),
+    },
+    {
+      href: '/games',
+      icon: (<VideogameAssetIcon fontSize="small" />),
+      title: Utils.getTranslation(translator.menu.games),
     },
   ] as MenuItem[];
 

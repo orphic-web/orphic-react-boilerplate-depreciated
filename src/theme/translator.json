@@ -4,6 +4,9 @@
       "en": "Your account has been successfully created!",
       "fr": "Votre compte a été créé avec succès!"
     },
+    "gameCreated": {
+      "en": "You have successfully created a game!"
+    },
     "updateCompleted": {
       "en": "Update completed!",
       "fr": "Mise à jour complété!"
@@ -17,13 +20,18 @@
     "dashboard": {
       "en": "Dashboard",
       "fr": "Tableau de bord"
+    },
+    "games": {
+      "en": "Games"
     }
   },
   "components": {
     "appBar": {
-      "notification": {
-        "en": "Notifications",
-        "fr": "Notifications"
+      "toolTip": {
+        "startPlaying": "Start playing"
+      },
+      "startPlaying": {
+        "en": "Start"
       },
       "accountPopover": {
         "title": {
@@ -160,6 +168,15 @@
       "title": {
         "en": "Dashboard",
         "fr": "Tableau de bord"
+      },
+      "modals": {}
+    },
+    "games": {
+      "title": {
+        "en": "Games"
+      },
+      "createGame": {
+        "en": "New game"
       },
       "modals": {}
     },

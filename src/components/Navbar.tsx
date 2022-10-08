@@ -1,11 +1,12 @@
 import '../theme/css/global.css';
 import {
-  AppBar, Badge, Box, IconButton, ListItemIcon, MenuItem, MenuList, Popover, styled, Toolbar, Tooltip, Typography,
+  AppBar, Box, Button, IconButton, ListItemIcon, MenuItem, MenuList, Popover, styled, Toolbar, Tooltip, Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 import {
   useRef, useState,
@@ -17,7 +18,6 @@ import { useAppDispatch, useAppSelector } from '../store/Hooks';
 import translator from '../theme/translator.json';
 import SupportedLanguages from '../models/enums/SupportedLanguages';
 
-import Bell from '../theme/assets/icons/Bell';
 import ErrorService from '../services/ErrorService';
 import Spinner from './Spinner';
 import UserService from '../services/UserService';
@@ -90,18 +90,17 @@ const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
           </IconButton>
           <Typography variant="h5">{title}</Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title={Utils.getTranslation(translator.components.appBar.notification, language)}>
-            <IconButton
-              onClick={() => navigate('/notifications')}
+          <Tooltip title={Utils.getTranslation(translator.components.appBar.toolTip.startPlaying)}>
+            <Button
+              onClick={() => console.log('Should start a game')}
               sx={{ ml: 1, mr: '10px' }}
+              variant="contained"
             >
-              <Badge
-                badgeContent="8"
-                color="primary"
-              >
-                <Bell fontSize='small'/>
-              </Badge>
-            </IconButton>
+              <Typography variant="body1">
+                {Utils.getTranslation(translator.components.appBar.startPlaying, language)}
+              </Typography>
+              <PlayArrowIcon />
+            </Button>
           </Tooltip>
           <IconButton
             onClick={() => setOpenAccountPopover(true)}

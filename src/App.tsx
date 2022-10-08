@@ -29,6 +29,7 @@ import Logs from './pages/admin/Logs';
 import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
 import ErrorService from './services/ErrorService';
+import Games from './pages/Games';
 
 if (process.env.NODE_ENV === 'production') {
   // Disable react dev tools
@@ -102,6 +103,7 @@ function App() {
             <Routes>
               <Route element={<PrivateRoutes />} >
                 <Route path="/" element={<Dashboard />}/>
+                <Route path="/games" element={<Games />}/>
                 <Route path="/settings" element={<Settings />}/>
                 <Route path="/notifications" element={<Notifications />}/>
                 <Route element={<AdminRoutes />}>
