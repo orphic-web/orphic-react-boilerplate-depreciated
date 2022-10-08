@@ -13,6 +13,7 @@ class AlertUtils {
    */
   private static createAlert = async (alert: CustomAlert, dispatch: any) => {
     let timer2: any;
+
     dispatch(createAlert(alert));
     const timer1 = setTimeout(() => {
       dispatch(dismissAlert(alert.id));
@@ -30,7 +31,6 @@ class AlertUtils {
   /**
    * Creates, dismiss and remove an ERROR alert
    * @param {string} message
-   * @param {SupportedLanguages} language
    * @param {any} dispatch
    * @returns {void}
    */
