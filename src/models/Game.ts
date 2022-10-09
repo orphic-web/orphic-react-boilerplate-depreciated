@@ -19,10 +19,10 @@ type Game = {
    createdDate: Date,
 
    /** General game specifications */
-   GameSpecifications: GameSpecifications,
+   gameSpecifications: GameSpecifications,
 
    /** The specification of teamsScore and playersScore */
-   ScoreSpecifications: ScoreSpecifications,
+   scoreSpecifications: ScoreSpecifications,
 
    /** The rule book storage url */
    ruleBookUrl: string,
