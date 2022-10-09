@@ -184,6 +184,7 @@ const Games: React.FC = () => {
       display: 'flex',
       flexDirection: 'column',
       gap: '15px',
+      padding: 0,
     }}>
       {filteredGames.map((game: any) => (
         <Card
@@ -200,20 +201,13 @@ const Games: React.FC = () => {
           }}>
             <Typography>{game.name}</Typography>
             <Box>
-              <Button
-                onClick={() => console.log('Should start a game')}
-                sx={{ ml: 1, mr: '10px' }}
-                variant="contained"
-                color="secondary"
-                size="small"
-              >
-                <Typography variant="body1">
-                  {Utils.getTranslation(translator.components.appBar.startPlaying)}
-                </Typography>
-                <PlayArrowIcon />
-              </Button>
+              <Tooltip title="Start a game">
+                <IconButton aria-label="settings" color="primary" size="small">
+                  <PlayArrowIcon fontSize="large"/>
+                </IconButton>
+              </Tooltip>
               <Tooltip title="Specifications">
-                <IconButton aria-label="settings" size="small">
+                <IconButton aria-label="settings">
                   <SettingsIcon fontSize="medium" />
                 </IconButton>
               </Tooltip>
@@ -273,7 +267,7 @@ const Games: React.FC = () => {
   return (
     <Layout title={Utils.getTranslation(translator.pages.games.title)}>
       <Container>
-        <Grid container spacing={2} sx={{
+        <Grid container sx={{
           margin: '15px 0 15px 0',
         }}>
           <Grid item xs={12} sm={6}>
