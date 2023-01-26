@@ -1,5 +1,4 @@
 import { FirebaseError } from 'firebase/app';
-import * as Sentry from '@sentry/react';
 import SupportedLanguages from '../models/enums/SupportedLanguages';
 import AlertUtil from '../utils/AlertUtil';
 import Utils from '../utils/Utils';
@@ -10,9 +9,9 @@ class ErrorService {
 
   static handleError = async (error: any, dispatch: any, language?: SupportedLanguages) => {
     // Send event to Sentry project
-    if (process.env.NODE_ENV === 'production') {
-      Sentry.captureException(error);
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   Sentry.captureException(error);
+    // }
 
     if (language) ErrorService.currentLanguage = language;
     if (error instanceof FirebaseError) {

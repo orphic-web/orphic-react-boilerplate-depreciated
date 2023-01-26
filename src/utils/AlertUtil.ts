@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { useId } from 'react';
 import CustomAlert from '../models/CustomAlert';
 import AlertSeverity from '../models/enums/AlertSeverity';
 import { createAlert, dismissAlert, removeAlert } from '../store/slices/AlertSlice';
@@ -36,7 +36,7 @@ class AlertUtils {
    */
   static createErrorAlert = async (message: string, dispatch: any) => {
     const alert = {
-      id: uuid(),
+      id: useId(),
       severity: AlertSeverity.ERROR,
       message,
       dismiss: false,
@@ -53,7 +53,7 @@ class AlertUtils {
    */
   static createSuccessAlert = async (message: string, dispatch: any) => {
     const alert = {
-      id: uuid(),
+      id: useId(),
       severity: AlertSeverity.SUCCESS,
       message,
       dismiss: false,
@@ -70,7 +70,7 @@ class AlertUtils {
    */
   static createInfoAlert = async (message: string, dispatch: any) => {
     const alert = {
-      id: uuid(),
+      id: useId(),
       severity: AlertSeverity.INFO,
       message,
       dismiss: false,
