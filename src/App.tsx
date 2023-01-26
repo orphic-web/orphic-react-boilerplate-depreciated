@@ -48,8 +48,6 @@ function App() {
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     try {
-      console.log(new Date());
-      console.log(new Date().toISOString());
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       let unsubscribe = () => {};
       auth.onAuthStateChanged((response) => {
