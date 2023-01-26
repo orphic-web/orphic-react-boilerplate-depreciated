@@ -6,7 +6,6 @@ import {
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
-import * as Sentry from '@sentry/react';
 import {
   User as FirebaseUser,
 } from 'firebase/auth';
@@ -29,7 +28,6 @@ import Logs from './pages/admin/Logs';
 import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
 import ErrorService from './services/ErrorService';
-import Games from './pages/Games';
 
 if (process.env.NODE_ENV === 'production') {
   // Disable react dev tools
@@ -39,18 +37,6 @@ if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
   console.error = () => {};
   console.debug = () => {};
-
-  // Initiate sentry session in the production environment
-  Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DNS,
-    integrations: [
-      new Sentry.Integrations.Breadcrumbs({
-        console: false,
-      }),
-    ],
-    tracesSampler: () => (process.env.NODE_ENV === 'production' ? 0.2 : 1),
-    debug: false,
-  });
 }
 
 function App() {
@@ -62,6 +48,8 @@ function App() {
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     try {
+      console.log(new Date());
+      console.log(new Date().toISOString());
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       let unsubscribe = () => {};
       auth.onAuthStateChanged((response) => {
@@ -73,16 +61,12 @@ function App() {
             dispatch(updateLanguage(userDoc?.language));
 
             if (process.env.NODE_ENV === 'production') {
-              // Sets the user for sentry issue filters
-              Sentry.setUser({
-                id: userDoc?.id, username: userDoc?.name, email: userDoc?.email, language: userDoc?.language,
-              });
+              // Sets the user for google issue filters
             }
           });
         } else {
           dispatch(updateUser(null));
           dispatch(updateLanguage(SupportedLanguages.DEFAULT));
-          Sentry.setUser(null);
         }
         setLoading(false);
       });
@@ -103,7 +87,6 @@ function App() {
             <Routes>
               <Route element={<PrivateRoutes />} >
                 <Route path="/" element={<Dashboard />}/>
-                <Route path="/games" element={<Games />}/>
                 <Route path="/settings" element={<Settings />}/>
                 <Route path="/notifications" element={<Notifications />}/>
                 <Route element={<AdminRoutes />}>
