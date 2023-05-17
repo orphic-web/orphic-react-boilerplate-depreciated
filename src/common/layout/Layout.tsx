@@ -7,10 +7,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import Sidebar from '@/common/layout/components/Sidebar';
 import Navbar from '@/common/layout/components/Navbar';
 import MenuItem from '@/models/MenuItem';
-import Utils from '@/utils/Utils';
-import SupportedLanguages from '@/models/enums/SupportedLanguages';
-import { useAppSelector } from '../../store/Hooks';
-
 import AlertsContainer from '../AlertsContainer';
 
 const LayoutRoot = styled('div')(({ theme }) => ({
@@ -29,13 +25,12 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = ({ children, title }) => {
-    const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
     const sidebarMenuItems = [
         {
             href: '/',
             icon: (<HomeIcon fontSize="small" />),
-            title: Utils.getTranslation(translator.menu.dashboard, language),
+            title: "Dashboard",
         },
     ] as MenuItem[];
 

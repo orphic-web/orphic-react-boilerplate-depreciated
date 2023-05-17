@@ -83,14 +83,14 @@ const Signup: React.FC = () => {
                     }}
                     validationSchema={yup.object({
                         name: yup.string()
-                            .required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+                            .required("Please fill this field."),
                         email: yup.string()
-                            .email(Utils.getTranslation(translator.formMessages.invalidEmail, language))
-                            .required(Utils.getTranslation(translator.formMessages.requiredField)),
-                        password: yup.string().min(6).required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+                            .email("Please enter a valid email address.")
+                            .required("Utils.getTranslation(translator.formMessages.requiredField"),
+                        password: yup.string().min(6).required("Please fill this field."),
                         passwordConfirmation: yup.string()
-                            .required(Utils.getTranslation(translator.formMessages.requiredField, language))
-                            .oneOf([yup.ref('password'), null], Utils.getTranslation(translator.formMessages.passwordsMustMatch, language)),
+                            .required("Please fill this field.")
+                            .oneOf([yup.ref('password'), null], "Passwords do not match."),
                     })}
                     onSubmit={(values, { setSubmitting }) => {
                         createAccount(values);

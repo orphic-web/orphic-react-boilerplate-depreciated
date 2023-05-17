@@ -21,12 +21,11 @@ import Settings from '@/pages/settings/Settings';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
 import PrivateRoutes from '@/routing/PrivateRoutes';
 
-import { useAppDispatch, useAppSelector } from './store/Hooks';
-import { updateLanguage, updateUser } from './store/slices/UserSlice';
+import { useAppDispatch } from './store/Hooks';
+import { updateUser } from './store/slices/UserSlice';
 import User from '@/models/User';
 import themeConfig from './theme/ThemeConfig';
 import Spinner from './components/Spinner';
-import Notifications from './pages/Notifications';
 import ErrorService from './services/ErrorService';
 
 if (process.env.NODE_ENV === 'production') {
@@ -50,7 +49,6 @@ function App() {
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(true);
-  const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -63,18 +61,16 @@ function App() {
           unsubscribe = onSnapshot(doc(db, 'Users', firebaseUser.uid), (result) => {
             const userDoc = result.data() as User;
             dispatch(updateUser(userDoc));
-            dispatch(updateLanguage(userDoc?.language));
 
             if (process.env.NODE_ENV === 'production') {
               // Sets the user for sentry issue filters
               Sentry.setUser({
-                id: userDoc?.id, username: userDoc?.name, email: userDoc?.email, language: userDoc?.language,
+                id: userDoc?.id, username: userDoc?.name, email: userDoc?.email
               });
             }
           });
         } else {
           dispatch(updateUser(null));
-          dispatch(updateLanguage(SupportedLanguages.DEFAULT));
           Sentry.setUser(null);
         }
         setLoading(false);
@@ -97,11 +93,7 @@ function App() {
               <Route element={<PrivateRoutes />} >
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="/notifications" element={<Notifications />} />
-                <Route element={<AdminRoutes />}>
-                  <Route path="/logs" element={<Logs />} />
-                </Route>
-                {
+                s                {
                   // Allow us to hide the signup and forgot-password pages in dev env
                   process.env.REACT_APP_ONLY_SUPER_ADMIN && !process.env.REACT_APP_LOCALHOST_STATE
                   && <>

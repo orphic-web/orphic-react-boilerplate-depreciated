@@ -1,30 +1,22 @@
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-
+import {
+    Container, Typography, Link, Button, Avatar
+} from '@mui/material';
 import * as yup from 'yup';
-
 import {
     Box,
 } from '@mui/material';
 import { TextField } from 'formik-mui';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/Hooks';
+import { useAppDispatch } from '../../store/Hooks';
 import EmailService from '../../services/EmailService';
-
 import AlertUtil from '../../utils/AlertUtil';
 import ErrorService from '../../services/ErrorService';
 import Spinner from '../../components/Spinner';
-import translator from '../../theme/translator.json';
-import Utils from '@/utils/Utils';
 import AlertsContainer from '../../components/AlertsContainer';
 
 const ForgotPassword: React.FC = () => {
-    const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
     const dispatch = useAppDispatch();
 
     const [loading, setLoading] = useState(false);
@@ -35,7 +27,7 @@ const ForgotPassword: React.FC = () => {
             await EmailService.sendResetPasswordLink(values.email);
             setLoading(false);
 
-            AlertUtil.createSuccessAlert(Utils.getTranslation(translator.pages.forgotPassword.emailSent, language), dispatch);
+            AlertUtil.createSuccessAlert("Check your email for the reset password link.");
         } catch (e: any) {
             setLoading(false);
             ErrorService.handleError(e, dispatch, language);
@@ -62,8 +54,8 @@ const ForgotPassword: React.FC = () => {
                     }}
                     validationSchema={yup.object({
                         email: yup.string()
-                            .email(Utils.getTranslation(translator.formMessages.invalidEmail, language))
-                            .required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+                            .email("Please enter a valid email address.")
+                            .required("Please fill this field."),
                     })}
                     onSubmit={(values, { setSubmitting }) => {
                         sendResetPasswordLink(values);
@@ -84,15 +76,13 @@ const ForgotPassword: React.FC = () => {
                             <Avatar sx={{ m: '0 auto 15px auto', bgcolor: 'secondary.dark' }}>
                                 <LockOutlinedIcon style={{ color: '#fdfdfd' }} />
                             </Avatar>
-                            <Typography variant="h5">
-                                {Utils.getTranslation(translator.pages.forgotPassword.title, language)}
-                            </Typography>
+                            <Typography variant="h5">Recover your password</Typography>
                             <Form>
                                 <Field
                                     component={TextField}
                                     name="email"
                                     type="email"
-                                    label={Utils.getTranslation(translator.pages.forgotPassword.email, language)}
+                                    label="Email"
                                     margin='normal'
                                     fullWidth
                                 />
@@ -102,7 +92,7 @@ const ForgotPassword: React.FC = () => {
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    {Utils.getTranslation(translator.pages.forgotPassword.submit, language)}
+                                    Submit
                                 </Button>
                             </Form>
                             <Box
@@ -114,9 +104,7 @@ const ForgotPassword: React.FC = () => {
                                     width: '100%',
                                 }}
                             >
-                                <Link href="/login" variant="body2">
-                                    {Utils.getTranslation(translator.pages.forgotPassword.toLogin, language)}
-                                </Link>
+                                <Link href="/login" variant="body2">I already know my password</Link>
                             </Box>
                         </Box>
                     )}

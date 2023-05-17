@@ -14,17 +14,13 @@ import { useNavigate } from 'react-router-dom';
 import { Switch, TextField } from 'formik-mui';
 import { browserLocalPersistence, browserSessionPersistence, setPersistence } from 'firebase/auth';
 import UserService from '../../services/UserService';
-import { useAppDispatch, useAppSelector } from '../../store/Hooks';
+import { useAppDispatch } from '../../store/Hooks';
 import ErrorService from '../../services/ErrorService';
 import { auth } from '../../FirebaseConfig';
 import Spinner from '../../components/Spinner';
-import Utils from '../../utils/Utils';
-import translator from '../../theme/translator.json';
 import AlertsContainer from '../../components/AlertsContainer';
-import SupportedLanguages from '../../models/enums/SupportedLanguages';
 
 const Login: React.FC = () => {
-    const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
@@ -77,9 +73,9 @@ const Login: React.FC = () => {
                     }}
                     validationSchema={yup.object({
                         email: yup.string()
-                            .email(Utils.getTranslation(translator.formMessages.invalidEmail, language))
-                            .required(Utils.getTranslation(translator.formMessages.requiredField, language)),
-                        password: yup.string().required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+                            .email("Please enter a valid email address.")
+                            .required("Please fill this field."),
+                        password: yup.string().required("Please fill this field."),
                         stayConnected: yup.boolean(),
                     })}
                     onSubmit={(values, { setSubmitting }) => {
@@ -101,16 +97,14 @@ const Login: React.FC = () => {
                             <Avatar sx={{ m: '0 auto 15px auto', bgcolor: 'primary.main', color: 'info.main' }}>
                                 <LockOutlinedIcon />
                             </Avatar>
-                            <Typography variant="h3">
-                                {Utils.getTranslation(translator.pages.login.title, language)}
-                            </Typography>
+                            <Typography variant="h3">Login</Typography>
                             <Form>
                                 <Field
                                     component={TextField}
                                     name="email"
                                     type="email"
                                     color='primary'
-                                    label={Utils.getTranslation(translator.pages.login.email, language)}
+                                    label="Email"
                                     margin='normal'
                                     fullWidth
                                 />
@@ -120,7 +114,7 @@ const Login: React.FC = () => {
                                     margin='normal'
                                     color='primary'
                                     type={showPassword ? 'text' : 'password'}
-                                    label={Utils.getTranslation(translator.pages.login.password, language)}
+                                    label="Password"
                                     fullWidth
                                     InputProps={{
                                         endAdornment: (
@@ -141,7 +135,7 @@ const Login: React.FC = () => {
                                     control={
                                         <Field component={Switch} type="checkbox" name="rememberMe" />
                                     }
-                                    label={Utils.getTranslation(translator.pages.login.rememberMe, language)}
+                                    label="Remember me"
                                 />
                                 <Button
                                     type="submit"
@@ -149,7 +143,7 @@ const Login: React.FC = () => {
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    {Utils.getTranslation(translator.pages.login.submit, language)}
+                                    Login
                                 </Button>
                             </Form>
                             <Box
@@ -161,12 +155,8 @@ const Login: React.FC = () => {
                                     width: '100%',
                                 }}
                             >
-                                <Link href="/forgot-password" variant="body2">
-                                    {Utils.getTranslation(translator.pages.login.toForgotPassword, language)}
-                                </Link>
-                                <Link href="/signup" variant="body2">
-                                    {Utils.getTranslation(translator.pages.login.toSignup, language)}
-                                </Link>
+                                <Link href="/forgot-password" variant="body2">I forgot my password</Link>
+                                <Link href="/signup" variant="body2">I don't have an account</Link>
                             </Box>
                         </Box>
                     )}

@@ -6,22 +6,18 @@ import * as yup from 'yup';
 import { TextField } from 'formik-mui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../components/Layout';
+import Layout from '@/common/layout/Layout';
 import Spinner from '../components/Spinner';
-import SupportedLanguages from '../models/enums/SupportedLanguages';
 import { useAppDispatch, useAppSelector } from '../store/Hooks';
-import translator from '../theme/translator.json';
-import Utils from '../utils/Utils';
-import User from '../models/User';
+import User from '@/models/User';
 import UserService from '../services/UserService';
 import ErrorService from '../services/ErrorService';
 import AlertUtils from '../utils/AlertUtil';
-import { auth } from '../FirebaseConfig';
+import { auth } from '@/FirebaseConfig';
 import PromptForCredentials from '../components/PromptForCredentials';
 
 const Settings: React.FC = () => {
     const user = useAppSelector((state) => state.user.user) as User;
-    const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
@@ -45,7 +41,7 @@ const Settings: React.FC = () => {
 
             await UserService.update(newUser);
             setLoading(false);
-            await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.updateCompleted, language), dispatch);
+            await AlertUtils.createSuccessAlert("Update completed!", dispatch);
         } catch (e: any) {
             ErrorService.handleError(e, dispatch, language);
             setLoading(false);
@@ -67,7 +63,7 @@ const Settings: React.FC = () => {
             }
 
             setLoading(false);
-            await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.updateCompleted, language), dispatch);
+            await AlertUtils.createSuccessAlert("Update completed!", dispatch);
         } catch (e: any) {
             // Change email needs reauthantification if credentials have timed out
             if (e.code === 'auth/requires-recent-login') {
@@ -89,7 +85,7 @@ const Settings: React.FC = () => {
             }
 
             setLoading(false);
-            await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.updateCompleted, language), dispatch);
+            await AlertUtils.createSuccessAlert("Update completed!", dispatch);
         } catch (e: any) {
             // Change password needs reauthantification if credentials have timed out
             if (e.code === 'auth/requires-recent-login') {
@@ -114,7 +110,7 @@ const Settings: React.FC = () => {
 
             navigate('/signup');
             setLoading(false);
-            await AlertUtils.createSuccessAlert(Utils.getTranslation(translator.successMessages.updateCompleted, language), dispatch);
+            await AlertUtils.createSuccessAlert("Update completed!", dispatch);
         } catch (e: any) {
             // Delete account needs reauthantification if credentials have timed out
             if (e.code === 'auth/requires-recent-login') {
@@ -129,7 +125,7 @@ const Settings: React.FC = () => {
 
     return (
         <>
-            <Layout title={Utils.getTranslation(translator.pages.settings.title, language)}>
+            <Layout title="Settings">
                 <Container
                     maxWidth="lg"
                     sx={{
@@ -144,7 +140,7 @@ const Settings: React.FC = () => {
                             name: user?.name,
                         }}
                         validationSchema={yup.object({
-                            name: yup.string().required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+                            name: yup.string().required("Please fill this field."),
                         })}
                         onSubmit={(values, { setSubmitting }) => {
                             updateUser(values);
@@ -155,8 +151,8 @@ const Settings: React.FC = () => {
                             <Form>
                                 <Card>
                                     <CardHeader
-                                        title={Utils.getTranslation(translator.pages.settings.information.title, language)}
-                                        subheader={Utils.getTranslation(translator.pages.settings.information.subheader, language)}
+                                        title="Personal information"
+                                        subheader="Manage your general information"
                                     />
                                     <Divider />
                                     <CardContent>
@@ -164,7 +160,7 @@ const Settings: React.FC = () => {
                                             component={TextField}
                                             name="name"
                                             type="text"
-                                            label={Utils.getTranslation(translator.pages.settings.information.inputs.nameLabel, language)}
+                                            label="Full name"
                                             margin='normal'
                                             fullWidth
                                         />
@@ -183,7 +179,7 @@ const Settings: React.FC = () => {
                                             variant="contained"
                                             sx={{ mt: 3, mb: 2 }}
                                         >
-                                            {Utils.getTranslation(translator.pages.settings.information.submit, language)}
+                                            Update
                                         </Button>
                                     </Box>
                                 </Card>
@@ -193,7 +189,7 @@ const Settings: React.FC = () => {
                 </Container>
 
                 {/**
-             *  Personal information form
+             *  Change email form
              */}
                 <Container
                     maxWidth="lg"
@@ -206,7 +202,7 @@ const Settings: React.FC = () => {
                             newEmail: '',
                         }}
                         validationSchema={yup.object({
-                            newEmail: yup.string().required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+                            newEmail: yup.string().required("Please fill this field."),
                         })}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
                             changeEmail(values);
@@ -218,7 +214,7 @@ const Settings: React.FC = () => {
                             <Form>
                                 <Card>
                                     <CardHeader
-                                        title={Utils.getTranslation(translator.pages.settings.changeEmail.title, language)}
+                                        title="Modify your email"
                                         subheader={user?.email}
                                     />
                                     <Divider />
@@ -227,7 +223,7 @@ const Settings: React.FC = () => {
                                             component={TextField}
                                             name="newEmail"
                                             type="text"
-                                            label={Utils.getTranslation(translator.pages.settings.changeEmail.inputs.email, language)}
+                                            label="New email"
                                             margin='normal'
                                             fullWidth
                                         />
@@ -246,7 +242,7 @@ const Settings: React.FC = () => {
                                             variant="contained"
                                             sx={{ mt: 3, mb: 2 }}
                                         >
-                                            {Utils.getTranslation(translator.pages.settings.changeEmail.submit, language)}
+                                            Save
                                         </Button>
                                     </Box>
                                 </Card>
@@ -270,10 +266,10 @@ const Settings: React.FC = () => {
                             passwordConfirmation: '',
                         }}
                         validationSchema={yup.object({
-                            password: yup.string().min(6).required(Utils.getTranslation(translator.formMessages.requiredField, language)),
+                            password: yup.string().min(6).required("Please fill this field."),
                             passwordConfirmation: yup.string()
-                                .required(Utils.getTranslation(translator.formMessages.requiredField))
-                                .oneOf([yup.ref('password'), null], Utils.getTranslation(translator.formMessages.passwordsMustMatch, language)),
+                                .required("Please fill this field.")
+                                .oneOf([yup.ref('password'), null], "Passwords do not match."),
                         })}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
                             changePassword(values);
@@ -285,7 +281,7 @@ const Settings: React.FC = () => {
                             <Form>
                                 <Card>
                                     <CardHeader
-                                        title={Utils.getTranslation(translator.pages.settings.changePassword.title, language)}
+                                        title="Modify yourr password"
                                     />
                                     <Divider />
                                     <CardContent>
@@ -293,7 +289,7 @@ const Settings: React.FC = () => {
                                             component={TextField}
                                             name="password"
                                             type="password"
-                                            label={Utils.getTranslation(translator.pages.settings.changePassword.inputs.password, language)}
+                                            label="New password"
                                             margin='normal'
                                             fullWidth
                                         />
@@ -301,7 +297,7 @@ const Settings: React.FC = () => {
                                             component={TextField}
                                             name="passwordConfirmation"
                                             type="password"
-                                            label={Utils.getTranslation(translator.pages.settings.changePassword.inputs.passwordConfirmation, language)}
+                                            label="Password confirmation"
                                             margin='normal'
                                             fullWidth
                                         />
@@ -320,7 +316,7 @@ const Settings: React.FC = () => {
                                             variant="contained"
                                             sx={{ mt: 3, mb: 2 }}
                                         >
-                                            {Utils.getTranslation(translator.pages.settings.changePassword.submit, language)}
+                                            Save
                                         </Button>
                                     </Box>
                                 </Card>
@@ -343,13 +339,11 @@ const Settings: React.FC = () => {
                     }}>
                         <CardHeader
                             title={
-                                <Typography variant='h5' sx={{ color: 'error.main' }}>
-                                    {Utils.getTranslation(translator.pages.settings.deleteAccount.title, language)}
-                                </Typography>
+                                <Typography variant='h5' sx={{ color: 'error.main' }}>Delete yout account</Typography>
                             }
                             subheader={
                                 <Typography sx={{ color: 'error.main', fontWeight: 'bold' }}>
-                                    {Utils.getTranslation(translator.pages.settings.deleteAccount.subheader, language)}
+                                    Deleting your account is permanent and cannot be undone!
                                 </Typography>
                             }
                         />
@@ -360,7 +354,7 @@ const Settings: React.FC = () => {
                                 color="error"
                                 onClick={() => deleteAccount()}
                             >
-                                {Utils.getTranslation(translator.pages.settings.deleteAccount.submit, language)}
+                                Delete
                             </Button>
                         </CardContent>
                     </Card>
