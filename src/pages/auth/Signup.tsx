@@ -20,8 +20,11 @@ import EmailService from '@/services/EmailService';
 import { auth } from '@/FirebaseConfig';
 import Spinner from '@/common/spinner/Spinner';
 import AlertsContainer from '@/common/layout/components/alertsContainer/AlertsContainer';
+import AlertUtils from '@/utils/AlertUtils';
+import { useAppDispatch } from '@/store/Hooks';
 
 const Signup: React.FC = () => {
+    const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
@@ -49,6 +52,8 @@ const Signup: React.FC = () => {
                 UserService.deleteAccount(auth.currentUser);
             }
             setLoading(false);
+            AlertUtils.createErrorAlert("An error occurred while creating your account, please try again.", dispatch);
+            console.error(e)
         }
     };
 

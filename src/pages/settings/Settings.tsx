@@ -43,6 +43,8 @@ const Settings: React.FC = () => {
             await AlertUtils.createSuccessAlert("Update completed!", dispatch);
         } catch (e: any) {
             setLoading(false);
+            AlertUtils.createErrorAlert("Error occurred while updating your information, try again", dispatch);
+            console.error(e);
         }
     };
 
@@ -69,6 +71,8 @@ const Settings: React.FC = () => {
                 setShowPromptCredential(true);
             } else {
                 setLoading(false);
+                AlertUtils.createErrorAlert("Error occurred while changing your email, try again", dispatch);
+                console.error(e);
             }
         }
     };
@@ -90,6 +94,8 @@ const Settings: React.FC = () => {
                 setShowPromptCredential(true);
             } else {
                 setLoading(false);
+                AlertUtils.createErrorAlert("Error occurred while changing password, try again", dispatch);
+                console.error(e);
             }
         }
     };
@@ -114,6 +120,8 @@ const Settings: React.FC = () => {
                 setShowPromptCredential(true);
             } else {
                 setLoading(false);
+                AlertUtils.createErrorAlert("Error occurred while deleting your account, try again", dispatch);
+                console.error(e);
             }
         }
     };

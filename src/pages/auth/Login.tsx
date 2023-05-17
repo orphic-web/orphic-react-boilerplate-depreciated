@@ -46,9 +46,9 @@ const Login: React.FC = () => {
             setLoading(false);
             navigate('/');
         } catch (e: any) {
-            await AlertUtils.createErrorAlert("Invalid Email or Password, please verify your email and password and try again.", dispatch);
-            console.error(e)
             setLoading(false);
+            AlertUtils.createErrorAlert("Invalid email or password, please verify your credentials and try again.", dispatch);
+            console.error(e)
         }
     };
 

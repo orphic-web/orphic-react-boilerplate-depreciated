@@ -26,6 +26,7 @@ const Dashboard: React.FC = () => {
         try {
             throw Error('Test your Sentry connection');
         } catch (e: any) {
+            AlertUtils.createErrorAlert("Dummy error throw for testing purposes.", dispatch);
             console.error(e);
         }
     };

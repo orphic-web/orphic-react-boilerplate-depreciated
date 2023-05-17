@@ -13,10 +13,11 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import User from '@/models/User';
-import { useAppSelector } from '@/store/Hooks';
+import { useAppDispatch, useAppSelector } from '@/store/Hooks';
 import Bell from '@/theme/assets/icons/Bell';
 import Spinner from '@/common/spinner/Spinner';
 import UserService from '@/services/UserService';
+import AlertUtils from '@/utils/AlertUtils';
 
 type Props = {
     onSidebarOpen: any,
@@ -29,6 +30,8 @@ const NavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
+    const dispatch = useAppDispatch();
+
     const user = useAppSelector((state) => state.user.user) as User;
 
     const navigate = useNavigate();
@@ -46,6 +49,8 @@ const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
             navigate('/login');
         } catch (e: any) {
             setLoading(false);
+            AlertUtils.createErrorAlert("Error occurred while logout, try again", dispatch);
+            console.error(e);
         }
     };
 

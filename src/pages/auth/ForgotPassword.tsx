@@ -14,6 +14,7 @@ import EmailService from '@/services/EmailService';
 import AlertUtil from '@/utils/AlertUtils';
 import Spinner from '@/common/spinner/Spinner';
 import AlertsContainer from '@/common/layout/components/alertsContainer/AlertsContainer';
+import AlertUtils from '@/utils/AlertUtils';
 
 const ForgotPassword: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -23,12 +24,15 @@ const ForgotPassword: React.FC = () => {
     const sendResetPasswordLink = async (values: any) => {
         try {
             setLoading(true);
-            await EmailService.sendResetPasswordLink(values.email);
-            setLoading(false);
 
+            await EmailService.sendResetPasswordLink(values.email);
             AlertUtil.createSuccessAlert("Check your email for the reset password link.", dispatch);
+
+            setLoading(false);
         } catch (e: any) {
             setLoading(false);
+            AlertUtils.createErrorAlert("An error occurred, please try again.", dispatch);
+            console.error(e)
         }
     };
 
