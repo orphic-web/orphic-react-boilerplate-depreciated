@@ -32,16 +32,19 @@ if (import.meta.env.NODE_ENV === 'production') {
   disableReactDevTools();
 
   // Initiate sentry session in the production environment
-  Sentry.init({
-    dsn: import.meta.env.VITE_APP_SENTRY_DNS,
-    integrations: [
-      new Sentry.Integrations.Breadcrumbs({
-        console: false,
-      }),
-    ],
-    tracesSampler: () => (import.meta.env.NODE_ENV === 'production' ? 0.2 : 1),
-    debug: false,
-  });
+  if (import.meta.env.VITE_APP_SENTRY_DNS) {
+    Sentry.init({
+      dsn: import.meta.env.VITE_APP_SENTRY_DNS,
+      integrations: [
+        new Sentry.Integrations.Breadcrumbs({
+          console: false,
+        }),
+      ],
+      tracesSampler: () => (import.meta.env.NODE_ENV === 'production' ? 0.2 : 1),
+      debug: false,
+    });
+  }
+
 }
 
 function App() {
@@ -91,23 +94,9 @@ function App() {
               <Route element={<PrivateRoutes />} >
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/settings" element={<Settings />} />
-                s                {
-                  // Allow us to hide the signup and forgot-password pages in dev env
-                  import.meta.env.VITE_APP_ONLY_SUPER_ADMIN && !import.meta.env.VITE_APP_LOCALHOST_STATE
-                  && <>
-                    <Route path='/signup' element={<Signup />} />
-                    <Route path='/forgot-password' element={<ForgotPassword />} />
-                  </>
-                }
               </Route>
-              {
-                // Allow us to show signup and forgot-password in prod and localhost env
-                (!import.meta.env.VITE_APP_ONLY_SUPER_ADMIN || import.meta.env.VITE_APP_LOCALHOST_STATE)
-                && <>
-                  <Route path='/signup' element={<Signup />} />
-                  <Route path='/forgot-password' element={<ForgotPassword />} />
-                </>
-              }
+              <Route path='/signup' element={<Signup />} />
+              <Route path='/forgot-password' element={<ForgotPassword />} />
               <Route path='/login' element={<Login />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
