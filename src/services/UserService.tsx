@@ -8,7 +8,7 @@ import {
 
 import { auth, db } from '@/FirebaseConfig';
 import Permissions from '@/models/enums/Roles';
-import User from '@/models/User';
+import VisibilityStates from '@/models/enums/VisibilityStates';
 
 class UserService {
     /**
@@ -50,6 +50,7 @@ class UserService {
         email,
         permission: Permissions.USER,
         createdDate: new Date(),
+        visibility: VisibilityStates.VISIBLE
     });
 
     /**
@@ -98,11 +99,11 @@ class UserService {
 
     /**
      * Updates user document
-     *
-     * @param {User} user
+     * @param {string} userId
+     * @param {any} user
      * @returns {timestamp} write time
      */
-    static update = (user: User) => updateDoc(doc(db, 'Users', user.id), user);
+    static update = (userId: string, user: any) => updateDoc(doc(db, 'Users', userId), user);
 
     /**
      * Reauthenticate user

@@ -14,6 +14,7 @@ import UserService from '@/services/UserService';
 import AlertUtils from '@/utils/AlertUtils';
 import { auth } from '@/FirebaseConfig';
 import PromptForCredentials from '@/pages/settings/components/PromptForCredentials';
+import VisibilityStates from '@/models/enums/VisibilityStates';
 
 const Settings: React.FC = () => {
     const user = useAppSelector((state) => state.user.user) as User;
@@ -33,12 +34,8 @@ const Settings: React.FC = () => {
         try {
             setLoading(true);
             const newName = values.name;
-            const newUser = {
-                ...user,
-            } as User;
-            newUser.name = newName;
 
-            await UserService.update(newUser);
+            await UserService.update(user.id, { name: newName });
             setLoading(false);
             await AlertUtils.createSuccessAlert("Update completed!", dispatch);
         } catch (e: any) {
@@ -52,14 +49,10 @@ const Settings: React.FC = () => {
         try {
             setLoading(true);
             const { newEmail } = values;
-            const newUser = {
-                ...user,
-            } as User;
-            newUser.email = newEmail;
 
             if (auth.currentUser) {
                 await UserService.updateEmail(auth.currentUser, newEmail);
-                await UserService.update(newUser);
+                await UserService.update(user.id, { email: newEmail });
             }
 
             setLoading(false);
@@ -104,8 +97,8 @@ const Settings: React.FC = () => {
         try {
             setLoading(true);
             if (auth.currentUser) {
-                UserService.delete(auth.currentUser.uid);
-                UserService.deleteAccount(auth.currentUser);
+                await UserService.update(user.id, { visibility: VisibilityStates.HIDDEN });
+                await UserService.deleteAccount(auth.currentUser);
             } else {
                 throw Error('Delete account - Firebase user undefined');
             }
