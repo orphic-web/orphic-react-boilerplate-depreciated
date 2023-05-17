@@ -6,12 +6,11 @@ import { useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import Sidebar from '@/common/layout/components/Sidebar';
 import Navbar from '@/common/layout/components/Navbar';
-import MenuItem from '../../models/MenuItem';
-import Utils from '../../utils/Utils';
-import SupportedLanguages from '../../models/enums/SupportedLanguages';
+import MenuItem from '@/models/MenuItem';
+import Utils from '@/utils/Utils';
+import SupportedLanguages from '@/models/enums/SupportedLanguages';
 import { useAppSelector } from '../../store/Hooks';
 
-import translator from '../../theme/translator.json';
 import AlertsContainer from '../AlertsContainer';
 
 const LayoutRoot = styled('div')(({ theme }) => ({

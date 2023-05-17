@@ -30,7 +30,7 @@
       "splitTerminals": [
         {
           "name": "start",
-          "commands": ["npm run start"]
+          "commands": ["npm run dev"]
         }
       ]
     }
