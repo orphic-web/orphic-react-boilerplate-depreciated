@@ -15,9 +15,10 @@ import { Switch, TextField } from 'formik-mui';
 import { browserLocalPersistence, browserSessionPersistence, setPersistence } from 'firebase/auth';
 import UserService from '@/services/UserService';
 import { useAppDispatch } from '@/store/Hooks';
-import { auth } from '../../FirebaseConfig';
+import { auth } from '@/FirebaseConfig';
 import Spinner from '@/common/spinner/Spinner';
 import AlertsContainer from '@/common/layout/components/alertsContainer/AlertsContainer';
+import AlertUtils from '@/utils/AlertUtils';
 
 const Login: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -45,6 +46,8 @@ const Login: React.FC = () => {
             setLoading(false);
             navigate('/');
         } catch (e: any) {
+            await AlertUtils.createErrorAlert("Invalid Email or Password, please verify your email and password and try again.", dispatch);
+            console.error(e)
             setLoading(false);
         }
     };

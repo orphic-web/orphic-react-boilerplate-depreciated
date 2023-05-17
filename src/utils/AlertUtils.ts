@@ -1,7 +1,7 @@
-import { useId} from 'react';
-import CustomAlert from '@/models/AppAlertType';
+import AppAlertTytpe from '@/models/AppAlertType';
 import AlertSeverity from '@/models/enums/AlertSeverities';
 import { createAlert, dismissAlert, removeAlert } from '@/store/slices/AlertsSlice';
+import { v4 as uuidv4 } from 'uuid';
 
 class AlertUtils {
   /**
@@ -11,7 +11,7 @@ class AlertUtils {
    * @param {any} dispatch
    * @returns {void}
    */
-  private static createAlert = async (alert: CustomAlert, dispatch: any) => {
+  private static createAlert = async (alert: AppAlertTytpe, dispatch: any) => {
     let timer2: any;
     dispatch(createAlert(alert));
     const timer1 = setTimeout(() => {
@@ -35,12 +35,13 @@ class AlertUtils {
    * @returns {void}
    */
   static createErrorAlert = async (message: string, dispatch: any) => {
+
     const alert = {
-      id: useId(),
+      id: uuidv4(),
       severity: AlertSeverity.ERROR,
       message,
       dismiss: false,
-    } as CustomAlert;
+    } as AppAlertTytpe;
     await this.createAlert(alert, dispatch);
   };
 
@@ -53,11 +54,11 @@ class AlertUtils {
    */
   static createSuccessAlert = async (message: string, dispatch: any) => {
     const alert = {
-      id: useId(),
+      id: uuidv4(),
       severity: AlertSeverity.SUCCESS,
       message,
       dismiss: false,
-    } as CustomAlert;
+    } as AppAlertTytpe;
     await this.createAlert(alert, dispatch);
   };
 
@@ -70,11 +71,11 @@ class AlertUtils {
    */
   static createInfoAlert = async (message: string, dispatch: any) => {
     const alert = {
-      id: useId(),
+      id: uuidv4(),
       severity: AlertSeverity.INFO,
       message,
       dismiss: false,
-    } as CustomAlert;
+    } as AppAlertTytpe;
     await this.createAlert(alert, dispatch);
   };
 }

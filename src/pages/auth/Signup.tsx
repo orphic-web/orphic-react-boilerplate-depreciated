@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { TextField } from 'formik-mui';
 import UserService from '@/services/UserService';
 import EmailService from '@/services/EmailService';
-import { auth } from '../../FirebaseConfig';
+import { auth } from '@/FirebaseConfig';
 import Spinner from '@/common/spinner/Spinner';
 import AlertsContainer from '@/common/layout/components/alertsContainer/AlertsContainer';
 
