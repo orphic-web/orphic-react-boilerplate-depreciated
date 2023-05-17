@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Button } from '@mui/material';
 import Layout from '@/common/layout/Layout';
-import Spinner from '../components/Spinner';
-import { useAppDispatch } from '../store/Hooks';
-import AlertUtils from '../utils/AlertUtil';
-import ErrorService from '../services/ErrorService';
+import Spinner from '@/common/spinner/Spinner';
+import { useAppDispatch } from '@/store/Hooks';
+import AlertUtils from '@/utils/AlertUtils';
 
 const Dashboard: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -27,7 +26,7 @@ const Dashboard: React.FC = () => {
         try {
             throw Error('Test your Sentry connection');
         } catch (e: any) {
-            ErrorService.handleError(e, dispatch, language);
+            console.error(e);
         }
     };
 

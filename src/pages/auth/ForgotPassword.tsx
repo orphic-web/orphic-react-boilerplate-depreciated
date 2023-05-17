@@ -9,12 +9,11 @@ import {
 import { TextField } from 'formik-mui';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { useAppDispatch } from '../../store/Hooks';
-import EmailService from '../../services/EmailService';
-import AlertUtil from '../../utils/AlertUtil';
-import ErrorService from '../../services/ErrorService';
-import Spinner from '../../components/Spinner';
-import AlertsContainer from '../../components/AlertsContainer';
+import { useAppDispatch } from '@/store/Hooks';
+import EmailService from '@/services/EmailService';
+import AlertUtil from '@/utils/AlertUtils';
+import Spinner from '@/common/spinner/Spinner';
+import AlertsContainer from '@/common/layout/components/alertsContainer/AlertsContainer';
 
 const ForgotPassword: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -27,10 +26,9 @@ const ForgotPassword: React.FC = () => {
             await EmailService.sendResetPasswordLink(values.email);
             setLoading(false);
 
-            AlertUtil.createSuccessAlert("Check your email for the reset password link.");
+            AlertUtil.createSuccessAlert("Check your email for the reset password link.", dispatch);
         } catch (e: any) {
             setLoading(false);
-            ErrorService.handleError(e, dispatch, language);
         }
     };
 

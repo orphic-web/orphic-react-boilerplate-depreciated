@@ -7,14 +7,13 @@ import { TextField } from 'formik-mui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '@/common/layout/Layout';
-import Spinner from '../components/Spinner';
-import { useAppDispatch, useAppSelector } from '../store/Hooks';
+import Spinner from '@/common/spinner/Spinner';
+import { useAppDispatch, useAppSelector } from '@/store/Hooks';
 import User from '@/models/User';
-import UserService from '../services/UserService';
-import ErrorService from '../services/ErrorService';
-import AlertUtils from '../utils/AlertUtil';
+import UserService from '@/services/UserService';
+import AlertUtils from '@/utils/AlertUtils';
 import { auth } from '@/FirebaseConfig';
-import PromptForCredentials from '../components/PromptForCredentials';
+import PromptForCredentials from '@/pages/settings/components/PromptForCredentials';
 
 const Settings: React.FC = () => {
     const user = useAppSelector((state) => state.user.user) as User;
@@ -43,7 +42,6 @@ const Settings: React.FC = () => {
             setLoading(false);
             await AlertUtils.createSuccessAlert("Update completed!", dispatch);
         } catch (e: any) {
-            ErrorService.handleError(e, dispatch, language);
             setLoading(false);
         }
     };
@@ -71,7 +69,6 @@ const Settings: React.FC = () => {
                 setShowPromptCredential(true);
             } else {
                 setLoading(false);
-                ErrorService.handleError(e, dispatch, language);
             }
         }
     };
@@ -93,7 +90,6 @@ const Settings: React.FC = () => {
                 setShowPromptCredential(true);
             } else {
                 setLoading(false);
-                ErrorService.handleError(e, dispatch, language);
             }
         }
     };
@@ -118,7 +114,6 @@ const Settings: React.FC = () => {
                 setShowPromptCredential(true);
             } else {
                 setLoading(false);
-                ErrorService.handleError(e, dispatch, language);
             }
         }
     };

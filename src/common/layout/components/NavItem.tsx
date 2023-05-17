@@ -1,4 +1,4 @@
-import '../../../theme/css/global.css';
+import '@/theme/assets/css/global.css';
 import {
     ListItem, ListItemButton, ListItemIcon, ListItemText,
 } from '@mui/material';

@@ -15,20 +15,13 @@ import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { TextField } from 'formik-mui';
-import UserService from '../../services/UserService';
-import { useAppDispatch, useAppSelector } from '../../store/Hooks';
-import ErrorService from '../../services/ErrorService';
-import EmailService from '../../services/EmailService';
+import UserService from '@/services/UserService';
+import EmailService from '@/services/EmailService';
 import { auth } from '../../FirebaseConfig';
-import Spinner from '../../components/Spinner';
-import SupportedLanguages from '../../models/enums/SupportedLanguages';
-import translator from '../../theme/translator.json';
-import Utils from '../../utils/Utils';
-import AlertsContainer from '../../components/AlertsContainer';
+import Spinner from '@/common/spinner/Spinner';
+import AlertsContainer from '@/common/layout/components/alertsContainer/AlertsContainer';
 
 const Signup: React.FC = () => {
-    const language = useAppSelector((state) => state.user.language) as SupportedLanguages;
-    const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
@@ -44,7 +37,7 @@ const Signup: React.FC = () => {
             setLoading(true);
 
             const firebaseUser = await UserService.createAccount(values.email, values.password);
-            await UserService.create(firebaseUser.user.uid, values.name, values.email, SupportedLanguages.DEFAULT);
+            await UserService.create(firebaseUser.user.uid, values.name, values.email);
 
             if (auth.currentUser) await EmailService.sendAccountConfirmation(auth.currentUser);
 
@@ -55,7 +48,6 @@ const Signup: React.FC = () => {
                 UserService.delete(auth.currentUser.uid);
                 UserService.deleteAccount(auth.currentUser);
             }
-            ErrorService.handleError(e, dispatch, language);
             setLoading(false);
         }
     };
@@ -86,7 +78,7 @@ const Signup: React.FC = () => {
                             .required("Please fill this field."),
                         email: yup.string()
                             .email("Please enter a valid email address.")
-                            .required("Utils.getTranslation(translator.formMessages.requiredField"),
+                            .required("Please fill this field."),
                         password: yup.string().min(6).required("Please fill this field."),
                         passwordConfirmation: yup.string()
                             .required("Please fill this field.")
@@ -111,15 +103,13 @@ const Signup: React.FC = () => {
                             <Avatar sx={{ m: '0 auto 15px auto', bgcolor: 'secondary.dark', color: 'info.main' }}>
                                 <LockOutlinedIcon />
                             </Avatar>
-                            <Typography variant="h3">
-                                {Utils.getTranslation(translator.pages.signup.title, language)}
-                            </Typography>
+                            <Typography variant="h3">Create your account</Typography>
                             <Form className="login__form-container">
                                 <Field
                                     component={TextField}
                                     name="name"
                                     type="text"
-                                    label={Utils.getTranslation(translator.pages.signup.fullName, language)}
+                                    label="Full name"
                                     margin='normal'
                                     fullWidth
                                 />
@@ -127,7 +117,7 @@ const Signup: React.FC = () => {
                                     component={TextField}
                                     name="email"
                                     type="email"
-                                    label={Utils.getTranslation(translator.pages.signup.email, language)}
+                                    label="Email"
                                     margin='normal'
                                     fullWidth
                                 />
@@ -136,7 +126,7 @@ const Signup: React.FC = () => {
                                     name="password"
                                     margin='normal'
                                     type={showPassword ? 'text' : 'password'}
-                                    label={Utils.getTranslation(translator.pages.signup.password, language)}
+                                    label="Password"
                                     fullWidth
                                     InputProps={{
                                         endAdornment: (
@@ -158,7 +148,7 @@ const Signup: React.FC = () => {
                                     name="passwordConfirmation"
                                     margin='normal'
                                     type={showPassword ? 'text' : 'password'}
-                                    label={Utils.getTranslation(translator.pages.signup.passwordConfirmation, language)}
+                                    label="Password confirmation"
                                     fullWidth
                                     InputProps={{
                                         endAdornment: (
@@ -180,7 +170,7 @@ const Signup: React.FC = () => {
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    {Utils.getTranslation(translator.pages.signup.submit, language)}
+                                    Create your account
                                 </Button>
                             </Form>
                             <Box
@@ -192,9 +182,7 @@ const Signup: React.FC = () => {
                                     width: '100%',
                                 }}
                             >
-                                <Link href="/login" variant="body2">
-                                    {Utils.getTranslation(translator.pages.signup.toLogin, language)}
-                                </Link>
+                                <Link href="/login" variant="body2">I already have an account</Link>
                             </Box>
                         </Box>
                     )}

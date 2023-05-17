@@ -13,12 +13,11 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { Switch, TextField } from 'formik-mui';
 import { browserLocalPersistence, browserSessionPersistence, setPersistence } from 'firebase/auth';
-import UserService from '../../services/UserService';
-import { useAppDispatch } from '../../store/Hooks';
-import ErrorService from '../../services/ErrorService';
+import UserService from '@/services/UserService';
+import { useAppDispatch } from '@/store/Hooks';
 import { auth } from '../../FirebaseConfig';
-import Spinner from '../../components/Spinner';
-import AlertsContainer from '../../components/AlertsContainer';
+import Spinner from '@/common/spinner/Spinner';
+import AlertsContainer from '@/common/layout/components/alertsContainer/AlertsContainer';
 
 const Login: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -46,7 +45,6 @@ const Login: React.FC = () => {
             setLoading(false);
             navigate('/');
         } catch (e: any) {
-            await ErrorService.handleError(e, dispatch, language);
             setLoading(false);
         }
     };

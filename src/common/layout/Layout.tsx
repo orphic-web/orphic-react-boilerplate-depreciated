@@ -1,4 +1,4 @@
-import '../theme/css/global.css';
+import '@/theme/assets/css/global.css';
 import {
     Box, styled,
 } from '@mui/material';
@@ -7,7 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import Sidebar from '@/common/layout/components/Sidebar';
 import Navbar from '@/common/layout/components/Navbar';
 import MenuItem from '@/models/MenuItem';
-import AlertsContainer from '../AlertsContainer';
+import AlertsContainer from '@/common/layout/components/alertsContainer/AlertsContainer';
 
 const LayoutRoot = styled('div')(({ theme }) => ({
     display: 'flex',

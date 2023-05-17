@@ -21,26 +21,25 @@ import Settings from '@/pages/settings/Settings';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
 import PrivateRoutes from '@/routing/PrivateRoutes';
 
-import { useAppDispatch } from './store/Hooks';
+import { useAppDispatch } from '@/store/Hooks';
 import { updateUser } from './store/slices/UserSlice';
 import User from '@/models/User';
 import themeConfig from './theme/ThemeConfig';
-import Spinner from './components/Spinner';
-import ErrorService from './services/ErrorService';
+import Spinner from '@/common/spinner/Spinner';
 
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.NODE_ENV === 'production') {
   // Disable react dev tools
   disableReactDevTools();
 
   // Initiate sentry session in the production environment
   Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DNS,
+    dsn: import.meta.env.VITE_APP_SENTRY_DNS,
     integrations: [
       new Sentry.Integrations.Breadcrumbs({
         console: false,
       }),
     ],
-    tracesSampler: () => (process.env.NODE_ENV === 'production' ? 0.2 : 1),
+    tracesSampler: () => (import.meta.env.NODE_ENV === 'production' ? 0.2 : 1),
     debug: false,
   });
 }
@@ -62,7 +61,7 @@ function App() {
             const userDoc = result.data() as User;
             dispatch(updateUser(userDoc));
 
-            if (process.env.NODE_ENV === 'production') {
+            if (import.meta.env.NODE_ENV === 'production') {
               // Sets the user for sentry issue filters
               Sentry.setUser({
                 id: userDoc?.id, username: userDoc?.name, email: userDoc?.email
@@ -77,7 +76,6 @@ function App() {
       });
       return unsubscribe;
     } catch (e: any) {
-      ErrorService.handleError(e, dispatch, language);
       setLoading(false);
     }
   }, []);
@@ -95,7 +93,7 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 s                {
                   // Allow us to hide the signup and forgot-password pages in dev env
-                  process.env.REACT_APP_ONLY_SUPER_ADMIN && !process.env.REACT_APP_LOCALHOST_STATE
+                  import.meta.env.VITE_APP_ONLY_SUPER_ADMIN && !import.meta.env.VITE_APP_LOCALHOST_STATE
                   && <>
                     <Route path='/signup' element={<Signup />} />
                     <Route path='/forgot-password' element={<ForgotPassword />} />
@@ -104,7 +102,7 @@ function App() {
               </Route>
               {
                 // Allow us to show signup and forgot-password in prod and localhost env
-                (!process.env.REACT_APP_ONLY_SUPER_ADMIN || process.env.REACT_APP_LOCALHOST_STATE)
+                (!import.meta.env.VITE_APP_ONLY_SUPER_ADMIN || import.meta.env.VITE_APP_LOCALHOST_STATE)
                 && <>
                   <Route path='/signup' element={<Signup />} />
                   <Route path='/forgot-password' element={<ForgotPassword />} />

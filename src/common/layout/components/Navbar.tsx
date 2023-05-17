@@ -1,5 +1,5 @@
 // TODO - CHECK IF IMPORT NECESSARY
-import '../theme/css/global.css';
+import '@/theme/assets/css/global.css';
 
 import {
     AppBar, Badge, Box, IconButton, ListItemIcon, MenuItem, MenuList, Popover, styled, Toolbar, Tooltip, Typography,
@@ -13,11 +13,10 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import User from '@/models/User';
-import { useAppDispatch, useAppSelector } from '../store/Hooks';
+import { useAppSelector } from '@/store/Hooks';
 import Bell from '@/theme/assets/icons/Bell';
-import ErrorService from '../services/ErrorService';
-import Spinner from './Spinner';
-import UserService from '../services/UserService';
+import Spinner from '@/common/spinner/Spinner';
+import UserService from '@/services/UserService';
 
 type Props = {
     onSidebarOpen: any,
@@ -31,8 +30,6 @@ const NavbarRoot = styled(AppBar)(({ theme }) => ({
 
 const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
     const user = useAppSelector((state) => state.user.user) as User;
-
-    const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
@@ -48,7 +45,6 @@ const Navbar: React.FC<Props> = ({ onSidebarOpen, title }) => {
             setLoading(false);
             navigate('/login');
         } catch (e: any) {
-            ErrorService.handleError(e, dispatch, language);
             setLoading(false);
         }
     };
