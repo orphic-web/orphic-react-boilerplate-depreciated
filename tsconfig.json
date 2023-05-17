@@ -1,36 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    /* Additional Checks */
-    "noUnusedLocals": true, /* Report errors on unused locals. */
-    "noImplicitReturns": false, /* Report error when not all code paths in function return a value. */
-    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "node_modules",
-    "public",
-    "build",
-    ".vscode",
-    ".firebase",
-  ]
+  "include": ["src"],
 }
