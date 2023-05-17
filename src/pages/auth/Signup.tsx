@@ -94,7 +94,13 @@ const Signup: React.FC = () => {
                         email: yup.string()
                             .email("Please enter a valid email address.")
                             .required("Please fill this field."),
-                        password: yup.string().min(6).required("Please fill this field."),
+                        password: yup.string().min(6)
+                            .min(6, "Password should contain at least 6 characters.")
+                            .matches(/[a-z]/, "Password should contain at least one lowercase character.")
+                            .matches(/[A-Z]/, "Password should contain at least one uppercase character.")
+                            .matches(/\d/, "Password should contain at least one numeric character.")
+                            .matches(/[@$!%*?&]/, "Password should contain at least one of the following characters: @, $, !, %, *, ?, &.")
+                            .required("Please fill this field."),
                         passwordConfirmation: yup.string()
                             .required("Please fill this field.")
                             .oneOf([yup.ref('password'), null], "Passwords do not match."),
