@@ -42,16 +42,14 @@ class UserService {
      * @param {string} id
      * @param {string} name
      * @param {string} email
-     * @param {string} language
      * @returns {timestamp} write time
      */
-    static create = async (id: string, name: string, email: string, language?: string) => setDoc(doc(db, 'Users', id), {
+    static create = async (id: string, name: string, email: string) => setDoc(doc(db, 'Users', id), {
         id,
         name,
         email,
         permission: Permissions.USER,
         createdDate: new Date(),
-        language,
     });
 
     /**

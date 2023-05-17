@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Logo from '@/theme/assets/images/logo-full-scorekeeper.png';
+import Logo from '@/theme/assets/images/logo-orphic.png';
 import NavItem from '@/common/layout/components/NavItem';
 import MenuItem from '@/models/MenuItem';
 

@@ -39,10 +39,12 @@ const Signup: React.FC = () => {
         try {
             setLoading(true);
 
-            const firebaseUser = await UserService.createAccount(values.email, values.password);
-            await UserService.create(firebaseUser.user.uid, values.name, values.email);
+            await UserService.createAccount(values.email, values.password);
 
-            if (auth.currentUser) await EmailService.sendAccountConfirmation(auth.currentUser);
+            if (auth.currentUser) {
+                await UserService.create(auth.currentUser.uid, values.name, values.email);
+                await EmailService.sendAccountConfirmation(auth.currentUser);
+            }
 
             setLoading(false);
             navigate('/?from=accountCreated');
@@ -50,9 +52,17 @@ const Signup: React.FC = () => {
             if (auth.currentUser) {
                 UserService.delete(auth.currentUser.uid);
                 UserService.deleteAccount(auth.currentUser);
+                AlertUtils.createErrorAlert("An error occurred while creating your account, please try again.", dispatch);
+            } else {
+                if (e.code) {
+                    if (e.code === 'auth/email-already-in-use') {
+                        AlertUtils.createErrorAlert("This email address is already in use.", dispatch);
+                    }
+                } else {
+                    AlertUtils.createErrorAlert("An error occurred while creating your account, please try again.", dispatch);
+                }
             }
             setLoading(false);
-            AlertUtils.createErrorAlert("An error occurred while creating your account, please try again.", dispatch);
             console.error(e)
         }
     };

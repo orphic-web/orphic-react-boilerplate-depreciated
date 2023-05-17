@@ -30,8 +30,12 @@ const ForgotPassword: React.FC = () => {
 
             setLoading(false);
         } catch (e: any) {
+            if (e.code && e.code === 'auth/user-not-found') {
+                AlertUtil.createSuccessAlert("Check your email for the reset password link.", dispatch);
+            } else {
+                AlertUtils.createErrorAlert("An error occurred, please try again.", dispatch);
+            }
             setLoading(false);
-            AlertUtils.createErrorAlert("An error occurred, please try again.", dispatch);
             console.error(e)
         }
     };
