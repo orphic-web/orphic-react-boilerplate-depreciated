@@ -1,3 +1,5 @@
+
+# This repo is depreciated (Use instead react-boilerplate)
 <!-- GETTING STARTED -->
 ## Getting Started
 
